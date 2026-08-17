@@ -1,0 +1,68 @@
+---
+import { business, quoteFactorSentence } from '../data/business';
+
+/**
+ * The minimum has to be impossible to miss — it is the first thing a customer
+ * is annoyed by if they find it late. Sits below the prices, per the owner's
+ * instruction, but in display type so it still reads at a glance.
+ *
+ * No square-foot coverage limits appear here: they are not confirmed
+ * (BUSINESS_INPUTS.md §5) and must not be invented.
+ */
+---
+
+<div class="note">
+  <p class="eyebrow">Before you compare prices</p>
+  <p class="min">
+    ${business.pricing.standaloneMinimum} minimum on standalone appointments
+  </p>
+  <p>
+    Starting prices apply to ordinary, accessible jobs. {quoteFactorSentence()}
+    can all change the final quote. Every estimate is free, and you get the
+    price before any work begins.
+  </p>
+  <p>
+    Outside the {business.area.city} service area, travel is ${business.area
+      .travelChargePerMile} per additional mile.
+  </p>
+</div>
+
+<style>
+  .note {
+    border-left: 4px solid var(--amber);
+    background: var(--mist);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.4rem clamp(1.1rem, 2vw, 1.75rem);
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    max-width: 80ch;
+  }
+  .note .eyebrow {
+    color: var(--amber-deep);
+  }
+  .note .min {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, var(--s6));
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+  .note p:not(.eyebrow):not(.min) {
+    color: var(--slate-dk);
+    font-size: var(--s2);
+    max-width: 72ch;
+  }
+  /* On the ink band the same component needs the light text set. */
+  :global(.band-ink) .note {
+    background: var(--ink-2);
+  }
+  :global(.band-ink) .note .min {
+    color: var(--paper);
+  }
+  :global(.band-ink) .note p:not(.eyebrow):not(.min) {
+    color: var(--slate-ltr);
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import { business } from '../data/business';
+
+/**
+ * Factual details only, per DESIGN.md.
+ *
+ * There is deliberately no credentials cell and no response-time cell. A
+ * competitor would put "Licensed & insured" here; SELI Wash Co. has neither, so
+ * the slot does not exist rather than being filled with something reassuring.
+ */
+const cells = [
+  { label: 'Serving', value: business.area.label },
+  { label: 'Work days', value: business.hours.workDaysShort },
+  { label: 'Text preferred', value: business.phone.display },
+  { label: 'What we need on site', value: 'Spigot + GFCI outlet' },
+];
+---
+
+<section class="trust" aria-label="At a glance">
+  <div class="wrap">
+    {
+      cells.map((cell) => (
+        <div class="cell">
+          <p class="meta">{cell.label}</p>
+          <strong>{cell.value}</strong>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: var(--mist);
+  }
+  .trust .wrap {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    background: var(--mist-2);
+    border-inline: 1px solid var(--mist-2);
+  }
+  .cell {
+    background: var(--mist);
+    padding: 1.5rem clamp(1rem, 2.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .cell .meta {
+    color: var(--slate);
+  }
+  .cell strong {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: var(--s5);
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+</style>

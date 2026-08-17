@@ -1,0 +1,39 @@
+---
+import { business } from '../data/business';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<figure class={`map ${compact ? 'is-compact' : ''}`}>
+  <img
+    src="/img/duncan-street-map.png"
+    alt={`Street map of ${business.area.label}, showing Camelback Road, Plato Road, Elk Avenue, Beech Avenue, Bois d'Arc Avenue, and Main Street.`}
+    width="1254"
+    height="1254"
+    loading="lazy"
+    decoding="async"
+  />
+</figure>
+
+<style>
+  .map {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--hair-light);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+
+  .map img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #fff;
+  }
+</style>

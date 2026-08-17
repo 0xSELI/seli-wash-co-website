@@ -1,0 +1,456 @@
+---
+import { business, sms } from '../data/business';
+
+/**
+ * The approved "Transformation" hero.
+ *
+ * Progressive enhancement, in three layers:
+ *
+ *   0. No JS, no CSS-clip support, no WebGL — two <img> elements, the soiled one
+ *      clipped to the rest position. Still reads as a before/after split, still
+ *      labelled, and every word of copy and both calls to action are plain DOM.
+ *   1. JS — the native range input drives the front, and a one-off load sweep
+ *      demonstrates the product before anyone decides to interact.
+ *   2. WebGL (desktop, motion allowed) — three.js takes over compositing to add
+ *      water refraction and wet light AT THE FRONT ONLY. Outside a narrow band
+ *      either side of the front, the pixels are the untouched photographs. The
+ *      images themselves are never re-textured, tinted, or overlaid.
+ *
+ * Layer 2 is deliberately cheap to lose: if anything throws, the canvas is
+ * removed and layer 1 is already running underneath.
+ *
+ * The two concrete textures are used as a service illustration rather than a
+ * project claim. Real completed work belongs on the gallery route.
+ */
+
+const CLEAN = '/img/concrete-clean.jpg';
+const DIRTY = '/img/concrete-dirty.jpg';
+---
+
+<section class="hero" aria-labelledby="hero-heading" data-hero>
+  <!-- Layer 0: the photographs. Decorative — the meaning is in the DOM copy
+       below and in the surface-state labels, so alt is empty. -->
+  <img
+    class="surface surface-clean"
+    src={CLEAN}
+    alt=""
+    width="1500"
+    height="1000"
+    fetchpriority="high"
+    decoding="async"
+    data-surface="clean"
+  />
+  <img
+    class="surface surface-dirty"
+    src={DIRTY}
+    alt=""
+    width="1500"
+    height="1000"
+    fetchpriority="high"
+    decoding="async"
+    data-surface="dirty"
+  />
+
+  <!-- Layer 2 mounts here. Empty and invisible unless WebGL actually starts. -->
+  <canvas class="hero-canvas" data-hero-canvas aria-hidden="true"></canvas>
+
+  <div class="front" data-front aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <!--
+    A native range input is the control: keyboard-operable, announced by screen
+    readers, and works with no custom key handling. The visible handle is drawn
+    separately so it can sit exactly on the front.
+  -->
+  <input
+    class="reveal-input"
+    type="range"
+    min="0"
+    max="100"
+    value="63"
+    step="0.1"
+    aria-label="Compare weathered and clean concrete textures"
+    data-reveal-input
+  />
+  <span class="handle" data-handle aria-hidden="true">◂ ▸</span>
+  <span class="drag-hint" data-hint aria-hidden="true">Drag the wash line</span>
+
+  <div class="hero-inner">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          Pressure washing in {business.area.label}
+        </p>
+        <h1 class="display" id="hero-heading">
+          The clean is <em>already</em> down there.
+        </h1>
+        <p class="lede">
+          Driveways, sidewalks, patios, and porches. We take off the buildup
+          that makes a property look older than it is.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href="/contact#estimate">
+            Request a free estimate
+          </a>
+          <a class="btn btn-ghost btn-lg" href={sms}>Text for an estimate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-tags" aria-hidden="true">
+    <span class="tag">Weathered</span>
+    <span class="tag">Clean</span>
+  </div>
+
+</section>
+
+<script>
+  import '../scripts/hero-reveal';
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    min-height: clamp(560px, 82vh, 780px);
+    display: flex;
+    align-items: center;
+    isolation: isolate;
+  }
+
+  .surface {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .surface-dirty {
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+
+  /* Without JS the slider cannot move anything, so it is not offered. The
+     static split, the labels, and all the copy still do their job. */
+  :global(.no-js) .reveal-input,
+  :global(.no-js) .handle,
+  :global(.no-js) .drag-hint {
+    display: none;
+  }
+
+  /* Hidden until WebGL confirms it started. */
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero[data-webgl='on'] .hero-canvas {
+    opacity: 1;
+  }
+  /* Once WebGL owns the pixels, the DOM images and the drawn front would
+     double up, so they step aside. */
+  .hero[data-webgl='on'] .surface,
+  .hero[data-webgl='on'] .front {
+    visibility: hidden;
+  }
+
+  /* The wash front: a thin wet line with spray drifting onto the clean side. */
+  .front {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 3px;
+    margin-left: -1px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(191, 230, 242, 0.35),
+      var(--wet) 22%,
+      var(--wet) 78%,
+      rgba(191, 230, 242, 0.35)
+    );
+    box-shadow:
+      0 0 26px 5px rgba(191, 230, 242, 0.45),
+      0 0 70px 18px rgba(120, 190, 215, 0.22);
+  }
+  .front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 2px;
+    width: 80px;
+    background: linear-gradient(90deg, rgba(214, 241, 249, 0.42), transparent 78%);
+  }
+
+  /*
+    Scrim earns the headline its contrast then gets out of the way fast. It is
+    anchored to the copy rather than the left edge so the soiled concrete stays
+    visible above, below, and to the right of the text — otherwise the hero
+    argues for a transformation you cannot see.
+  */
+  .scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, rgba(11, 24, 38, 0.6) 0%, rgba(11, 24, 38, 0) 26%),
+      radial-gradient(
+        52% 94% at 2% 56%,
+        rgba(11, 24, 38, 0.95) 0%,
+        rgba(11, 24, 38, 0.9) 46%,
+        rgba(11, 24, 38, 0.62) 70%,
+        rgba(11, 24, 38, 0.16) 90%,
+        rgba(11, 24, 38, 0) 100%
+      );
+  }
+
+  /* Spans the hero for a natural grab, but sits under the copy so the estimate
+     button always wins the click. */
+  .reveal-input {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: ew-resize;
+  }
+  .reveal-input::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 100%;
+  }
+  .reveal-input::-moz-range-track {
+    background: transparent;
+    height: 100%;
+  }
+  /* Native thumb carries the hit area and keyboard behaviour; the visible
+     handle is drawn separately. */
+  .reveal-input::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 64px;
+    height: 64px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .reveal-input::-moz-range-thumb {
+    width: 64px;
+    height: 64px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .reveal-input:focus-visible {
+    outline: none;
+  }
+
+  .handle {
+    position: absolute;
+    top: 50%;
+    left: var(--pos);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    background: var(--paper);
+    border: 3px solid var(--wet);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    font-family: var(--display);
+    font-size: var(--s4);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .reveal-input:focus-visible + .handle {
+    border-color: var(--amber);
+    box-shadow:
+      0 0 0 5px rgba(239, 155, 62, 0.55),
+      0 8px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Retires on first interaction — see hero-reveal.ts. Left in place it
+     overlaps the headline copy once the line is dragged into the text column. */
+  .hero[data-interacted] .drag-hint {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur) var(--ease),
+      visibility var(--dur) var(--ease);
+  }
+
+  .drag-hint {
+    position: absolute;
+    top: calc(50% + 52px);
+    left: var(--pos);
+    transform: translateX(-50%);
+    z-index: 5;
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: var(--display);
+    font-size: var(--s1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--wet);
+    background: rgba(11, 24, 38, 0.72);
+    border: 1px solid rgba(191, 230, 242, 0.35);
+    padding: 0.32rem 0.7rem;
+    border-radius: 4px;
+  }
+
+  /*
+    HIT TESTING — do not remove the pointer-events rules below.
+
+    .hero-inner and its .wrap are transparent, full-width, and sit at z-index 6,
+    which is above the range input at z-index 4. With pointer-events left at
+    `auto` they swallow every mouse event over the slider, so on desktop the
+    wash line could not be dragged at all: elementFromPoint at the handle centre
+    returned div.wrap, not the input.
+
+    Mobile was unaffected only by accident of layout — there the hero is
+    display:block with padding-top:300px, so the copy sits below the slider
+    panel rather than on top of it.
+
+    The fix is to make the layout wrappers transparent to the pointer and hand
+    interactivity back to the two things that actually need it: the CTA links.
+    Trade-off accepted: the headline and lede are no longer selectable text.
+  */
+  .hero-inner {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    padding-block: clamp(3rem, 8vh, 5.5rem);
+    pointer-events: none;
+  }
+  .hero-inner .wrap {
+    pointer-events: none;
+  }
+  /* Restored specifically on the interactive elements. */
+  .hero-copy .actions .btn {
+    pointer-events: auto;
+  }
+  .hero-copy {
+    max-width: min(545px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .hero-copy .eyebrow {
+    color: var(--wet);
+  }
+  .hero-copy h1 {
+    color: var(--paper);
+    font-size: clamp(2.75rem, 6.2vw, var(--s9));
+  }
+  .hero-copy h1 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .hero-copy .lede {
+    color: #d7e1ec;
+    max-width: 44ch;
+  }
+
+  .hero-tags {
+    position: absolute;
+    z-index: 6;
+    bottom: 2.6rem;
+    left: var(--gut);
+    right: var(--gut);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+
+  /* ---- Mobile is a different composition, not a squeezed one ----
+     Text over a half-lit photograph stops being readable at phone widths, so
+     the reveal becomes a panel at the top and the copy sits below it on solid
+     navy. WebGL is never started at these widths. */
+  @media (max-width: 820px) {
+    .hero {
+      display: block;
+      min-height: 0;
+      padding: 300px 0 2.75rem;
+    }
+    .surface,
+    .hero-canvas,
+    .front {
+      bottom: auto;
+      height: 300px;
+    }
+    .scrim {
+      bottom: auto;
+      height: 300px;
+      background: linear-gradient(
+        0deg,
+        var(--ink) 0%,
+        rgba(11, 24, 38, 0.34) 22%,
+        transparent 56%
+      );
+    }
+    .front {
+      box-shadow: 0 0 14px 2px rgba(191, 230, 242, 0.4);
+    }
+    .front::before {
+      width: 36px;
+    }
+    /* A full-height drag target on touch would swallow vertical scrolling. */
+    .reveal-input {
+      top: 0;
+      bottom: auto;
+      height: 300px;
+    }
+    .handle {
+      top: 126px;
+      width: 52px;
+      height: 52px;
+    }
+    .drag-hint {
+      top: 172px;
+    }
+    .hero-tags {
+      top: 252px;
+      bottom: auto;
+    }
+    .hero-inner {
+      padding-block: 1.5rem 0;
+    }
+    .hero-copy {
+      gap: 1.15rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero-copy .actions {
+      width: 100%;
+    }
+    .hero-copy .actions :global(.btn) {
+      flex: 1;
+    }
+  }
+</style>

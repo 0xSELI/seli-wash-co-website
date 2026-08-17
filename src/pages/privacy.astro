@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, mailto, sms } from '../data/business';
+---
+
+<BaseLayout
+  title="Privacy"
+  description="How SELI Wash Co. handles information used to request a concrete cleaning estimate."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">Privacy</p>
+      <h1 class="display">Privacy notice.</h1>
+      <p class="lede">
+        This page explains what information is requested and how the website's
+        text-message estimate workflow handles it.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-paper">
+    <div class="wrap prose">
+      <h2 class="sec-h">Information you choose to provide</h2>
+      <p>
+        The estimate form asks for your name, contact details, property address,
+        requested services, timing, water and power access, notes, and optional
+        photo selections.
+      </p>
+
+      <h2 class="sec-h">How the estimate form works</h2>
+      <p>
+        Your answers stay in your own browser. The form checks them there and
+        writes them into a text message addressed to {business.phone.display}.
+        Nothing is transmitted to this website, and nothing is stored on it —
+        there is no account, no database, and no submission step.
+      </p>
+      <p>
+        Your details leave your device only when you open your messaging app and
+        press send. If you close the page or navigate away before then, the
+        answers go with it and we never see them.
+      </p>
+      <p>
+        This website does not upload photos. Choosing photos on the form only
+        lists their filenames in the message so you know which ones to add;
+        attach the images themselves in your messaging app.
+      </p>
+
+      <h2 class="sec-h">When you send a message</h2>
+      <p>
+        {business.name} receives your information only once you have sent the
+        text. Messages, calls, and emails are carried by your own phone or email
+        provider and arrive directly with us. We use what you send to review and
+        answer your estimate request. We do not add you to a marketing list and
+        do not send promotional messages.
+      </p>
+
+      <h2 class="sec-h">Cookies and analytics</h2>
+      <p>
+        This website does not currently use analytics, advertising trackers, or
+        marketing cookies.
+      </p>
+
+      <h2 class="sec-h">Questions</h2>
+      <p>
+        Text {business.phone.display} or email{' '}
+        <a class="inline-link" href={mailto}>{business.email}</a>.
+      </p>
+
+      <p class="actions legal-actions">
+        <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow { color: var(--amber); }
+  .page-head h1 {
+    margin-block: 0.7rem 1rem;
+    color: var(--paper);
+    font-size: clamp(2.25rem, 5vw, var(--s8));
+  }
+  .page-head .lede { color: var(--slate-ltr); }
+  .sec-h {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+  }
+  .sec-h:first-of-type { margin-top: 0; }
+  .inline-link { color: var(--amber-deep); font-weight: 600; }
+  .legal-actions { margin-top: 2rem; }
+</style>

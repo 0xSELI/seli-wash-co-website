@@ -1,0 +1,126 @@
+---
+import Wordmark from './Wordmark.astro';
+import { business, tel, sms, mailto } from '../data/business';
+import { coreServices } from '../data/services';
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-brand">
+      <Wordmark href="/" />
+      <p class="foot-tagline">{business.tagline}</p>
+      <p>{business.shortDescription}</p>
+    </div>
+
+    <div>
+      <h2>Services</h2>
+      <ul>
+        {
+          coreServices.map((s) => (
+            <li>
+              <a href={`/services#${s.slug}`}>{s.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services#how-estimates-work">How estimates work</a></li>
+        <li><a href="/contact#estimate">Request an estimate</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Contact</h2>
+      <ul>
+        <li><a href={sms}>Text {business.phone.display}</a></li>
+        <li><a href={tel}>Call {business.phone.display}</a></li>
+        <li><a href={mailto}>{business.email}</a></li>
+        <li><span>{business.hours.contact}</span></li>
+        <li><span>{business.hours.work}</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Legal</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/terms">Terms</a></li>
+      </ul>
+      <!--
+        No legal entity is registered, so there is no "© SELI Wash Co. LLC" or
+        equivalent. A plain copyright line on the trading name is accurate.
+      -->
+      <p class="foot-legal">
+        &copy; {new Date().getFullYear()} {business.name} {business.area.label}.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--ink);
+    color: var(--slate-lt);
+    padding-block: 3rem;
+    /* Clearance for the docked mobile action bar. */
+    padding-bottom: calc(3rem + 76px);
+  }
+  @media (min-width: 821px) {
+    .foot {
+      padding-bottom: 3rem;
+    }
+  }
+  .foot .wrap {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+  .foot-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .foot-brand p {
+    font-size: var(--s2);
+    max-width: 32ch;
+  }
+  .foot-tagline {
+    color: var(--slate-ltr);
+  }
+  .foot h2 {
+    font-family: var(--display);
+    font-size: var(--s2);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 0.9rem;
+  }
+  .foot ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .foot a,
+  .foot span {
+    font-size: var(--s2);
+    text-decoration: none;
+  }
+  .foot a:hover {
+    color: var(--amber);
+    text-decoration: underline;
+  }
+  .foot-legal {
+    margin-top: 1.25rem;
+    font-size: var(--s1);
+    color: #6f8298;
+    max-width: 28ch;
+  }
+</style>

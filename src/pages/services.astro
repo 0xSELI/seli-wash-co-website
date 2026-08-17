@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PricingNote from '../components/PricingNote.astro';
+import CloserCta from '../components/CloserCta.astro';
+import { business, quoteFactorSentence, sms } from '../data/business';
+import {
+  coreServices,
+  customQuoteServices,
+  notOffered,
+  notGuaranteed,
+} from '../data/services';
+
+/*
+ * Payment timing, deposits, discounts, and late fees are undecided, so the
+ * Paying section lists the accepted methods and says nothing further rather
+ * than inventing terms. Kept in frontmatter so it does not ship to the browser.
+ */
+---
+
+<BaseLayout
+  title="Services & pricing"
+  description="Concrete flatwork cleaning in Duncan, Oklahoma. Driveways from $100, sidewalks from $50, patios from $80, steps $10 each. $50 minimum on standalone appointments."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">Services &amp; pricing</p>
+      <h1 class="display">Ordinary concrete, cleaned properly.</h1>
+      <p class="lede">
+        We do concrete flatwork and nothing else. That is a deliberately short
+        list — it is the work we are set up to do well with the equipment we
+        have.
+      </p>
+    </div>
+  </section>
+
+  <!-- How estimates work comes first, per DESIGN.md. -->
+  <section class="band band-paper" id="how-estimates-work">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">How estimates work</p>
+          <h2 class="display">Starting prices, then a real number.</h2>
+        </div>
+        <p class="band-head-aside">
+          The prices below are introductory starting points for ordinary,
+          accessible jobs — not quotes. {quoteFactorSentence()} can all move the
+          final figure.
+        </p>
+      </div>
+
+      <div class="prose rise">
+        <p>
+          Send a request or a text with the address and the surface, and we come
+          back with a price. If a photo is easy, it helps a lot. Nothing is
+          scheduled and nothing is charged until you have approved a number.
+        </p>
+        <p>
+          Every request is read and answered by hand — there is no automatic
+          booking on this site, and no slot is held until we have spoken.
+        </p>
+      </div>
+
+      <div class="rise"><PricingNote /></div>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- Core services, one section each -->
+  <section class="band band-mist">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Residential</p>
+          <h2 class="display">What we clean.</h2>
+        </div>
+      </div>
+
+      <div class="list">
+        {
+          coreServices.map((s) => (
+            <article class="row rise" id={s.slug}>
+              <div class="row-main">
+                <h3 class="display">{s.name}</h3>
+                <p>{s.detail}</p>
+              </div>
+              <div class="row-side">
+                <p class="row-price">{s.price}</p>
+                {s.priceNote && <p class="row-note">{s.priceNote}</p>}
+                <a class="btn btn-outline" href="/contact#estimate">
+                  Request an estimate
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Property managers get their own path without displacing homeowners. -->
+  <section class="band band-ink" id="property-managers">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Property managers</p>
+          <h2 class="display">Quoted per site, not off a list.</h2>
+        </div>
+        <p class="band-head-aside">
+          Commercial pads and recurring work vary too much for a starting price,
+          so these are quoted after a look.
+        </p>
+      </div>
+
+      <div class="list list-ink">
+        {
+          customQuoteServices.map((s) => (
+            <article class="row rise" id={s.slug}>
+              <div class="row-main">
+                <h3 class="display">{s.name}</h3>
+                <p>{s.detail}</p>
+              </div>
+              <div class="row-side">
+                <p class="row-price">{s.price}</p>
+                <a class="btn btn-ghost" href={sms}>Text about your property</a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- Exclusions, stated plainly. Saying no up front saves a wasted visit. -->
+  <section class="band band-paper" id="not-offered">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">What we do not do</p>
+          <h2 class="display">Not offered — at least not yet.</h2>
+        </div>
+        <p class="band-head-aside">
+          If you need one of these, we would rather tell you now than take the
+          job and learn on your property.
+        </p>
+      </div>
+
+      <ul class="excl rise">
+        {notOffered.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <div class="prose rise excl-notes">
+        <p>
+          Anything unusual gets looked at first and may be declined. We would
+          rather turn a job down than damage a finish.
+        </p>
+        <p><strong>On stains:</strong> {notGuaranteed}</p>
+        <p>
+          <strong>What we need on site:</strong>{' '}
+          {business.equipment.reachSummary} If we cannot reach safely, we will
+          say so.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-mist" id="payment">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Paying</p>
+          <h2 class="display">Cash or an app, whichever suits.</h2>
+        </div>
+      </div>
+      <ul class="pays rise">
+        {business.payments.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CloserCta heading="Get a price for your driveway." />
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow {
+    color: var(--amber);
+  }
+  .page-head h1 {
+    color: var(--paper);
+    font-size: clamp(2.25rem, 5vw, var(--s8));
+    margin-block: 0.7rem 1rem;
+    max-width: 24ch;
+  }
+  .page-head .lede {
+    color: var(--slate-ltr);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--hair-light);
+    border-block: 1px solid var(--hair-light);
+  }
+  .list-ink {
+    background: var(--hair-dark);
+    border-block-color: var(--hair-dark);
+  }
+
+  .row {
+    display: grid;
+    gap: 1.25rem 2.5rem;
+    grid-template-columns: 1fr;
+    background: var(--mist);
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+    scroll-margin-top: 100px;
+  }
+  .list-ink .row {
+    background: var(--ink);
+  }
+  @media (min-width: 800px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr) 280px;
+      align-items: start;
+    }
+  }
+  .row-main h3 {
+    font-size: var(--s6);
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .list-ink .row-main h3 {
+    color: var(--paper);
+  }
+  .row-main p {
+    color: var(--slate);
+    max-width: 62ch;
+  }
+  .list-ink .row-main p {
+    color: var(--slate-lt);
+  }
+
+  .row-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .row-price {
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+  }
+  .list-ink .row-price {
+    color: var(--amber);
+  }
+  .row-note {
+    font-size: var(--s2);
+    color: var(--slate);
+    max-width: 34ch;
+  }
+  .row-side .btn {
+    margin-top: 0.4rem;
+  }
+
+  .excl {
+    display: grid;
+    gap: 0.6rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    list-style: none;
+    max-width: 900px;
+  }
+  .excl li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--slate-dk);
+    font-size: var(--s3);
+  }
+  .excl li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.85rem;
+    height: 2px;
+    background: var(--bad);
+  }
+  .excl-notes {
+    margin-top: 2rem;
+  }
+  .excl-notes strong {
+    color: var(--ink);
+  }
+
+  .pays {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+  }
+  .pays li {
+    font-family: var(--display);
+    font-size: var(--s3);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--hair-light);
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+  }
+</style>

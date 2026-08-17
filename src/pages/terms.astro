@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, mailto, sms } from '../data/business';
+---
+
+<BaseLayout
+  title="Terms"
+  description="Current estimate, scheduling, service-area, surface, and payment information for SELI Wash Co."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">Terms</p>
+      <h1 class="display">Service information.</h1>
+      <p class="lede">
+        The practical conditions below apply to estimate requests and concrete
+        cleaning work from {business.name}.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-paper">
+    <div class="wrap prose">
+      <h2 class="sec-h">Estimates and prices</h2>
+      <p>
+        Estimates are free. Listed prices are starting points for ordinary,
+        accessible work and are not final quotes. Size, buildup, staining,
+        access, surface condition, treatment, and travel can change the price.
+        You receive the final quote before work begins.
+      </p>
+      <p>
+        Standalone appointments have a ${business.pricing.standaloneMinimum}
+        minimum. Steps are $10 each when added to another service during the
+        same visit.
+      </p>
+
+      <h2 class="sec-h">Service area and travel</h2>
+      <p>
+        Service is based in {business.area.label}. Work outside Duncan is
+        considered by request. Travel is ${business.area.travelChargePerMile}
+        per additional mile and is included in the quote before approval.
+      </p>
+
+      <h2 class="sec-h">Making a request</h2>
+      <p>
+        The estimate form checks your answers in your browser and prepares a text
+        message for you to review. Your request reaches {business.name} only when
+        you send that message from your own messaging app, or when you call or
+        email us directly. Preparing a message does not place a request.
+      </p>
+      <p>
+        Photos are attached in your messaging app; this website does not upload
+        them.
+      </p>
+
+      <h2 class="sec-h">Scheduling</h2>
+      <p>
+        Estimate requests do not reserve a time. Every request, price, and work
+        day is confirmed directly. Regular work days are Tuesday and Thursday,
+        9am to 6pm; weekend work may be considered by request.
+      </p>
+
+      <h2 class="sec-h">What the property provides</h2>
+      <p>
+        Work requires an accessible outdoor water spigot and working outdoor
+        GFCI-protected outlet, with the cleaning area within about{' '}
+        {business.equipment.hoseFeet} feet of both.
+      </p>
+
+      <h2 class="sec-h">Surfaces and results</h2>
+      <p>
+        Service is limited to ordinary concrete flatwork. Decorative, painted,
+        coated, sealed, stamped, or otherwise fragile surfaces may be declined.
+        Unusual surfaces are assessed before work begins.
+      </p>
+      <p>
+        Oil, rust, paint, gum, and deeply embedded stains may not come out, and
+        some staining is permanent. Expected results are discussed before the
+        job starts.
+      </p>
+
+      <h2 class="sec-h">Payment</h2>
+      <p>Accepted payment methods: {business.payments.join(', ')}.</p>
+
+      <h2 class="sec-h">Questions</h2>
+      <p>
+        Text {business.phone.display} or email{' '}
+        <a class="inline-link" href={mailto}>{business.email}</a>.
+      </p>
+
+      <p class="actions legal-actions">
+        <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow { color: var(--amber); }
+  .page-head h1 {
+    margin-block: 0.7rem 1rem;
+    color: var(--paper);
+    font-size: clamp(2.25rem, 5vw, var(--s8));
+  }
+  .page-head .lede { color: var(--slate-ltr); }
+  .sec-h {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+  }
+  .sec-h:first-of-type { margin-top: 0; }
+  .inline-link { color: var(--amber-deep); font-weight: 600; }
+  .legal-actions { margin-top: 2rem; }
+</style>

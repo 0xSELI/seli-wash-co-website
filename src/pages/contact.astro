@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EstimateForm from '../components/EstimateForm.astro';
+import DuncanMap from '../components/DuncanMap.astro';
+import FaqList from '../components/FaqList.astro';
+import { business, tel, sms, mailto } from '../data/business';
+import { faqs } from '../data/faqs';
+
+/**
+ * Contact.
+ *
+ * No response-time promise appears anywhere on this page: none has been set.
+ *
+ * DESIGN.md: the form comes first on mobile. It is first in the DOM, so that
+ * happens without a media-query reorder — the details column simply follows it.
+ */
+---
+
+<BaseLayout
+  title="Contact & free estimate"
+  description="Request a free concrete cleaning estimate in Duncan, Oklahoma. Text (580) 560-9673 — texting is quickest. Every request is confirmed by hand."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1 class="display">Get a price.</h1>
+      <p class="lede">
+        Complete the guided request or text us directly. Either route opens a
+        conversation with a person to agree on a price and a day.
+      </p>
+      <p class="actions head-actions">
+        <a class="btn btn-primary" href={sms}>Text {business.phone.display}</a>
+        <a class="btn btn-ghost" href={tel}>Call {business.phone.display}</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-paper">
+    <div class="wrap contact-grid">
+      <!-- Form first in source order, so it is first on mobile. -->
+      <div class="form-col">
+        <EstimateForm />
+      </div>
+
+      <aside class="details-col" aria-label="Contact details">
+        <div class="card">
+          <h2>Reach us</h2>
+          <ul class="lines">
+            <li>
+              <span class="meta">Text — preferred</span>
+              <a href={sms}>{business.phone.display}</a>
+            </li>
+            <li>
+              <span class="meta">Call</span>
+              <a href={tel}>{business.phone.display}</a>
+            </li>
+            <li>
+              <span class="meta">Email</span>
+              <a href={mailto}>{business.email}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Hours</h2>
+          <ul class="lines">
+            <li>
+              <span class="meta">Calls &amp; texts</span>
+              <strong>9am – 11pm</strong>
+            </li>
+            <li>
+              <span class="meta">Jobs</span>
+              <strong>Tuesday &amp; Thursday, 9am – 6pm</strong>
+            </li>
+            <li>
+              <span class="meta">Weekends</span>
+              <strong>By request, not guaranteed</strong>
+            </li>
+          </ul>
+          <p class="card-note">
+            Every request is confirmed by hand, so sending one starts a
+            conversation rather than booking a slot.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>What we need on site</h2>
+          <ul class="reqs">
+            {business.equipment.requirements.map((r) => <li>{r}</li>)}
+            <li>
+              The area within about {business.equipment.hoseFeet} feet of both
+            </li>
+          </ul>
+          <p class="card-note">
+            {business.equipment.reachSummary} Not sure? Say so on the form and we
+            will work it out.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Paying</h2>
+          <ul class="pays">
+            {business.payments.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+
+        <DuncanMap compact />
+
+        <div class="card">
+          <h2>Service area</h2>
+          <p class="card-note">
+            Based in {business.area.label}. Outside Duncan considered by request,
+            with travel at ${business.area.travelChargePerMile} per additional
+            mile added to the quote before you approve it.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <section class="band band-mist" id="faq">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Questions</p>
+          <h2 class="display">Everything we get asked.</h2>
+        </div>
+      </div>
+      <div class="rise">
+        <FaqList items={faqs} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow {
+    color: var(--amber);
+  }
+  .page-head h1 {
+    color: var(--paper);
+    font-size: clamp(2.25rem, 5vw, var(--s8));
+    margin-block: 0.7rem 1rem;
+  }
+  .page-head .lede {
+    color: var(--slate-ltr);
+  }
+  .head-actions {
+    margin-top: 1.5rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 1000px) {
+    .contact-grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    }
+  }
+
+  .details-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--mist);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+  }
+  .card h2 {
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.9rem;
+  }
+  .lines {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .lines li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .lines .meta {
+    color: var(--slate);
+  }
+  .lines a,
+  .lines strong {
+    font-family: var(--display);
+    font-size: var(--s4);
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .lines a:hover {
+    color: var(--amber-deep);
+    text-decoration: underline;
+  }
+  .card-note {
+    margin-top: 0.9rem;
+    font-size: var(--s2);
+    color: var(--slate);
+  }
+
+  .reqs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .reqs li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--s2);
+    color: var(--slate-dk);
+  }
+  .reqs li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.8rem;
+    height: 2px;
+    background: var(--amber);
+  }
+
+  .pays {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .pays li {
+    font-family: var(--display);
+    font-size: var(--s2);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--hair-light);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+  }
+</style>

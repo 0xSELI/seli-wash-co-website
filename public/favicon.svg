@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The wash front: soiled navy, wet light, clean white. -->
+  <rect width="32" height="32" rx="6" fill="#0b1826"/>
+  <path d="M6 4 L14 4 L20 28 L6 28 Z" fill="#1b3552"/>
+  <path d="M14 4 L16 4 L22 28 L20 28 Z" fill="#bfe6f2"/>
+  <path d="M16 4 L26 4 L26 28 L22 28 Z" fill="#ffffff"/>
+</svg>

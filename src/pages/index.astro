@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealHero from '../components/RevealHero.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import PricingNote from '../components/PricingNote.astro';
+import FaqList from '../components/FaqList.astro';
+import DuncanMap from '../components/DuncanMap.astro';
+import CloserCta from '../components/CloserCta.astro';
+import { business } from '../data/business';
+import { services, notGuaranteed } from '../data/services';
+import { faqPreview } from '../data/faqs';
+
+---
+
+<BaseLayout
+  title="Concrete cleaning in Duncan, Oklahoma"
+  description={business.shortDescription}
+>
+  <RevealHero />
+  <TrustStrip />
+
+  <hr class="wipe-rule" />
+
+  <!-- Services -->
+  <section class="band band-paper" id="services">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">What we clean</p>
+          <h2 class="display">Most jobs fall into one of these.</h2>
+        </div>
+        <p class="band-head-aside">
+          Prices below are introductory starting points for ordinary residential
+          work. The final number comes after we look at the surface.
+        </p>
+      </div>
+
+      <div class="rise">
+        <ServiceGrid items={services} linkTo="services" />
+      </div>
+
+      <div class="rise">
+        <PricingNote />
+      </div>
+
+      <p class="disclaim stain-note rise">{notGuaranteed}</p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="band band-ink" id="process">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 class="display">Three steps, and you know the price before step three.</h2>
+        </div>
+      </div>
+
+      <!-- Numbered because this genuinely is a sequence. -->
+      <ol class="steps rise">
+        <li>
+          <p class="step-n">01</p>
+          <h3>Request</h3>
+          <p>
+            Text or email the address, the surface, and a photo if you have one.
+            Texting is the fastest way to reach us.
+          </p>
+        </li>
+        <li>
+          <p class="step-n">02</p>
+          <h3>Confirm</h3>
+          <p>
+            We reply with a price and check the spigot and outlet will reach.
+            Every request is confirmed by hand — nothing is booked until you
+            approve it.
+          </p>
+        </li>
+        <li>
+          <p class="step-n">03</p>
+          <h3>Refresh</h3>
+          <p>
+            We connect to your outdoor spigot and GFCI outlet, work the surface,
+            and leave the site rinsed and clear.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Service area -->
+  <section class="band band-ink" id="area">
+    <div class="wrap area">
+      <div class="rise">
+        <DuncanMap compact />
+      </div>
+      <div class="rise">
+        <p class="eyebrow area-eyebrow">Where we work</p>
+        <h2 class="display area-h">{business.area.label}.</h2>
+        <p class="area-copy">
+          Outside Duncan we will still consider the job — ask, and we will tell
+          you either way. Travel beyond the normal Duncan service area is ${business
+            .area.travelChargePerMile} per additional mile, added to the quote
+          before you approve it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- FAQ preview -->
+  <section class="band band-paper" id="faq">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Before you ask</p>
+          <h2 class="display">Questions we get most.</h2>
+        </div>
+      </div>
+      <div class="rise">
+        <FaqList items={faqPreview} />
+      </div>
+      <p class="actions faq-cta rise">
+        <a class="btn btn-outline" href="/contact#faq">All questions</a>
+      </p>
+    </div>
+  </section>
+
+  <CloserCta />
+</BaseLayout>
+
+<style>
+  .stain-note {
+    margin-top: 1.4rem;
+  }
+  .faq-cta {
+    margin-top: 2rem;
+  }
+
+  .steps {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    list-style: none;
+  }
+  .steps li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .step-n {
+    font-family: var(--display);
+    font-size: var(--s6);
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 0.02em;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.35rem;
+    border-bottom: 2px solid var(--hair-dark);
+  }
+  .steps h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: var(--s5);
+    color: var(--paper);
+    letter-spacing: 0.02em;
+  }
+  .steps p:not(.step-n) {
+    color: var(--slate-lt);
+  }
+
+  .area {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    align-items: center;
+  }
+  .area-eyebrow {
+    color: var(--amber);
+  }
+  .area-h {
+    color: var(--paper);
+    font-size: clamp(1.9rem, 3.6vw, var(--s7));
+    margin-block: 0.6rem 0.8rem;
+  }
+  .area-copy {
+    color: var(--slate-lt);
+    max-width: 48ch;
+  }
+</style>

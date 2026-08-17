@@ -1,0 +1,1261 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Transformation Concept</title>
+
+<style>
+/* ============================================================
+   TRANSFORMATION — homepage visual concept
+   Pressure Washing Company Website
+   Single-theme by intent: this mocks a navy website, not a
+   themeable document, so every color is painted explicitly.
+   ============================================================ */
+
+:root{
+  /* Color */
+  --ink:        #0B1826;
+  --ink-2:      #12253A;
+  --ink-3:      #1B3552;
+  --mist:       #EDF1F5;
+  --mist-2:     #DFE6EC;
+  --paper:      #FFFFFF;
+  --slate:      #54677D;
+  --slate-dk:   #33465C;
+  --amber:      #EF9B3E;
+  --amber-deep: #C97A1F;
+  --wet:        #BFE6F2;
+  --hair-dark:  rgba(255,255,255,.13);
+  --hair-light: rgba(11,24,38,.12);
+
+  /* Type */
+  --display: "Bahnschrift", "DIN Alternate", "DIN Condensed", "Oswald",
+             "Arial Narrow", "Helvetica Neue Condensed", system-ui, sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Scale */
+  --s1: .78rem;  --s2: .875rem; --s3: 1rem;   --s4: 1.125rem;
+  --s5: 1.375rem; --s6: 1.875rem; --s7: 2.5rem; --s8: 3.5rem; --s9: 4.75rem;
+
+  --gut: clamp(1.25rem, 4vw, 4rem);
+  --band: clamp(3.5rem, 7vw, 6.5rem);
+  --maxw: 1240px;
+  --radius: 10px;
+
+  /* Reveal position, 0 = fully clean, 100 = fully dirty */
+  --pos: 100%;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--slate-dk);
+  font-family:var(--body);
+  font-size:var(--s3);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ max-width:100%; display:block; }
+
+:focus-visible{
+  outline:3px solid var(--amber);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+.wrap{
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:var(--gut);
+}
+
+/* ---------- Typographic roles ---------- */
+
+.display{
+  font-family:var(--display);
+  font-weight:600;
+  line-height:1.02;
+  letter-spacing:-.005em;
+  text-wrap:balance;
+  margin:0;
+}
+
+.eyebrow{
+  font-family:var(--display);
+  font-size:var(--s1);
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin:0;
+}
+
+.lede{
+  font-size:var(--s4);
+  line-height:1.6;
+  max-width:56ch;
+  margin:0;
+}
+
+.meta{
+  font-family:var(--display);
+  font-size:var(--s1);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+/* ---------- The wipe line: the recurring structural device ---------- */
+/* A hairline that fades from amber to nothing, left to right, the way a
+   wash front moves across a surface. Used at every section boundary. */
+
+.wipe-rule{
+  height:2px;
+  border:0;
+  margin:0;
+  background:linear-gradient(90deg,
+    var(--amber) 0%, var(--amber) 18%,
+    rgba(239,155,62,.35) 42%,
+    rgba(239,155,62,.08) 66%,
+    transparent 88%);
+}
+
+/* ============================================================
+   Concept status bar — this is annotation, not site chrome
+   ============================================================ */
+
+.status{
+  background:#2B1C08;
+  color:#F5D9B0;
+  font-family:var(--display);
+  font-size:var(--s1);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.7rem 0;
+}
+.status .wrap{ display:flex; gap:.75rem; align-items:baseline; flex-wrap:wrap; }
+.status b{ color:var(--amber); font-weight:600; }
+.status span{
+  letter-spacing:.02em;
+  text-transform:none;
+  font-family:var(--body);
+  font-size:var(--s2);
+  color:#D9C09A;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+
+.head{
+  position:sticky; top:0; z-index:60;
+  background:rgba(11,24,38,.94);
+  backdrop-filter:saturate(1.3) blur(10px);
+  border-bottom:1px solid var(--hair-dark);
+}
+.head .wrap{
+  display:flex; align-items:center; gap:clamp(1rem,3vw,2.5rem);
+  min-height:74px;
+}
+
+.mark{
+  display:flex; align-items:center; gap:.6rem;
+  color:var(--paper); text-decoration:none; margin-right:auto;
+}
+.mark-glyph{
+  width:30px; height:30px; flex:none; border-radius:6px;
+  background:
+    linear-gradient(105deg,
+      var(--ink-3) 0%, var(--ink-3) 44%,
+      var(--wet) 46%, var(--wet) 49%,
+      var(--paper) 51%, var(--paper) 100%);
+}
+.mark-name{
+  font-family:var(--display); font-size:var(--s4);
+  letter-spacing:.06em; text-transform:uppercase; font-weight:600;
+}
+.mark-name em{ font-style:normal; color:var(--amber); }
+
+.nav{ display:flex; gap:clamp(.9rem,2vw,1.9rem); }
+.nav a{
+  color:#C3D0DE; text-decoration:none;
+  font-size:var(--s2); letter-spacing:.01em;
+  padding:.35rem 0; border-bottom:2px solid transparent;
+}
+.nav a:hover{ color:var(--paper); border-bottom-color:var(--amber); }
+
+.tel{
+  color:var(--paper); text-decoration:none;
+  font-family:var(--display); font-size:var(--s4);
+  letter-spacing:.04em; white-space:nowrap;
+}
+.tel:hover{ color:var(--amber); }
+
+/* ---------- Buttons ---------- */
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:.5rem;
+  font-family:var(--display); font-size:var(--s3);
+  letter-spacing:.07em; text-transform:uppercase; font-weight:600;
+  text-decoration:none; white-space:nowrap;
+  padding:.85rem 1.4rem;
+  border-radius:var(--radius); border:2px solid transparent;
+  cursor:pointer;
+  transition:background-color .15s ease, color .15s ease, transform .15s ease;
+}
+.btn-primary{ background:var(--amber); color:#1A1206; }
+.btn-primary:hover{ background:#FFB25C; transform:translateY(-1px); }
+.btn-primary:active{ background:var(--amber-deep); transform:none; }
+.btn-ghost{ background:transparent; color:var(--paper); border-color:rgba(255,255,255,.4); }
+.btn-ghost:hover{ border-color:var(--paper); background:rgba(255,255,255,.08); }
+.btn-dark{ background:var(--ink); color:var(--paper); }
+.btn-dark:hover{ background:var(--ink-3); transform:translateY(-1px); }
+.btn-lg{ padding:1.05rem 1.9rem; font-size:var(--s4); }
+
+/* ============================================================
+   HERO — the signature moment
+   ============================================================ */
+
+.hero{
+  position:relative; overflow:hidden;
+  background:var(--ink);
+  min-height:clamp(560px, 82vh, 780px);
+  display:flex; align-items:center;
+  isolation:isolate;
+}
+
+/* ---- Surface layers ----
+   The two photographs, used as supplied. `cover` fills the whole hero at the
+   images' own aspect ratio and crops the overflow, so nothing is stretched
+   and nothing is drawn on top of them. Both layers share the same box and
+   the same positioning, so the crop is identical either side of the front. */
+
+.surface{
+  position:absolute; inset:0; overflow:hidden;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+.surface-clean{ background-image:url("assets/concrete-clean-web.jpg"); }
+
+.surface-dirty{
+  background-image:url("assets/concrete-dirty-web.jpg");
+  clip-path:inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+/* Wet light along the front */
+.front{
+  position:absolute; top:0; bottom:0;
+  left:var(--pos);
+  width:3px; margin-left:-1px;
+  background:linear-gradient(180deg,
+    rgba(191,230,242,.35), var(--wet) 22%, var(--wet) 78%, rgba(191,230,242,.35));
+  box-shadow:0 0 26px 5px rgba(191,230,242,.45), 0 0 70px 18px rgba(120,190,215,.22);
+  z-index:2; pointer-events:none;
+}
+.front::before{
+  /* spray drifting onto the clean side */
+  content:""; position:absolute; top:0; bottom:0; left:2px; width:80px;
+  background:linear-gradient(90deg, rgba(214,241,249,.42), transparent 78%);
+}
+
+/* Scrim earns the text its contrast, then gets out of the way fast — the
+   grime has to stay readable or the whole direction has nothing to show. */
+.hero-scrim{
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:
+    linear-gradient(0deg, rgba(11,24,38,.6) 0%, rgba(11,24,38,0) 26%),
+    /* Anchored to the copy rather than the left edge, so the grime stays
+       visible above and below the text instead of being flattened out. */
+    radial-gradient(52% 94% at 2% 56%,
+      rgba(11,24,38,.95) 0%,
+      rgba(11,24,38,.9) 46%,
+      rgba(11,24,38,.62) 70%,
+      rgba(11,24,38,.16) 90%,
+      rgba(11,24,38,0) 100%);
+}
+
+/* Drag control spans the hero for a natural grab, but sits under the copy
+   card so the estimate button always wins the click. */
+.reveal-input{
+  position:absolute; inset:0; z-index:4;
+  width:100%; height:100%; margin:0;
+  -webkit-appearance:none; appearance:none;
+  background:transparent; cursor:ew-resize;
+}
+.reveal-input::-webkit-slider-runnable-track{ background:transparent; height:100%; }
+.reveal-input::-moz-range-track{ background:transparent; height:100%; }
+/* Native thumb carries the hit area and the keyboard behaviour; the visible
+   handle is drawn separately so it can sit exactly on the wash front. */
+.reveal-input::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none;
+  width:64px; height:64px; border-radius:50%;
+  background:transparent; border:0; opacity:0; cursor:ew-resize;
+}
+.reveal-input::-moz-range-thumb{
+  width:64px; height:64px; border-radius:50%;
+  background:transparent; border:0; opacity:0; cursor:ew-resize;
+}
+.reveal-input:focus-visible{ outline:none; }
+
+.handle{
+  position:absolute; top:50%; left:var(--pos);
+  transform:translate(-50%,-50%);
+  z-index:5; pointer-events:none;
+  width:60px; height:60px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; gap:.35rem;
+  background:var(--paper);
+  border:3px solid var(--wet);
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+  font-family:var(--display); font-size:var(--s4); font-weight:600;
+  color:var(--ink); letter-spacing:-.02em;
+}
+.reveal-input:focus-visible + .handle{
+  border-color:var(--amber);
+  box-shadow:0 0 0 5px rgba(239,155,62,.55), 0 8px 30px rgba(0,0,0,.5);
+}
+
+.hero-inner{
+  position:relative; z-index:6;
+  width:100%;
+  padding-block:clamp(3rem,8vh,5.5rem);
+}
+.hero-copy{
+  max-width:min(545px, 100%);
+  display:flex; flex-direction:column; gap:1.5rem;
+  align-items:flex-start;
+}
+.hero-copy .eyebrow{ color:var(--wet); }
+.hero-copy h1{
+  color:var(--paper);
+  font-size:clamp(2.75rem, 6.2vw, var(--s9));
+}
+.hero-copy h1 em{ font-style:normal; color:var(--amber); }
+.hero-copy .lede{ color:#D7E1EC; max-width:44ch; }
+.hero-actions{ display:flex; gap:.8rem; flex-wrap:wrap; }
+
+.hero-tags{
+  position:absolute; z-index:6; bottom:1.1rem;
+  left:var(--gut); right:var(--gut);
+  display:flex; justify-content:space-between; align-items:flex-end;
+  pointer-events:none;
+}
+.tag{
+  font-family:var(--display); font-size:var(--s1);
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--paper);
+  background:rgba(11,24,38,.62);
+  border:1px solid var(--hair-dark);
+  padding:.32rem .7rem; border-radius:4px;
+}
+.drag-hint{
+  position:absolute; z-index:6; pointer-events:none;
+  top:calc(50% + 52px); left:var(--pos);
+  transform:translateX(-50%); white-space:nowrap;
+  font-family:var(--display); font-size:var(--s1);
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--wet); background:rgba(11,24,38,.72);
+  border:1px solid rgba(191,230,242,.35);
+  padding:.32rem .7rem; border-radius:4px;
+}
+
+/* ============================================================
+   Trust strip
+   ============================================================ */
+
+.trust{ background:var(--mist); }
+.trust .wrap{
+  display:grid; gap:1px;
+  grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  background:var(--mist-2);
+  border-inline:1px solid var(--mist-2);
+}
+.trust-cell{
+  background:var(--mist);
+  padding:1.5rem clamp(1rem,2.5vw,2rem);
+  display:flex; flex-direction:column; gap:.2rem;
+}
+.trust-cell .meta{ color:var(--slate); }
+.trust-cell strong{
+  font-family:var(--display); font-weight:600;
+  font-size:var(--s5); color:var(--ink); letter-spacing:.01em;
+}
+
+/* ============================================================
+   Shared section furniture
+   ============================================================ */
+
+.band{ padding-block:var(--band); }
+.band-paper{ background:var(--paper); }
+.band-mist{ background:var(--mist); }
+.band-ink{ background:var(--ink); color:#C6D3E0; }
+
+.band-head{
+  display:flex; flex-wrap:wrap; gap:1.25rem 2rem;
+  align-items:flex-end; justify-content:space-between;
+  margin-bottom:clamp(2rem,4vw,3.25rem);
+}
+.band-head .eyebrow{ color:var(--amber-deep); margin-bottom:.6rem; }
+.band-ink .band-head .eyebrow{ color:var(--amber); }
+.band-head h2{
+  font-size:clamp(1.9rem, 3.6vw, var(--s7));
+  color:var(--ink); max-width:20ch;
+}
+.band-ink .band-head h2{ color:var(--paper); }
+.band-head p{ margin:0; max-width:44ch; color:var(--slate); }
+.band-ink .band-head p{ color:#9FB2C6; }
+
+/* ============================================================
+   Services
+   ============================================================ */
+
+/* Fixed column counts, not auto-fit: six cards must divide evenly or the
+   leftover cells expose the hairline background as empty grey blocks. */
+.svc-grid{
+  display:grid; gap:1px;
+  grid-template-columns:1fr;
+  background:var(--hair-light);
+  border:1px solid var(--hair-light);
+  border-radius:var(--radius); overflow:hidden;
+}
+@media (min-width:640px){ .svc-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1000px){ .svc-grid{ grid-template-columns:repeat(3,1fr); } }
+.svc{
+  position:relative; background:var(--paper);
+  padding:1.9rem clamp(1.25rem,2.2vw,1.9rem) 1.6rem;
+  display:flex; flex-direction:column; gap:.55rem;
+  text-decoration:none; color:inherit;
+}
+/* Card echo of the wipe: a wash front crosses the top edge on hover. */
+.svc::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:3px;
+  background:linear-gradient(90deg, var(--amber), rgba(239,155,62,.15));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+}
+.svc:hover{ background:#FBFCFD; }
+.svc:hover::before, .svc:focus-visible::before{ transform:scaleX(1); }
+.svc h3{
+  font-family:var(--display); font-weight:600;
+  font-size:var(--s5); color:var(--ink);
+  letter-spacing:.01em; margin:0;
+}
+.svc p{ margin:0; font-size:var(--s2); color:var(--slate); }
+.svc .price{
+  margin-top:auto; padding-top:1rem;
+  font-family:var(--display); font-size:var(--s2);
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink);
+}
+.svc .price b{ color:var(--amber-deep); font-weight:600; }
+
+.disclaim{
+  margin:1.4rem 0 0;
+  font-size:var(--s2); color:var(--slate); max-width:70ch;
+}
+
+/* The minimum has to be impossible to miss — it is the first thing a customer
+   is annoyed by if they find it late. Sits above the prices, not under them. */
+.pricing-note{
+  border-left:4px solid var(--amber);
+  background:var(--mist);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:1.4rem clamp(1.1rem,2vw,1.75rem);
+  margin-top:clamp(1.75rem,3vw,2.5rem);
+  display:flex; flex-direction:column; gap:.7rem;
+  max-width:80ch;
+}
+.pricing-note .eyebrow{ color:var(--amber-deep); }
+.pricing-note .min{
+  font-family:var(--display); font-weight:600;
+  font-size:clamp(1.6rem,3vw,var(--s6));
+  color:var(--ink); letter-spacing:.01em; line-height:1.1;
+}
+.pricing-note p{ margin:0; color:var(--slate-dk); font-size:var(--s2); max-width:72ch; }
+
+/* ============================================================
+   Proof — deliberately a static pair, so the hero device stays singular
+   ============================================================ */
+
+.proof{
+  display:grid; gap:clamp(.75rem,1.6vw,1.1rem);
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.plate{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  aspect-ratio:4/3; border:1px solid var(--hair-dark);
+}
+/* The photographs as supplied, cropped by `cover` rather than stretched. */
+.plate-before,
+.plate-after{
+  background-color:#BDB8AE;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.plate-before{ background-image:url("assets/concrete-dirty-web.jpg"); }
+.plate-after{ background-image:url("assets/concrete-clean-web.jpg"); }
+.plate .tag{ position:absolute; top:.85rem; left:.85rem; }
+.plate figcaption{
+  position:absolute; inset:auto 0 0 0;
+  background:linear-gradient(0deg, rgba(11,24,38,.9), transparent);
+  color:var(--paper); font-size:var(--s2);
+  padding:2.5rem .95rem .9rem;
+}
+
+/* ============================================================
+   Process — numbered because it genuinely is a sequence
+   ============================================================ */
+
+.steps{
+  display:grid; gap:clamp(1.5rem,3vw,2.5rem);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  counter-reset:step;
+}
+.step{ display:flex; flex-direction:column; gap:.55rem; }
+.step-n{
+  font-family:var(--display); font-size:var(--s6); font-weight:600;
+  color:var(--amber); letter-spacing:.02em;
+  padding-bottom:.7rem; margin-bottom:.35rem;
+  border-bottom:2px solid var(--hair-dark);
+}
+.step h3{
+  font-family:var(--display); font-weight:600; font-size:var(--s5);
+  color:var(--paper); letter-spacing:.02em; margin:0;
+}
+.step p{ margin:0; font-size:var(--s3); color:#9FB2C6; }
+
+/* ============================================================
+   Reviews
+   ============================================================ */
+
+.reviews{
+  display:grid; gap:clamp(1rem,2vw,1.5rem);
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+}
+.review{
+  background:var(--paper); border:1px solid var(--hair-light);
+  border-radius:var(--radius); padding:1.6rem;
+  display:flex; flex-direction:column; gap:.9rem;
+}
+.stars{ color:var(--amber); letter-spacing:.22em; font-size:var(--s3); }
+.review blockquote{ margin:0; font-size:var(--s3); color:var(--slate-dk); }
+.review .who{
+  margin:0; font-size:var(--s2); color:var(--slate);
+  padding-top:.4rem; border-top:1px solid var(--hair-light);
+}
+
+/* ============================================================
+   Service area
+   ============================================================ */
+
+.area{
+  display:grid; gap:clamp(1.5rem,4vw,3rem);
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  align-items:center;
+}
+.area-map{
+  position:relative; aspect-ratio:5/4;
+  border-radius:var(--radius); overflow:hidden;
+  border:1px solid var(--hair-dark);
+  background:
+    radial-gradient(46% 46% at 42% 48%, rgba(239,155,62,.24), transparent 70%),
+    repeating-linear-gradient(0deg, transparent 0 43px, rgba(255,255,255,.07) 43px 44px),
+    repeating-linear-gradient(90deg, transparent 0 43px, rgba(255,255,255,.07) 43px 44px),
+    var(--ink-2);
+}
+.pin{
+  position:absolute; top:48%; left:42%; transform:translate(-50%,-50%);
+  width:15px; height:15px; border-radius:50%;
+  background:var(--amber); border:3px solid var(--ink);
+  box-shadow:0 0 0 8px rgba(239,155,62,.22);
+}
+.area-map .meta{
+  position:absolute; left:.9rem; bottom:.9rem;
+  color:#8FA3B8;
+}
+.area-list{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1.25rem 0 0; padding:0; list-style:none; }
+.area-list li{
+  font-family:var(--display); font-size:var(--s2);
+  letter-spacing:.07em; text-transform:uppercase;
+  border:1px solid var(--hair-dark); color:#C6D3E0;
+  border-radius:999px; padding:.4rem .85rem;
+}
+
+/* ============================================================
+   FAQ + closing call to action
+   ============================================================ */
+
+.faq{ max-width:74ch; }
+.faq details{ border-bottom:1px solid var(--hair-light); }
+.faq summary{
+  cursor:pointer; list-style:none;
+  padding:1.15rem 2rem 1.15rem 0; position:relative;
+  font-family:var(--display); font-size:var(--s5);
+  color:var(--ink); letter-spacing:.01em;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{
+  content:"+"; position:absolute; right:.2rem; top:1rem;
+  color:var(--amber-deep); font-size:var(--s6); line-height:1;
+}
+.faq details[open] summary::after{ content:"–"; }
+.faq p{ margin:0 0 1.3rem; color:var(--slate); max-width:64ch; }
+
+.closer{
+  background:var(--amber);
+  color:#1A1206;
+}
+.closer .wrap{
+  display:flex; flex-wrap:wrap; gap:1.75rem 2.5rem;
+  align-items:center; justify-content:space-between;
+  padding-block:clamp(2.75rem,5vw,4rem);
+}
+.closer h2{
+  font-family:var(--display); font-weight:600;
+  font-size:clamp(1.9rem,3.8vw,var(--s7));
+  margin:0; max-width:18ch; line-height:1.05;
+}
+.closer p{ margin:.6rem 0 0; max-width:42ch; color:#513A15; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.foot{ background:var(--ink); color:#8FA3B8; padding-block:3rem 7rem; }
+.foot .wrap{
+  display:grid; gap:2rem;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+}
+.foot h3{
+  font-family:var(--display); font-size:var(--s2);
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--paper); margin:0 0 .9rem;
+}
+.foot ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+.foot a{ color:#8FA3B8; text-decoration:none; font-size:var(--s2); }
+.foot a:hover{ color:var(--amber); }
+
+/* ============================================================
+   Mobile action bar
+   ============================================================ */
+
+.actionbar{
+  position:fixed; inset:auto 0 0 0; z-index:70;
+  display:none; gap:.6rem; padding:.65rem;
+  background:rgba(11,24,38,.97);
+  border-top:1px solid var(--hair-dark);
+}
+.actionbar .btn{ flex:1; padding:.9rem .5rem; font-size:var(--s2); }
+
+/* ============================================================
+   Concept notes — annotation, visually outside the website
+   ============================================================ */
+
+.notes{ background:#07111C; color:#8FA3B8; padding-block:3.5rem; }
+.notes h2{
+  font-family:var(--display); font-size:var(--s5); color:var(--paper);
+  letter-spacing:.13em; text-transform:uppercase; margin:0 0 1.75rem;
+}
+.notes-grid{
+  display:grid; gap:1.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+}
+.note{
+  border-left:2px solid var(--amber); padding-left:1.1rem;
+}
+.note h3{
+  font-family:var(--display); font-size:var(--s2);
+  letter-spacing:.13em; text-transform:uppercase;
+  color:var(--wet); margin:0 0 .5rem;
+}
+.note p{ margin:0; font-size:var(--s2); line-height:1.6; }
+
+/* ============================================================
+   Reveal-on-scroll
+   ============================================================ */
+
+.rise{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+.rise.in{ opacity:1; transform:none; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width:900px){
+  .nav, .tel{ display:none; }
+  .head .btn{ padding:.7rem 1rem; font-size:var(--s2); }
+}
+/* ---- Mobile hero is a different composition, not a squeezed one ----
+   Text over the photographs stops being readable at phone widths, so the
+   reveal becomes a panel at the top and the copy sits below it on solid
+   navy. The photographs still fill that panel with `cover`, uncropped
+   horizontally, so they are never stretched to fit. */
+@media (max-width:820px){
+  .actionbar{ display:flex; }
+  .front{ box-shadow:0 0 14px 2px rgba(191,230,242,.4); }
+  .front::before{ width:36px; }
+
+  .hero{ display:block; min-height:auto; padding:300px 0 2.75rem; }
+  .surface{ bottom:auto; height:300px; }
+  .front{ bottom:auto; height:300px; }
+  .hero-scrim{
+    bottom:auto; height:300px;
+    background:linear-gradient(0deg,
+      var(--ink) 0%, rgba(11,24,38,.34) 22%, transparent 56%);
+  }
+  .hero-inner{ padding-block:1.5rem 0; }
+  .hero-copy{ gap:1.15rem; }
+
+  /* A full-height drag target on touch would swallow vertical scrolling, so
+     the control is confined to the panel it belongs to. */
+  .reveal-input{ top:0; bottom:auto; height:300px; }
+  .handle{ top:126px; bottom:auto; transform:translate(-50%,-50%); width:52px; height:52px; }
+  .drag-hint{ top:172px; bottom:auto; }
+  .hero-tags{ top:252px; bottom:auto; }
+
+  .closer .wrap{ flex-direction:column; align-items:flex-start; }
+}
+
+@media (max-width:620px){
+  /* The docked action bar already carries the estimate action. */
+  .head .btn{ display:none; }
+}
+@media (max-width:520px){
+  .hero-actions{ width:100%; }
+  .hero-actions .btn{ flex:1; }
+  .status .wrap{ flex-direction:column; gap:.25rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  .rise{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="status">
+  <div class="wrap">
+    <b>Concept — not the finished site</b>
+    <span>Real name, contact details, hours, service area and prices are in. The concrete images are supplied material, not photos of completed work; there are no reviews, credentials, or project photos yet, and nothing here claims otherwise. Values in [brackets] are still outstanding.</span>
+  </div>
+</div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="mark" href="#top">
+      <span class="mark-glyph" aria-hidden="true"></span>
+      <span class="mark-name">SELI<em>&nbsp;Wash Co.</em></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#work">Gallery</a>
+      <a href="#process">How it works</a>
+      <a href="#area">Service area</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="tel" href="sms:+15805609673">(580) 560-9673</a>
+    <a class="btn btn-primary" href="#estimate">Request a free estimate</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="surface surface-clean" aria-hidden="true"></div>
+    <div class="surface surface-dirty" aria-hidden="true"></div>
+    <div class="front" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <input class="reveal-input" type="range" min="0" max="100" value="100" step="0.1"
+           aria-label="Drag to reveal the cleaned surface" />
+    <span class="handle" aria-hidden="true">◂ ▸</span>
+
+    <div class="hero-inner">
+      <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Pressure washing in Duncan, Oklahoma</p>
+        <h1 class="display" id="hero-h">The clean is <em>already</em> down there.</h1>
+        <p class="lede">
+          Driveways, sidewalks, patios, and porches. We take off the buildup
+          that makes a property look older than it is.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#estimate">Request a free estimate</a>
+          <a class="btn btn-ghost btn-lg" href="sms:+15805609673">Text for an estimate</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <span class="drag-hint" aria-hidden="true">Drag to reveal</span>
+
+    <div class="hero-tags" aria-hidden="true">
+      <span class="tag">Before</span>
+      <span class="tag">After</span>
+    </div>
+  </section>
+
+  <!-- ===================== TRUST STRIP ===================== -->
+  <section class="trust" aria-label="At a glance">
+    <div class="wrap">
+      <div class="trust-cell">
+        <p class="meta">Serving</p>
+        <strong>Duncan, Oklahoma</strong>
+      </div>
+      <div class="trust-cell">
+        <p class="meta">Work days</p>
+        <strong>Tuesday &amp; Thursday</strong>
+      </div>
+      <div class="trust-cell">
+        <p class="meta">Text preferred</p>
+        <strong>(580) 560-9673</strong>
+      </div>
+      <div class="trust-cell">
+        <p class="meta">What we need on site</p>
+        <strong>Spigot + GFCI outlet</strong>
+      </div>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="band band-paper" id="services">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">What we clean</p>
+          <h2 class="display">Most jobs fall into one of these.</h2>
+        </div>
+        <p>
+          Prices below are starting points for typical residential work. The final
+          number comes after we look at the surface.
+        </p>
+      </div>
+
+      <div class="svc-grid rise">
+        <a class="svc" href="#estimate">
+          <h3>Driveways</h3>
+          <p>Concrete cleaning that lifts general soiling, weathering, and the green film that creeps in along shaded edges.</p>
+          <p class="price">From <b>$100</b></p>
+        </a>
+        <a class="svc" href="#estimate">
+          <h3>Sidewalks &amp; walkways</h3>
+          <p>The concrete guests actually walk on. Joints, edges, and the darker band where the lawn meets the path.</p>
+          <p class="price">From <b>$50</b></p>
+        </a>
+        <a class="svc" href="#estimate">
+          <h3>Patios &amp; porches</h3>
+          <p>Lower pressure on standard poured and broom-finish concrete, kept clear of planting beds and furniture.</p>
+          <p class="price">From <b>$80</b></p>
+        </a>
+        <a class="svc" href="#estimate">
+          <h3>Steps &amp; entry pads</h3>
+          <p>Small areas that carry the most traffic and show it first. Added to another service on the same visit, steps are $10 each. Booked on their own, a flight of fewer than five steps still comes to the $50 standalone minimum.</p>
+          <p class="price"><b>$10</b> per step</p>
+        </a>
+        <a class="svc" href="#estimate">
+          <h3>Parking pads &amp; aprons</h3>
+          <p>Concrete parking areas at small commercial properties, scheduled outside your business hours.</p>
+          <p class="price">Quoted per site</p>
+        </a>
+        <a class="svc" href="#estimate">
+          <h3>Recurring property care</h3>
+          <p>Set intervals for property managers, with one point of contact and the same walkthrough every visit.</p>
+          <p class="price">Quoted per property</p>
+        </a>
+      </div>
+
+      <div class="pricing-note rise">
+        <p class="eyebrow">Before you compare prices</p>
+        <p class="min">$50 minimum on standalone appointments</p>
+        <p>
+          Starting prices apply to ordinary, accessible jobs. Size, buildup and
+          staining, access, surface condition, specialty treatment, and travel
+          can all change the final quote. Every estimate is free, and you get the
+          price before any work begins.
+        </p>
+        <p>
+          Outside the Duncan service area, travel is $5 per additional mile.
+        </p>
+      </div>
+
+      <p class="disclaim">
+        Oil, rust, paint, gum, and deeply embedded stains are not guaranteed to
+        come out. Some of it is permanent. We will tell you what to expect before
+        we start rather than after.
+      </p>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- ===================== PROOF ===================== -->
+  <section class="band band-mist" id="work">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">The gallery</p>
+          <h2 class="display">No completed jobs to show yet.</h2>
+        </div>
+        <p>
+          The panels below are concept placeholders, not work by SELI Wash Co.
+          When there are real jobs, each pair will be one surface photographed
+          from one spot — no filters, no wide-angle tricks, nobody else's photos.
+        </p>
+      </div>
+
+      <div class="proof rise">
+        <figure class="plate plate-before" style="margin:0">
+          <span class="tag">Before</span>
+          <figcaption>[Concept placeholder — stock material, not SELI Wash Co. work]</figcaption>
+        </figure>
+        <figure class="plate plate-after" style="margin:0">
+          <span class="tag">After</span>
+          <figcaption>[Concept placeholder — stock material, not SELI Wash Co. work]</figcaption>
+        </figure>
+      </div>
+
+      <p class="disclaim">
+        On the built site this pair carries a real caption: surface, approximate size,
+        what was removed, and how long it took. The full gallery adds a comparison
+        slider with keyboard controls and a side-by-side fallback.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESS ===================== -->
+  <section class="band band-ink" id="process">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 class="display">Three steps, and you know the price before step three.</h2>
+        </div>
+      </div>
+
+      <ol class="steps rise" style="list-style:none;margin:0;padding:0">
+        <li class="step">
+          <p class="step-n">01</p>
+          <h3>Request</h3>
+          <p>Text or email the address, the surface, and a photo if you have one. Texting is the fastest way to reach us.</p>
+        </li>
+        <li class="step">
+          <p class="step-n">02</p>
+          <h3>Confirm</h3>
+          <p>We reply with a price and check the spigot and outlet will reach. Every request is confirmed by hand — nothing is booked until you approve it.</p>
+        </li>
+        <li class="step">
+          <p class="step-n">03</p>
+          <h3>Refresh</h3>
+          <p>We connect to your outdoor spigot and GFCI outlet, work the surface, and leave the site rinsed and clear.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section class="band band-mist" aria-labelledby="rev-h">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">What customers say</p>
+          <h2 class="display" id="rev-h">No reviews yet — this is a new business.</h2>
+        </div>
+        <p>
+          SELI Wash Co. has not taken on customers yet, so there is nothing
+          honest to put here. This block shows where reviews will sit once real
+          ones exist.
+        </p>
+      </div>
+
+      <!-- Layout placeholder only. No rating, quote, or customer is invented;
+           star rows were removed because a rendered rating reads as real. -->
+      <div class="reviews rise" aria-label="Placeholder for future reviews">
+        <div class="review">
+          <p class="meta" style="color:var(--slate)">Review slot</p>
+          <p style="margin:0;color:var(--slate)">
+            A real customer quote goes here, with their permission and a link to
+            where they left it.
+          </p>
+        </div>
+        <div class="review">
+          <p class="meta" style="color:var(--slate)">Review slot</p>
+          <p style="margin:0;color:var(--slate)">
+            Nothing is published in this section until there is a real review
+            to publish.
+          </p>
+        </div>
+        <div class="review">
+          <p class="meta" style="color:var(--slate)">Review slot</p>
+          <p style="margin:0;color:var(--slate)">
+            A Google Business Profile is the usual place to collect these. One
+            has not been created yet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICE AREA ===================== -->
+  <section class="band band-ink" id="area">
+    <div class="wrap area">
+      <div class="area-map rise" role="img" aria-label="Placeholder map centred on Duncan, Oklahoma">
+        <span class="pin"></span>
+        <p class="meta">[Map placeholder — Duncan, Oklahoma]</p>
+      </div>
+      <div class="rise">
+        <p class="eyebrow" style="color:var(--amber)">Where we work</p>
+        <h2 class="display" style="color:var(--paper);font-size:clamp(1.9rem,3.6vw,var(--s7))">
+          Duncan, Oklahoma.
+        </h2>
+        <p style="color:#9FB2C6;max-width:48ch">
+          Outside Duncan we will still consider the job — ask, and we will tell
+          you either way. Travel beyond the normal Duncan service area is $5 per
+          additional mile, added to the quote before you approve it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="wipe-rule" />
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="band band-paper" id="faq">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Before you book</p>
+          <h2 class="display">Questions we get most.</h2>
+        </div>
+      </div>
+
+      <div class="faq rise">
+        <details open>
+          <summary>Do I need to be home?</summary>
+          <p>No, as long as we can reach the surface and you have approved the estimate. We send a message when we arrive and when we finish.</p>
+        </details>
+        <details>
+          <summary>Do you need my water and power?</summary>
+          <p>Yes. We run off your outdoor water spigot and a working outdoor GFCI-protected outlet, and both have to be reachable from the area being cleaned.</p>
+        </details>
+        <details>
+          <summary>How far can you reach from the spigot and outlet?</summary>
+          <p>We carry 25 feet of pressure hose and a 25-foot extension cord. If the area you want cleaned sits further than that from an outdoor spigot and outlet, tell us when you ask — some jobs we can work around, and some we will have to turn down. We would rather sort that out by text than turn up and find we cannot reach.</p>
+        </details>
+        <details>
+          <summary>Is an electric washer strong enough for concrete?</summary>
+          <p>For the flatwork we take on — driveways, sidewalks, patios, porches, and steps — yes. It is also quieter than a gas machine and puts no engine exhaust next to your house while it runs.</p>
+        </details>
+        <details>
+          <summary>What surfaces do you not clean?</summary>
+          <p>We take on ordinary concrete flatwork. We do not offer roof washing, house or siding soft washing, gutters, fences, decks, sealing, or joint-sand replacement, and we do not work on decorative, painted, coated, sealed, stamped, or otherwise fragile surfaces. Anything unusual gets looked at first and may be declined — we would rather turn a job down than damage a finish.</p>
+        </details>
+        <details>
+          <summary>What changes the price?</summary>
+          <p>Size, buildup and staining, access, surface condition, any specialty treatment, and travel outside Duncan. There is a $50 minimum on standalone appointments, and the listed prices are introductory starting points rather than quotes.</p>
+        </details>
+        <details>
+          <summary>When can you come out?</summary>
+          <p>Jobs run Tuesdays and Thursdays, 9am to 6pm. Weekends are sometimes possible by request but are not guaranteed. Phone and text are answered 9am to 11pm. Every request is confirmed by hand, so treat the request as the start of a conversation rather than a booked slot.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING CTA ===================== -->
+  <section class="closer" id="estimate">
+    <div class="wrap">
+      <div>
+        <h2>Find out what it costs.</h2>
+        <p>Estimates are free and there is no obligation. Texting is the quickest way to reach us. We will need an outdoor spigot and a working outdoor GFCI outlet within about 25 feet of the area.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-dark btn-lg" href="#estimate">Request a free estimate</a>
+        <a class="btn btn-lg" href="sms:+15805609673"
+           style="background:transparent;color:#1A1206;border-color:rgba(26,18,6,.4)">Text (580) 560-9673</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <a class="mark" href="#top" style="margin-bottom:.9rem">
+        <span class="mark-glyph" aria-hidden="true"></span>
+        <span class="mark-name">SELI<em>&nbsp;Wash Co.</em></span>
+      </a>
+      <p style="font-size:var(--s2);margin:0 0 .6rem;max-width:32ch">
+        Pressure Washing &amp; Exterior Cleaning
+      </p>
+      <p style="font-size:var(--s2);margin:0;max-width:32ch">
+        Concrete cleaning for homes and small properties in Duncan, Oklahoma.
+      </p>
+    </div>
+    <div>
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#services">Driveways</a></li>
+        <li><a href="#services">Sidewalks &amp; walkways</a></li>
+        <li><a href="#services">Patios &amp; porches</a></li>
+        <li><a href="#services">Steps &amp; entry pads</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#process">How it works</a></li>
+        <li><a href="#area">Service area</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#estimate">Request an estimate</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="sms:+15805609673">Text (580) 560-9673</a></li>
+        <li><a href="tel:+15805609673">Call (580) 560-9673</a></li>
+        <li><a href="mailto:0xseli.business@gmail.com">0xseli.business@gmail.com</a></li>
+        <li><span>Calls &amp; texts 9am–11pm</span></li>
+        <li><span>Jobs Tue &amp; Thu, 9am–6pm</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <ul>
+        <li><span>[Privacy policy — to be written]</span></li>
+        <li><span>[Terms of service — to be written]</span></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="actionbar">
+  <a class="btn btn-ghost" href="tel:+15805609673">Call</a>
+  <a class="btn btn-ghost" href="sms:+15805609673">Text</a>
+  <a class="btn btn-primary" href="#estimate">Estimate</a>
+</div>
+
+<!-- ===================== CONCEPT NOTES ===================== -->
+<section class="notes">
+  <div class="wrap">
+    <h2>Notes on this direction</h2>
+    <div class="notes-grid">
+      <div class="note">
+        <h3>The signature</h3>
+        <p>The wash front is the brand device. It is ragged and wet-lit, not a straight
+        UI divider, and it echoes as the amber hairline between sections and across
+        service cards on hover. It is the one bold thing; everything else stays quiet.</p>
+      </div>
+      <div class="note">
+        <h3>three.js intent</h3>
+        <p>The hero is the two supplied photographs, used as they came — nothing
+        drawn on them, nothing generated, cropped by `cover` rather than stretched.
+        In the built site the pair becomes a WebGL plane whose front dissolves under
+        the same drag handle: one scene, one pass, paused off-screen. What you see
+        here is that interaction prototyped in CSS so it can be judged before any 3D
+        work starts.</p>
+      </div>
+      <div class="note">
+        <h3>Mobile</h3>
+        <p>Below 820px this is a different composition, not a squeezed one: the reveal
+        becomes a panel at the top and the copy moves below it onto solid navy, because
+        text over a half-lit surface stops being readable at phone widths. The
+        displacement filter and heavy glow are dropped, the drag target shrinks so it
+        cannot swallow vertical scrolling, and call and estimate dock to the bottom of
+        the screen. On the real site the WebGL layer is replaced entirely by a crossfade
+        between two photos.</p>
+      </div>
+      <div class="note">
+        <h3>Reduced motion</h3>
+        <p>All transitions and the load sequence stop; the reveal snaps rather than
+        animates and stays fully operable by keyboard through a native range control.
+        The built version adds a visible Before / After toggle so the comparison never
+        depends on dragging.</p>
+      </div>
+      <div class="note">
+        <h3>Performance</h3>
+        <p>No web fonts and no libraries; the only weight is the two concrete images,
+        resized to 1500px and inlined so this file stands alone. A production build
+        would serve them as WebP at several sizes and lazy-load the pair below the
+        fold — and the headline and estimate button still render before either
+        image is fetched.</p>
+      </div>
+      <div class="note">
+        <h3>Deliberately absent</h3>
+        <p>There is no insurance card, no licence or certification claim, no
+        guarantee, no rating, no testimonial, no job count and no years-in-business
+        figure — because none of those exist yet. The gaps are the honest state of a
+        business that has not taken its first customer. Nothing here should be
+        filled in with marketing language later; it should be filled in with facts,
+        or left out.</p>
+      </div>
+      <div class="note">
+        <h3>Still needed</h3>
+        <p>Logo, real before-and-after photography, an owner photo and story, a
+        Google Business Profile, and the Privacy and Terms pages. Domain, hosting,
+        and form handling are unconfirmed. Response-time, lead-time, cancellation,
+        weather, deposit and discount policies are all still open, so the site
+        deliberately promises none of them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var root  = document.documentElement;
+  var input = document.querySelector('.reveal-input');
+  var calm  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setPos(v) {
+    root.style.setProperty('--pos', v + '%');
+  }
+
+  input.addEventListener('input', function () { setPos(input.value); });
+
+  // Load sequence: the wash front crosses the hero once, unprompted, so the
+  // product demonstrates itself before anyone decides to interact.
+  if (calm) {
+    input.value = 63;
+    setPos(63);
+  } else {
+    var from = 100, to = 63, dur = 1500, start = null;
+    var run = function (t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);           // ease-out cubic
+      var v = from + (to - from) * e;
+      input.value = v;
+      setPos(v);
+      if (p < 1) requestAnimationFrame(run);
+    };
+    setPos(100);
+    setTimeout(function () { requestAnimationFrame(run); }, 420);
+  }
+
+  // Scroll reveals
+  var items = document.querySelectorAll('.rise');
+  if (calm || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>

@@ -1,0 +1,162 @@
+---
+import Wordmark from './Wordmark.astro';
+import { business, sms } from '../data/business';
+
+const nav = [
+  { href: '/services', label: 'Services' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="head">
+  <div class="wrap">
+    <Wordmark href="/" />
+
+    <!-- Text, not call: texting is the owner's stated preference. -->
+    <a class="tel" href={sms}>
+      <span class="tel-num">{business.phone.display}</span>
+      <span class="tel-hint">text preferred</span>
+    </a>
+
+    <a class="btn btn-primary head-cta" href="/contact#estimate">
+      <span class="cta-long">Request a free estimate</span>
+      <span class="cta-short">Free estimate</span>
+    </a>
+
+    <!--
+      Links wrap to their own row on narrow screens rather than collapsing
+      into a hamburger. A five-page site does not need a disclosure widget, and
+      a visible nav is one less thing to get wrong for keyboard and screen
+      reader users.
+    -->
+    <nav class="nav" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={path === item.href ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .head {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(11, 24, 38, 0.94);
+    backdrop-filter: saturate(1.3) blur(10px);
+    border-bottom: 1px solid var(--hair-dark);
+  }
+  .head .wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem clamp(1rem, 3vw, 2.5rem);
+    min-height: 74px;
+    padding-block: 0.6rem;
+  }
+  .head :global(.mark) {
+    margin-right: auto;
+  }
+
+  .nav {
+    display: flex;
+    gap: clamp(0.9rem, 2vw, 1.9rem);
+    order: 1;
+  }
+  .nav a {
+    color: var(--slate-ltr);
+    text-decoration: none;
+    font-size: var(--s2);
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+    transition:
+      color var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+  }
+  .nav a:hover {
+    color: var(--paper);
+    border-bottom-color: var(--amber);
+  }
+  .nav a[aria-current='page'] {
+    color: var(--paper);
+    border-bottom-color: var(--amber);
+  }
+
+  .tel {
+    display: flex;
+    flex-direction: column;
+    color: var(--paper);
+    text-decoration: none;
+    font-family: var(--display);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    line-height: 1.15;
+    order: 2;
+  }
+  .tel:hover .tel-num {
+    color: var(--amber);
+  }
+  .tel-num {
+    font-size: var(--s4);
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .tel-hint {
+    font-size: var(--s1);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--wet);
+  }
+
+  .head-cta {
+    order: 3;
+  }
+  .cta-short {
+    display: none;
+  }
+
+  /* Nav drops to its own full-width row; nothing is hidden. */
+  @media (max-width: 1100px) {
+    .nav {
+      order: 4;
+      flex-basis: 100%;
+      justify-content: flex-start;
+      gap: 1.25rem;
+      border-top: 1px solid var(--hair-dark);
+      padding-top: 0.55rem;
+      margin-top: 0.1rem;
+    }
+  }
+  @media (max-width: 720px) {
+    .cta-long {
+      display: none;
+    }
+    .cta-short {
+      display: inline;
+    }
+    .head-cta {
+      padding: 0.7rem 1rem;
+      font-size: var(--s2);
+    }
+  }
+  /* Below this the docked action bar carries call/text/estimate. */
+  @media (max-width: 560px) {
+    .tel,
+    .head-cta {
+      display: none;
+    }
+    .head .wrap {
+      min-height: 0;
+    }
+  }
+</style>

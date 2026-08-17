@@ -1,0 +1,10 @@
+node_modules/
+.npm-cache/
+dist/
+.astro/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+assets/maps/duncan-street-map-square-zoomed-main

@@ -1,0 +1,118 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  items: Service[];
+  /** Link each card to the Services page anchor, or to the estimate form. */
+  linkTo?: 'services' | 'estimate';
+}
+const { items, linkTo = 'estimate' } = Astro.props;
+
+const href = (slug: string): string =>
+  linkTo === 'services' ? `/services#${slug}` : '/contact#estimate';
+---
+
+<!--
+  Fixed column counts rather than auto-fit: six cards must divide evenly or the
+  leftover cells expose the hairline background as empty grey blocks.
+-->
+<div class="grid">
+  {
+    items.map((s) => (
+      <a class="card" href={href(s.slug)}>
+        <h3>{s.name}</h3>
+        <p>{s.blurb}</p>
+        <p class="price">
+          {
+            s.price.startsWith('From') ? (
+              <>
+                From <b>{s.price.replace('From ', '')}</b>
+              </>
+            ) : s.price.startsWith('$') ? (
+              <>
+                <b>{s.price.split(' ')[0]}</b> {s.price.split(' ').slice(1).join(' ')}
+              </>
+            ) : (
+              s.price
+            )
+          }
+        </p>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: 1fr;
+    background: var(--hair-light);
+    border: 1px solid var(--hair-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1000px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    position: relative;
+    background: var(--paper);
+    padding: 1.9rem clamp(1.25rem, 2.2vw, 1.9rem) 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  /* Card echo of the wipe: a wash front crosses the top edge on hover. */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--amber), rgba(239, 155, 62, 0.15));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+  .card:hover {
+    background: #fbfcfd;
+  }
+  .card:hover::before,
+  .card:focus-visible::before {
+    transform: scaleX(1);
+  }
+  .card h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: var(--s5);
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .card p {
+    font-size: var(--s2);
+    color: var(--slate);
+  }
+  .card .price {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-family: var(--display);
+    font-size: var(--s2);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .card .price b {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+</style>

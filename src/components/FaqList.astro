@@ -1,0 +1,75 @@
+---
+import type { Faq } from '../data/faqs';
+
+interface Props {
+  items: Faq[];
+  /** Open the first entry so the pattern is obvious. */
+  openFirst?: boolean;
+}
+const { items, openFirst = true } = Astro.props;
+---
+
+<!-- Native <details> so it works with no JS and is keyboard-operable for free. -->
+<div class="faq">
+  {
+    items.map((item, i) => (
+      <details open={openFirst && i === 0}>
+        <summary>{item.q}</summary>
+        <p>{item.a}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    max-width: 74ch;
+  }
+  details {
+    border-bottom: 1px solid var(--hair-light);
+  }
+  summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 2.5rem 1.15rem 0;
+    position: relative;
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    position: absolute;
+    right: 0.2rem;
+    top: 0.95rem;
+    color: var(--amber-deep);
+    font-size: var(--s6);
+    line-height: 1;
+  }
+  details[open] summary::after {
+    content: '–';
+  }
+  details p {
+    margin: 0 0 1.3rem;
+    color: var(--slate);
+    max-width: 64ch;
+  }
+
+  :global(.band-ink) summary {
+    color: var(--paper);
+  }
+  :global(.band-ink) details {
+    border-bottom-color: var(--hair-dark);
+  }
+  :global(.band-ink) details p {
+    color: var(--slate-lt);
+  }
+  :global(.band-ink) summary::after {
+    color: var(--amber);
+  }
+</style>

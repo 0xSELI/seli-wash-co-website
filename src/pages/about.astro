@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloserCta from '../components/CloserCta.astro';
+import { business } from '../data/business';
+---
+
+<BaseLayout
+  title="About"
+  description="SELI Wash Co. provides straightforward concrete cleaning for homes and small properties in Duncan, Oklahoma."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1 class="display">Local concrete cleaning, kept straightforward.</h1>
+      <p class="lede">
+        {business.name} serves homes and small properties in {business.area.label}
+        with a focused list of concrete cleaning services and clear estimates
+        before work begins.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-mist">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">How we work</p>
+          <h2 class="display">Simple rules for every job.</h2>
+        </div>
+        <p class="band-head-aside">
+          You should know the price, the practical requirements, and what result
+          to expect before equipment is connected.
+        </p>
+      </div>
+
+      <div class="cards rise">
+        <article>
+          <h3>A focused service list</h3>
+          <p>
+            Driveways, sidewalks, walkways, patios, porches, steps, and concrete
+            parking areas are the core of the business.
+          </p>
+        </article>
+        <article>
+          <h3>Every estimate checked by hand</h3>
+          <p>
+            A request starts a conversation. We look at the surface, agree on a
+            price and day, and nothing is booked until you approve it.
+          </p>
+        </article>
+        <article>
+          <h3>Surface limits discussed first</h3>
+          <p>
+            Decorative or fragile finishes may be declined. Oil, rust, paint,
+            gum, and deeply embedded stains are assessed before work begins.
+          </p>
+        </article>
+        <article>
+          <h3>Your water and power</h3>
+          <p>
+            Work requires an outdoor spigot and GFCI-protected outlet within
+            about {business.equipment.hoseFeet} feet of the cleaning area.
+          </p>
+        </article>
+        <article>
+          <h3>Clear starting prices</h3>
+          <p>
+            Published prices are starting points. You receive the final quote
+            before work begins, including any travel charge outside Duncan.
+          </p>
+        </article>
+        <article>
+          <h3>A quieter electric setup</h3>
+          <p>
+            The electric equipment avoids engine exhaust next to your property
+            and is quieter than a petrol-powered unit.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-paper">
+    <div class="wrap approach rise">
+      <div>
+        <p class="eyebrow">What to expect</p>
+        <h2 class="display">A price before the wash starts.</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Send the address, the surface, and a photo if one is easy to take.
+          Texting is preferred because photos and details stay together.
+        </p>
+        <p>
+          We confirm access to water and power, discuss staining or surface
+          concerns, and give you the price before scheduling the work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CloserCta />
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow {
+    color: var(--amber);
+  }
+  .page-head h1 {
+    max-width: 24ch;
+    margin-block: 0.7rem 1rem;
+    color: var(--paper);
+    font-size: clamp(2.25rem, 5vw, var(--s8));
+  }
+  .page-head .lede {
+    color: var(--slate-ltr);
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .cards article {
+    padding: 1.6rem;
+    border: 1px solid var(--hair-light);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+  .cards h3 {
+    margin-bottom: 0.55rem;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+  }
+  .cards p {
+    color: var(--slate);
+    font-size: var(--s2);
+  }
+  .approach {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .approach .display {
+    margin-top: 0.5rem;
+    color: var(--ink);
+    font-size: clamp(1.9rem, 3.6vw, var(--s7));
+  }
+</style>

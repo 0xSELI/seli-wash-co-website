@@ -1,0 +1,29 @@
+{
+  "name": "seli-wash-co-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Website for SELI Wash Co. — concrete flatwork pressure washing in Duncan, Oklahoma.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "astro check && astro build"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.2",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/three": "^0.181.0",
+    "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "esbuild@0.28.2": true
+  }
+}

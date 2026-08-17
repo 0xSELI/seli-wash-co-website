@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloserCta from '../components/CloserCta.astro';
+import { business, sms } from '../data/business';
+
+/*
+ * Honest empty state. There are no completed jobs yet, so there is nothing to
+ * show — and stock concrete or an example project here would be a claim about
+ * work the business has not done. When real before/after pairs exist, replace
+ * the "First jobs" block with the gallery grid; the standard section below
+ * already describes the bar those photographs have to meet.
+ *
+ * This note lives in frontmatter rather than an HTML comment so it does not ship
+ * to the browser.
+ */
+---
+
+<BaseLayout
+  title="Project gallery"
+  description="How SELI Wash Co. documents concrete cleaning results in Duncan, Oklahoma."
+>
+  <section class="band band-ink page-head">
+    <div class="wrap">
+      <p class="eyebrow">Project gallery</p>
+      <h1 class="display">Every job, photographed honestly.</h1>
+      <p class="lede">
+        Project photos are published only with customer permission, and every
+        pair follows the same standard so the difference comes from the work
+        rather than from editing.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-paper">
+    <div class="wrap">
+      <div class="empty rise">
+        <p class="eyebrow">First jobs</p>
+        <h2 class="display">The first completed jobs will be published here.</h2>
+        <p>
+          {business.name} is newly open, so there are no finished projects to
+          show yet. Rather than fill this page with someone else's concrete, it
+          stays empty until there is real work to put on it — photographed to the
+          standard below and published with the customer's permission.
+        </p>
+        <p class="empty-cta actions">
+          <a class="btn btn-primary" href="/contact#estimate">Request an estimate</a>
+          <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-mist">
+    <div class="wrap">
+      <div class="band-head rise">
+        <div>
+          <p class="eyebrow">Our standard</p>
+          <h2 class="display">A fair before-and-after comparison.</h2>
+        </div>
+        <p class="band-head-aside">
+          The same surface, camera position, light, and visit. No filters,
+          retouching, or somebody else's work.
+        </p>
+      </div>
+
+      <ol class="rules rise">
+        <li>
+          <h3>One surface, photographed twice</h3>
+          <p>The frames line up so the change is easy to judge.</p>
+        </li>
+        <li>
+          <h3>Same visit and conditions</h3>
+          <p>Lighting and weather do not get to improve the result.</p>
+        </li>
+        <li>
+          <h3>No filters or retouching</h3>
+          <p>Only matching crops are used to align a genuine pair.</p>
+        </li>
+        <li>
+          <h3>Useful project details</h3>
+          <p>Surface, approximate size, treatment, and time are included.</p>
+        </li>
+      </ol>
+
+      <p class="actions gallery-actions rise">
+        <a class="btn btn-primary" href="/contact#estimate">Request an estimate</a>
+        <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
+      </p>
+    </div>
+  </section>
+
+  <CloserCta heading="See what your concrete can look like." />
+</BaseLayout>
+
+<style>
+  .page-head .eyebrow {
+    color: var(--amber);
+  }
+  .page-head h1 {
+    max-width: 24ch;
+    margin-block: 0.7rem 1rem;
+    color: var(--paper);
+    font-size: clamp(2.1rem, 4.6vw, var(--s8));
+  }
+  .page-head .lede {
+    color: var(--slate-ltr);
+  }
+  .rules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    list-style: none;
+    counter-reset: rule;
+  }
+  .rules li {
+    counter-increment: rule;
+    padding-top: 1rem;
+    border-top: 2px solid var(--hair-light);
+  }
+  .rules li::before {
+    content: counter(rule, decimal-leading-zero);
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--amber-deep);
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+  }
+  .rules h3 {
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 600;
+  }
+  .rules p {
+    color: var(--slate);
+    font-size: var(--s2);
+  }
+  .gallery-actions {
+    margin-top: 2rem;
+  }
+  .empty {
+    max-width: 62ch;
+  }
+  .empty .eyebrow {
+    color: var(--amber-deep);
+  }
+  .empty h2 {
+    margin-block: 0.6rem 1rem;
+    color: var(--ink);
+    font-size: clamp(1.8rem, 3.4vw, var(--s7));
+  }
+  .empty p {
+    color: var(--slate);
+  }
+  .empty-cta {
+    margin-top: 1.75rem;
+  }
+</style>
