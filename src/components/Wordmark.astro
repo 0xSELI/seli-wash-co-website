@@ -1,12 +1,6 @@
 ---
 import { business } from '../data/business';
 
-/*
- * There is no logo, and this is a deliberate typographic wordmark rather than a
- * stand-in for one. The glyph is the wash front: soiled navy on one side, clean
- * white on the other, with the wet light between them.
- */
-
 interface Props {
   href?: string;
   /** Suppress the link when the wordmark is already inside one. */
@@ -17,7 +11,14 @@ const Tag = plain ? 'span' : 'a';
 ---
 
 <Tag class="mark" {...plain ? {} : { href }}>
-  <span class="mark-glyph" aria-hidden="true"></span>
+  <img
+    class="mark-logo"
+    src="/brand/seli-wash-logo.svg"
+    alt=""
+    width="54"
+    height="54"
+    decoding="async"
+  />
   <span class="mark-name">
     {business.nameParts.lead}<em>&nbsp;{business.nameParts.rest}</em>
   </span>
@@ -31,20 +32,11 @@ const Tag = plain ? 'span' : 'a';
     color: var(--paper);
     text-decoration: none;
   }
-  .mark-glyph {
-    width: 30px;
-    height: 30px;
+  .mark-logo {
+    width: 54px;
+    height: 54px;
     flex: none;
-    border-radius: var(--radius-sm);
-    background: linear-gradient(
-      105deg,
-      var(--ink-3) 0%,
-      var(--ink-3) 44%,
-      var(--wet) 46%,
-      var(--wet) 49%,
-      var(--paper) 51%,
-      var(--paper) 100%
-    );
+    object-fit: contain;
   }
   .mark-name {
     font-family: var(--display);
@@ -57,5 +49,14 @@ const Tag = plain ? 'span' : 'a';
   .mark-name em {
     font-style: normal;
     color: var(--amber);
+  }
+  @media (max-width: 420px) {
+    .mark-logo {
+      width: 46px;
+      height: 46px;
+    }
+    .mark-name {
+      font-size: var(--s3);
+    }
   }
 </style>
