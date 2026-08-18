@@ -149,6 +149,19 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       font-size: var(--s2);
     }
   }
+  /* Reclaim first-screen height on small phones without losing the visible
+     nav: the row keeps its 44px targets, just less padding around them. */
+  @media (max-width: 420px) {
+    .head .wrap {
+      padding-block: 0.4rem;
+      gap: 0.5rem clamp(1rem, 3vw, 2.5rem);
+    }
+    .nav {
+      padding-top: 0.4rem;
+      gap: 1.1rem;
+    }
+  }
+
   /* Below this the docked action bar carries call/text/estimate. */
   @media (max-width: 560px) {
     .tel,

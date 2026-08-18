@@ -72,6 +72,13 @@
   --dur: 0.38s;
   --dur-slow: 0.6s;
 
+  /* Height of the docked mobile action bar, and the scroll offset anchored
+     content needs to clear the sticky header. Both were previously duplicated
+     as magic numbers in two components, which is why the bar could cover the
+     end of a page and #anchors could land under the header. */
+  --actionbar-h: 84px;
+  --anchor-offset: 96px;
+
   /* Wash-front position. 0 = fully clean, 100 = fully soiled.
      Defaults to the rest position, NOT 100%, so that with JavaScript disabled
      the hero still shows a real before/after split rather than a soiled slab
