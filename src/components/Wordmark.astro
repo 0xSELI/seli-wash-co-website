@@ -1,6 +1,4 @@
 ---
-import { business } from '../data/business';
-
 interface Props {
   href?: string;
   /** Suppress the link when the wordmark is already inside one. */
@@ -13,50 +11,31 @@ const Tag = plain ? 'span' : 'a';
 <Tag class="mark" {...plain ? {} : { href }}>
   <img
     class="mark-logo"
-    src="/brand/seli-wash-logo.svg"
-    alt=""
-    width="54"
-    height="54"
+    src="/brand/seli-wash-logo-site.png"
+    alt="SELI Wash Co."
+    width="68"
+    height="68"
     decoding="async"
   />
-  <span class="mark-name">
-    {business.nameParts.lead}<em>&nbsp;{business.nameParts.rest}</em>
-  </span>
 </Tag>
 
 <style>
   .mark {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
     color: var(--paper);
     text-decoration: none;
   }
   .mark-logo {
-    width: 54px;
-    height: 54px;
+    width: 68px;
+    height: 68px;
     flex: none;
     object-fit: contain;
   }
-  .mark-name {
-    font-family: var(--display);
-    font-size: var(--s4);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .mark-name em {
-    font-style: normal;
-    color: var(--amber);
-  }
   @media (max-width: 420px) {
     .mark-logo {
-      width: 46px;
-      height: 46px;
-    }
-    .mark-name {
-      font-size: var(--s3);
+      width: 60px;
+      height: 60px;
     }
   }
 </style>

@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SELI Wash Co.">
-  <circle cx="32" cy="32" r="30" fill="#FFFFFF" stroke="#0B1826" stroke-width="4" />
-  <path fill="#0B1826" d="M4 27h27l3 3-3 3 3 3-3 3 3 3H4Z" />
-  <path fill="#BFE6F2" d="M34 27h26v15H34l-3-3 3-3-3-3 3-3Z" />
-  <path fill="#EF9B3E" d="M18 47h28v4H18z" />
-  <path fill="#0B1826" d="M24 12h17v5H29v3h11v5H24Z" />
-  <path fill="#FFFFFF" d="M48 30l1.5 3.5L53 35l-3.5 1.5L48 40l-1.5-3.5L43 35l3.5-1.5Z" />
-</svg>
