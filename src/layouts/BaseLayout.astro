@@ -15,7 +15,7 @@ interface Props {
 const { title, description = business.shortDescription } = Astro.props;
 const fullTitle = `${title} — ${business.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL('/img/seli-pressure-washing-social.png', Astro.site);
+const socialImageURL = new URL('/img/seli-pressure-washing-social.png?v=2', Astro.site);
 ---
 
 <!doctype html>
@@ -43,8 +43,8 @@ const socialImageURL = new URL('/img/seli-pressure-washing-social.png', Astro.si
 
     <link rel="canonical" href={canonicalURL} />
 
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.png?v=2" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
 
     <script is:inline>
       // Flip the no-js class before paint so .rise elements can start hidden
