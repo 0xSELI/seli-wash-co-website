@@ -17,7 +17,7 @@
  *  4. There is no online booking. Requests are confirmed by hand.
  *  5. Square-foot coverage limits and per-square-foot overages are NOT
  *     confirmed and must not be published.
- *  6. Nothing may claim the concrete images are SELI Wash Co. work.
+ *  6. Nothing may claim the concrete images are SELI Pressure Washing work.
  *
  * Anything genuinely undecided is typed as `null` with a TBD comment rather
  * than filled with a plausible guess.
@@ -25,9 +25,9 @@
 
 export const business = {
   /** Public trading name. No legal entity is registered — never append a suffix. */
-  name: 'SELI Wash Co.',
+  name: 'SELI Pressure Washing',
   /** Split for the wordmark treatment only. */
-  nameParts: { lead: 'SELI', rest: 'Wash Co.' },
+  nameParts: { lead: 'SELI', rest: 'Pressure Washing' },
   tagline: 'Concrete Cleaning in Duncan',
 
   /** Plain description of what the business actually does, safe for meta tags. */

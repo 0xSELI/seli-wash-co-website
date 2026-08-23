@@ -1,4 +1,4 @@
-# SELI Wash Co. Website — Project Brief
+# SELI Pressure Washing Website — Project Brief
 
 ## Project status
 
@@ -8,11 +8,11 @@ Business facts live in `BUSINESS_INPUTS.md`, which is the authority. This brief 
 
 ## Name and identity
 
-- **Public name:** SELI Wash Co.
+- **Public name:** SELI Pressure Washing
 - **Tagline:** Pressure Washing & Exterior Cleaning
 - **Legal structure:** not registered. No LLC or other suffix anywhere.
-- **Domain:** `seliwash.com` proposed; purchase and control unconfirmed.
-- **Logo:** none. A text wordmark stands in.
+- **Domain:** `seliwash.com` purchased, owner-controlled, and live.
+- **Logo:** circular SELI Pressure Washing badge with pressure-washer, bubbles, and waves.
 
 Note that the tagline is broader than the launch scope, which is concrete flatwork only. Either narrow the tagline or expect enquiries for services that will be turned down.
 

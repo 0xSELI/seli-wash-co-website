@@ -1,6 +1,6 @@
-# SELI Wash Co. website
+# SELI Pressure Washing website
 
-Production website for SELI Wash Co., a concrete flatwork pressure-washing business serving Duncan, Oklahoma.
+Production website for SELI Pressure Washing, a concrete flatwork pressure-washing business serving Duncan, Oklahoma.
 
 The site is built and live at **https://seliwash.com**.
 
@@ -54,7 +54,7 @@ Eight routes are built: Home, Services, Gallery, About, Contact, Privacy, Terms,
 
 ### Estimate workflow (SMS)
 
-The estimate form does not send data to a server. It validates the visitor's answers in the browser, composes a text message addressed to SELI Wash Co., and opens the visitor's messaging app. The visitor reviews the message, attaches any photos, and sends it.
+The estimate form does not send data to a server. It validates the visitor's answers in the browser, composes a text message addressed to SELI Pressure Washing, and opens the visitor's messaging app. The visitor reviews the message, attaches any photos, and sends it.
 
 - UI: `src/components/EstimateForm.astro`, behaviour in `src/scripts/estimate-form.ts`
 - Composer: `src/lib/estimate/` — see `src/lib/estimate/README.md` for the invariants
@@ -79,7 +79,7 @@ A before-and-after reveal on the two supplied concrete photographs, working on b
 
 ### Brand and map
 
-- Logo assets live in `public/brand/`. `src/components/Wordmark.astro` renders `seli-wash-logo-site.png` at 68px, dropping to 52px below 420px.
+- Logo assets live in `public/brand/`. `src/components/Wordmark.astro` renders `seli-pressure-washing-logo-site.png` at 68px, dropping to 52px below 420px.
 - `src/components/DuncanMap.astro` renders the Duncan street map from `public/img/duncan-street-map.png`, with the named streets in the alt text.
 
 ## Business content
@@ -93,7 +93,7 @@ Do not add reviews, credentials, completed-project photos, guarantees, or operat
 - No reviews, ratings, completed-project photos, job counts, or years of experience exist. Never fabricate any of them.
 - There is no online booking. Requests are confirmed by hand.
 - Square-foot coverage limits and per-square-foot overages are not confirmed and must not be published.
-- The concrete images are supplied placeholders and nothing may claim they are SELI Wash Co. work.
+- The concrete images are supplied placeholders and nothing may claim they are SELI Pressure Washing work.
 
 Anything genuinely undecided is typed as `null` in the data files with a TBD comment rather than filled with a plausible guess.
 

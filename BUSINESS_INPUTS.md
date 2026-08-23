@@ -10,11 +10,11 @@ Owner answers as supplied. Anything marked **TBD** is genuinely undecided and mu
 
 | Question | Answer |
 | --- | --- |
-| 1. Public name | **SELI Wash Co.** |
+| 1. Public name | **SELI Pressure Washing** |
 | 2. Legal entity | **Not registered.** No LLC, Inc., or other suffix anywhere on the site. |
-| 3. Logo | **None.** Clean text wordmark for now. |
+| 3. Logo | **Confirmed.** Circular SELI Pressure Washing badge with pressure-washer, bubbles, and waves. |
 | 4. Tagline | **Pressure Washing & Exterior Cleaning** |
-| 5. Domain | **seliwash.com** — an idea only. Purchase and control **not confirmed**. **[Blocking]** |
+| 5. Domain | **seliwash.com** — purchased, owner-controlled, and live. |
 | 6. Brand colours | Keep the current navy, white/cool-grey, and amber. |
 
 > **Conflict to resolve.** The tagline says "Exterior Cleaning," but the launch scope is concrete flatwork only — no roofs, siding, gutters, fences, or decks. The tagline is used as supplied, and no service beyond flatwork is advertised, but a customer reading "Exterior Cleaning" may reasonably ask for house washing. Either narrow the tagline or expect to turn those enquiries down.
@@ -114,13 +114,13 @@ Never fabricate testimonials, ratings, job counts, years of experience, customer
 
 | Question | Answer |
 | --- | --- |
-| 46. Hosting | **Vercel proposed**, not finalised. Accounts must be owned and controlled by the owner. |
-| 47. Domain control | **Not confirmed.** Must be in the owner's own account. **[Blocking]** |
+| 46. Hosting | **GitHub Pages**, deployed from the owner-controlled GitHub repository. |
+| 47. Domain control | **Confirmed.** `seliwash.com` is in the owner's Porkbun account. |
 | 48. Form notifications | To **0xseli.business@gmail.com** once configured. Provider **TBD**. |
 | 49. Analytics | **TBD** |
 | 50. Confirmation email/text | **TBD** |
 | 51. State | **Oklahoma** |
-| 52. Privacy policy and terms | **TBD** — basic Oklahoma-appropriate pages required before public launch. |
+| 52. Privacy policy and terms | **Written and live.** They describe the SMS-only estimate workflow; no legal review is claimed. |
 | 53. Consent | Consent language limited to contact **about the requested estimate**. **No promotional SMS consent.** |
 | — | Spam protection **TBD**. |
 
@@ -128,13 +128,9 @@ Never fabricate testimonials, ratings, job counts, years of experience, customer
 
 ## Outstanding launch blockers
 
-1. **Domain** — `seliwash.com` is an idea; purchase and owner control unconfirmed.
-2. **Hosting and form handling** — no account, no provider, no delivery path for leads.
-3. **Privacy policy and terms** — required before public launch; not written.
-4. **Real before-and-after photos** — the gallery is placeholders and cannot ship that way.
-5. **Response-time, lead-time, cancellation, and weather policies** — the site currently promises nothing, which is safe but thin.
-6. **Chemical and specialty-treatment policy** — unresolved, and it limits what can be said about stain removal.
-7. **Business phone** — currently a personal number. Fine to launch with, but worth a deliberate decision.
-8. **Tagline vs. scope mismatch** — "Exterior Cleaning" is broader than the services offered.
-9. **Local registration, permit, and sales-tax position** — unverified.
-10. **Logo** — running on a wordmark; acceptable, not final.
+1. **Real before-and-after photos** — the gallery is placeholders and cannot represent completed company jobs.
+2. **Response-time, lead-time, cancellation, and weather policies** — the site currently promises nothing, which is safe but thin.
+3. **Chemical and specialty-treatment policy** — unresolved, and it limits what can be said about stain removal.
+4. **Business phone** — currently a personal number. Fine to launch with, but worth a deliberate decision.
+5. **Tagline vs. scope mismatch** — "Exterior Cleaning" is broader than the services offered.
+6. **Local registration, permit, and sales-tax position** — unverified.

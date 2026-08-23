@@ -1,8 +1,10 @@
-# SELI Wash Co. Website — Handoff
+# SELI Pressure Washing Website — Handoff
 
 ## Current status: built, deployed, and live
 
 The website is implemented and in production at **https://seliwash.com**, hosted on **GitHub Pages** from the `0xSELI/seli-wash-co-website` repository. The concept stage is over; this document describes what exists, what still binds any future change, and what remains open. The planning record that preceded implementation is preserved at the end, under [Historical planning record](#historical-planning-record).
+
+The public name is now **SELI Pressure Washing**. References to “SELI Wash Co.” inside the historical planning record refer only to the former name.
 
 `README.md` is the practical guide to the stack, local development, and deployment. This file covers the working boundaries and project continuity.
 
@@ -42,7 +44,7 @@ These came out of `BUSINESS_INPUTS.md` and remain in force. They are enforced in
 - **No proof exists yet.** No real reviews, ratings, completed-project photos, owner story, or Google Business Profile. Never fabricate testimonials, ratings, job counts, years of experience, or before/after results.
 - **No online booking.** Requests are confirmed by hand; nothing may imply instant booking or instant response.
 - **Square-foot coverage limits and per-square-foot overages are not confirmed** and must not be published.
-- **The concrete images are supplied placeholders**, shown unaltered and cropped rather than stretched. Nothing may claim they are SELI Wash Co. work.
+- **The concrete images are supplied placeholders**, shown unaltered and cropped rather than stretched. Nothing may claim they are SELI Pressure Washing work.
 - **Services are concrete flatwork only.** The `notOffered` list in `src/data/services.ts` is a deliberate, published "no" — do not soften it into a maybe.
 - **Stain honesty stands.** Oil, rust, paint, gum, and deeply embedded stains are not guaranteed to come out. Chemical and specialty-treatment policy is still TBD, so no plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear.
 - **Consent is limited to contact about the requested estimate.** No promotional SMS consent.

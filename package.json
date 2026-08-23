@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Website for SELI Wash Co. — concrete flatwork pressure washing in Duncan, Oklahoma.",
+  "description": "Website for SELI Pressure Washing — concrete flatwork pressure washing in Duncan, Oklahoma.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
