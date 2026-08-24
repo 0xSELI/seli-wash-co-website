@@ -28,7 +28,7 @@ Astro 7 static site, TypeScript, no server runtime. Eight routes: Home, Services
 - **SMS estimate workflow.** The form validates in the browser and composes a text message the visitor reviews and sends from their own app. The site transmits and stores nothing. Files: `src/components/EstimateForm.astro`, `src/scripts/estimate-form.ts`, `src/lib/estimate/` (see its own `README.md` for the invariants).
 - **Duncan service-area map.** `src/components/DuncanMap.astro` with `public/img/duncan-street-map.png`.
 - **Mobile layout.** Below 820px the hero stacks and `src/components/MobileActionBar.astro` docks Call / Text / Estimate with 48px touch targets and safe-area padding.
-- **Pricing.** Owner-supplied introductory prices in `src/data/services.ts`, presented with the $50 standalone minimum and the quote factors via `src/components/PricingNote.astro`.
+- **Pricing.** Owner-supplied driveway Introductory Pricing is $100 up to 900 sq. ft., then $0.12 per additional sq. ft., for the first 10 residential customers. The shared formula lives in `src/lib/driveway-pricing.ts` and is displayed in `src/components/DrivewayPricing.astro`.
 - **Legal pages.** `/privacy` and `/terms` are written and live. Privacy describes the text-message workflow accurately: nothing is transmitted to the site, photos are not uploaded, no analytics or marketing cookies, no promotional messaging.
 
 ### Do not rebuild, redesign, or clean up
@@ -43,7 +43,7 @@ These came out of `BUSINESS_INPUTS.md` and remain in force. They are enforced in
 - **No response-time promise has been set**, so none is published. Do not add "we reply within X".
 - **No proof exists yet.** No real reviews, ratings, completed-project photos, owner story, or Google Business Profile. Never fabricate testimonials, ratings, job counts, years of experience, or before/after results.
 - **No online booking.** Requests are confirmed by hand; nothing may imply instant booking or instant response.
-- **Square-foot coverage limits and per-square-foot overages are not confirmed** and must not be published.
+- **Residential driveway square-foot pricing is confirmed:** $100 up to 900 sq. ft., then $0.12 per additional sq. ft., for the first 10 residential customers.
 - **The concrete images are supplied placeholders**, shown unaltered and cropped rather than stretched. Nothing may claim they are SELI Pressure Washing work.
 - **Services are concrete flatwork only.** The `notOffered` list in `src/data/services.ts` is a deliberate, published "no" — do not soften it into a maybe.
 - **Stain honesty stands.** Oil, rust, paint, gum, and deeply embedded stains are not guaranteed to come out. Chemical and specialty-treatment policy is still TBD, so no plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear.
@@ -103,8 +103,8 @@ The concept was a single self-contained page and deliberately not a starting cod
 - **Services are concrete flatwork only.** Core: driveways, sidewalks and walkways, patios and porches, steps and entry pads. Custom-quote: parking pads and aprons, recurring property care. Not offered and not advertised: roof washing, house or siding soft washing, gutters, fences, decks, sealing, joint-sand replacement, restoration, pavers, brick, pool decks, and any decorative, painted, coated, sealed, stamped, or fragile surface. Unusual surfaces are evaluated first and may be declined.
 - **Stain honesty:** oil, rust, paint, gum, and deeply embedded stains are **not guaranteed** to come out. Chemical and specialty-treatment policy is TBD, so no plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear.
 - **Equipment is an electric pressure washer** with **25 ft of hose and a 25 ft cord**. The customer must supply an accessible outdoor spigot and a safe working outdoor **GFCI-protected** outlet within reach. These are stated plainly on the site and became qualifying questions in the estimate form. No technical electrical advice is given.
-- **Introductory pricing (owner-supplied):** driveways from $100, sidewalks and walkways from $50, patios and porches from $80, steps and entry pads at $10 per step, parking pads and aprons quoted per site, recurring property care quoted per property. Estimates are free. Payment by cash, Cash App, PayPal, or Venmo.
-- **A $50 minimum applies to standalone appointments.** Square-foot coverage limits and per-square-foot overages are **not confirmed and must not be published**.
+- **Introductory pricing (owner-supplied):** the first 10 residential driveway customers pay $100 up to 900 sq. ft., then $0.12 per additional sq. ft.; sidewalks and walkways start at $50, patios and porches at $80, steps and entry pads are $10 per step, parking pads and aprons are quoted per site, and recurring property care is quoted per property. Estimates are free. Payment by cash, Cash App, PayPal, or Venmo.
+- **A $50 minimum applies to other eligible standalone appointments.** Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.
 - **No credentials of any kind exist.** The insurance card was removed from the concept entirely and was **not** replaced with uninsured marketing copy.
 - **No proof exists yet.** Star ratings and sample testimonials were removed from the concept.
 - **Hero imagery is used unaltered.** The owner supplied two concrete images, shown full-bleed and cropped to fit, never stretched, with nothing drawn, generated, or composited on top of them. They are concept placeholders and are **not** company work.

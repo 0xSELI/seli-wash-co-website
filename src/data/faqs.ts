@@ -11,6 +11,10 @@ export const faqs: Faq[] = [
     a: 'No, as long as we can reach the area and you have approved the price. We will agree access with you beforehand rather than turning up and guessing.',
   },
   {
+    q: 'How does introductory driveway pricing work?',
+    a: 'For the first 10 residential driveway customers, $100 covers up to 900 square feet. For larger driveways, add $0.12 for every square foot after 900. Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.',
+  },
+  {
     q: 'Do you need my water and power?',
     a: 'Yes. We run off your outdoor water spigot and a working outdoor GFCI-protected outlet, and both have to be reachable from the area being cleaned.',
   },
@@ -32,7 +36,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'What changes the price?',
-    a: 'Size, buildup and staining, access, surface condition, any specialty treatment, and travel outside Duncan. There is a $50 minimum on standalone appointments, and the listed prices are introductory starting points rather than quotes.',
+    a: 'For the first 10 residential driveway customers, introductory pricing is $100 up to 900 square feet, then $0.12 for every square foot after 900. Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection. Size, access, surface condition, specialty treatment, and travel can also affect a final quote. A $50 minimum applies to other eligible standalone appointments.',
   },
   {
     q: 'When can you come out?',

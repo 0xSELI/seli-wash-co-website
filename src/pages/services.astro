@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PricingNote from '../components/PricingNote.astro';
+import DrivewayPricing from '../components/DrivewayPricing.astro';
 import CloserCta from '../components/CloserCta.astro';
 import { business, quoteFactorSentence, sms } from '../data/business';
 import {
@@ -19,7 +20,7 @@ import {
 
 <BaseLayout
   title="Services & pricing"
-  description="Concrete flatwork cleaning in Duncan, Oklahoma. Driveways from $100, sidewalks from $50, patios from $80, steps $10 each. $50 minimum on standalone appointments."
+  description="Introductory residential driveway pricing: $100 up to 900 square feet, then $0.12 per additional square foot for the first 10 customers."
 >
   <section class="band band-ink page-head">
     <div class="wrap">
@@ -61,6 +62,7 @@ import {
       </div>
 
       <div class="rise"><PricingNote /></div>
+      <DrivewayPricing />
     </div>
   </section>
 

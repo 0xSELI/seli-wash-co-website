@@ -15,8 +15,9 @@
  *  3. No reviews, ratings, completed-project photos, job counts, or years of
  *     experience exist. Never fabricate any of them.
  *  4. There is no online booking. Requests are confirmed by hand.
- *  5. Square-foot coverage limits and per-square-foot overages are NOT
- *     confirmed and must not be published.
+ *  5. Residential driveway introductory pricing is confirmed: $100 covers up
+ *     to 900 square feet, then $0.12 per additional square foot, for the
+ *     first 10 residential driveway customers.
  *  6. Nothing may claim the concrete images are SELI Pressure Washing work.
  *
  * Anything genuinely undecided is typed as `null` with a TBD comment rather
@@ -69,6 +70,12 @@ export const business = {
     /** Minimum on a standalone appointment. */
     standaloneMinimum: 50,
     estimatesFree: true,
+    drivewayIntroductory: {
+      basePrice: 100,
+      includedSquareFeet: 900,
+      additionalPricePerSquareFoot: 0.12,
+      customerLimit: 10,
+    },
     /**
      * Factors that move the final quote. Kept as data so the same list appears
      * everywhere and cannot drift between pages.

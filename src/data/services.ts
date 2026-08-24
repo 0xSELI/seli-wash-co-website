@@ -27,7 +27,9 @@ export const services: Service[] = [
     name: 'Driveways',
     blurb:
       'Concrete cleaning that lifts general soiling, weathering, and the green film that creeps in along shaded edges.',
-    price: 'From $100',
+    price: '$100 up to 900 sq. ft.',
+    priceNote:
+      'Introductory Pricing for the first 10 residential customers. Add $0.12 per additional sq. ft.',
     tier: 'core',
     detail:
       'The largest flat surface on most properties and the one that ages a house fastest. We work the full slab, including the darker bands along shaded edges where growth takes hold first. Concrete only — we do not clean pavers or brick.',
@@ -110,4 +112,4 @@ export const notOffered: string[] = [
  * site states the limit and stops there.
  */
 export const notGuaranteed =
-  'Oil, rust, paint, gum, and deeply embedded stains are not guaranteed to come out. Some of it is permanent. We will tell you what to expect before we start rather than after.';
+  'Heavy oil, rust, paint, gum, and unusually severe or deeply embedded staining may cost extra after inspection. No stain removal is guaranteed; we will tell you what to expect before work starts.';

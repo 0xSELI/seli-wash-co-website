@@ -37,6 +37,7 @@ const href = (slug: string): string =>
             )
           }
         </p>
+        {s.priceNote && <p class="price-note">{s.priceNote}</p>}
       </a>
     ))
   }
@@ -114,5 +115,10 @@ const href = (slug: string): string =>
   .card .price b {
     color: var(--amber-deep);
     font-weight: 600;
+  }
+  .card .price-note {
+    font-size: var(--s1);
+    line-height: 1.45;
+    color: var(--slate);
   }
 </style>

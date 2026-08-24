@@ -1,0 +1,82 @@
+---
+import { business } from '../data/business';
+import { drivewayIntroductoryPrice, formatDrivewayPrice } from '../lib/driveway-pricing';
+
+const intro = business.pricing.drivewayIntroductory;
+const examples = [900, 1000, 1200, 1500];
+---
+
+<section class="driveway-pricing rise" aria-labelledby="driveway-pricing-heading">
+  <div>
+    <p class="eyebrow">Introductory Pricing</p>
+    <h2 class="display" id="driveway-pricing-heading">Driveway pricing, clearly.</h2>
+    <p class="intro">
+      For the first {intro.customerLimit} residential driveway customers: $100
+      covers up to 900 sq. ft., then $0.12 for every additional square foot.
+    </p>
+  </div>
+
+  <div class="calculator">
+    <label for="driveway-size">Driveway size (square feet)</label>
+    <input
+      id="driveway-size"
+      data-driveway-size
+      type="number"
+      min="0"
+      step="1"
+      inputmode="numeric"
+      value="900"
+    />
+    <p class="estimate" aria-live="polite">
+      Introductory estimated price <strong data-driveway-price>{formatDrivewayPrice(drivewayIntroductoryPrice(900))}</strong>
+    </p>
+    <p class="formula">$100 + max(0, square feet − 900) × $0.12</p>
+  </div>
+
+  <ul class="examples" aria-label="Driveway price examples">
+    {examples.map((squareFeet) => (
+      <li>
+        <span>{squareFeet === 900 ? '900 sq. ft. or less' : `${squareFeet.toLocaleString()} sq. ft.`}</span>
+        <strong>{formatDrivewayPrice(drivewayIntroductoryPrice(squareFeet))}</strong>
+      </li>
+    ))}
+  </ul>
+
+  <p class="disclaimer">
+    Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.
+  </p>
+</section>
+
+<script>
+  import '../scripts/driveway-pricing';
+</script>
+
+<style>
+  .driveway-pricing {
+    display: grid;
+    gap: 1.5rem clamp(1.25rem, 3vw, 2.5rem);
+    grid-template-columns: 1fr;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid var(--hair-light);
+    border-top: 4px solid var(--amber);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+  @media (min-width: 800px) {
+    .driveway-pricing { grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); }
+    .examples, .disclaimer { grid-column: 1 / -1; }
+  }
+  h2 { color: var(--ink); margin: 0.45rem 0 0.75rem; font-size: var(--s6); }
+  .intro, .disclaimer { color: var(--slate-dk); max-width: 62ch; }
+  .calculator { background: var(--mist); border-radius: var(--radius-sm); padding: 1.15rem; }
+  label { display: block; color: var(--ink); font-family: var(--display); font-weight: 600; margin-bottom: 0.5rem; }
+  input { width: 100%; min-height: 48px; padding: 0.65rem 0.8rem; border: 1px solid var(--hair-light); border-radius: 0.45rem; color: var(--ink); font: inherit; }
+  .estimate { margin-top: 1rem; color: var(--slate-dk); }
+  .estimate strong { display: block; color: var(--amber-deep); font-family: var(--display); font-size: var(--s6); letter-spacing: 0.02em; }
+  .formula { margin-top: 0.45rem; color: var(--slate); font-size: var(--s1); }
+  .examples { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); border-top: 1px solid var(--hair-light); border-left: 1px solid var(--hair-light); }
+  .examples li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.85rem; border-right: 1px solid var(--hair-light); border-bottom: 1px solid var(--hair-light); color: var(--slate-dk); }
+  .examples strong { color: var(--amber-deep); font-family: var(--display); }
+  .disclaimer { font-size: var(--s2); }
+</style>

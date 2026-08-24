@@ -54,7 +54,7 @@ Quote requests are **manually confirmed**. Nothing on the site implies instant b
 | 18. Pavers and brick | **Not offered.** |
 | 19. Pool decks | **Not offered.** |
 | 20. Add-on services | **Not offered at launch.** |
-| 21. Oil / rust / paint / gum / embedded stains | **Not guaranteed to disappear.** Specialty treatment policy **TBD**. |
+| 21. Heavy oil / rust / paint / unusually severe staining | May cost extra after inspection; stain removal is not guaranteed. Specialty treatment policy **TBD**. |
 | 22. Chemicals | **TBD.** No plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear. |
 
 Unusual surfaces are evaluated first and may be declined.
@@ -63,7 +63,7 @@ Unusual surfaces are evaluated first and may be declined.
 
 | Service | Price |
 | --- | --- |
-| Driveways | From **$100** |
+| Residential driveways — Introductory Pricing (first 10 customers) | **$100** up to 900 sq. ft.; then **$0.12** per additional sq. ft. |
 | Sidewalks & walkways | From **$50** |
 | Patios & porches | From **$80** |
 | Steps & entry pads | **$10 per step**, subject to the $50 standalone minimum |
@@ -71,8 +71,8 @@ Unusual surfaces are evaluated first and may be declined.
 | Recurring property care | Quoted per property |
 
 - **$50 minimum** on standalone appointments.
-- Starting prices apply to **ordinary, accessible jobs**. Size, buildup and staining, access, condition, specialty treatment, and travel can change the final quote.
-- **Do not publish** square-foot coverage limits or per-square-foot overages — **not confirmed**.
+- Residential driveway Introductory Pricing applies to the **first 10 residential customers**: **$100 + max(0, squareFeet - 900) × $0.12**. Example prices: 900 sq. ft. or less $100; 1,000 sq. ft. $112; 1,200 sq. ft. $136; 1,500 sq. ft. $172.
+- Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection. Starting prices otherwise apply to **ordinary, accessible jobs**; access, surface condition, specialty treatment, and travel can change a final quote.
 - Estimates are **free**.
 - **Payments accepted:** cash, Cash App, PayPal, Venmo.
 - **TBD:** payment timing, deposits, discounts, late fees.
