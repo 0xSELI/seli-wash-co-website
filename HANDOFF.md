@@ -2,6 +2,12 @@
 
 ## Current status: built, deployed, and live
 
+### Local redesign awaiting review — do not publish
+
+The current working tree contains an owner-requested redesign, not yet deployed: split hero with preserved texture slider, responsive disclosure navigation, integrated pricing/calculator/SMS action, open service rows, refined supporting pages and footer. The logo, map, contact details, and WebGL shader are preserved. Run `npm test` and `npm run verify` before review. Do not push to main until the owner explicitly approves publication.
+
+Current pricing supersedes the historical figures below: driveway $100 minimum through 900 sq. ft., plus $0.12 per additional sq. ft. for the first 10 residential customers; after that, $0.15 per additional sq. ft. Porch, sidewalk, patio: max($50, area × $0.12) each; steps $10 per step. Sum all services and apply the $100 appointment minimum ONCE: max($100, sum). A $50 porch plus $50 sidewalk is $100, not $200. Ordinary-concrete pool decks remain custom quoted with a $50 surface minimum. Oil, rust, paint, oxidation, and severe staining require inspection and may cost extra. Additional surfaces and specialty stain treatments are quoted separately.
+
 The website is implemented and in production at **https://seliwash.com**, hosted on **GitHub Pages** from the `0xSELI/seli-wash-co-website` repository. The concept stage is over; this document describes what exists, what still binds any future change, and what remains open. The planning record that preceded implementation is preserved at the end, under [Historical planning record](#historical-planning-record).
 
 The public name is now **SELI Pressure Washing**. References to “SELI Wash Co.” inside the historical planning record refer only to the former name.
@@ -100,11 +106,11 @@ The concept was a single self-contained page and deliberately not a starting cod
 - **Identity:** public name **SELI Wash Co.**, tagline **Pressure Washing & Exterior Cleaning**. No legal entity is registered — never append LLC or any other suffix. Palette confirmed as the existing navy, white/cool-grey, and amber. *(At the time: "No logo; a text wordmark stands in." A logo has since been made and shipped. The site tagline in `src/data/business.ts` is now "Concrete Cleaning in Duncan".)*
 - **Contact:** **(580) 560-9673** (the owner's personal phone; texts allowed and preferred) and **0xseli.business@gmail.com**. Calls and texts answered **9am–11pm**; jobs run **Tuesday and Thursday, 9am–6pm**; weekends by request but **not guaranteed**.
 - **Service area:** **Duncan, Oklahoma.** Outside Duncan by request, at **$5 per additional mile**.
-- **Services are concrete flatwork only.** Core: driveways, sidewalks and walkways, patios and porches, steps and entry pads. Custom-quote: parking pads and aprons, recurring property care. Not offered and not advertised: roof washing, house or siding soft washing, gutters, fences, decks, sealing, joint-sand replacement, restoration, pavers, brick, pool decks, and any decorative, painted, coated, sealed, stamped, or fragile surface. Unusual surfaces are evaluated first and may be declined.
+- **Services are concrete flatwork only.** Core: driveways, sidewalks and walkways, porches, patios and pool decks, and steps. Custom-quote: parking pads and aprons, recurring property care, and additional surfaces. Not offered: roof washing, house or siding soft washing, gutters, fences, decks, sealing, joint-sand replacement, restoration, pavers, brick, and decorative or fragile surfaces. Unusual surfaces are evaluated first and may be declined.
 - **Stain honesty:** oil, rust, paint, gum, and deeply embedded stains are **not guaranteed** to come out. Chemical and specialty-treatment policy is TBD, so no plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear.
 - **Equipment is an electric pressure washer** with **25 ft of hose and a 25 ft cord**. The customer must supply an accessible outdoor spigot and a safe working outdoor **GFCI-protected** outlet within reach. These are stated plainly on the site and became qualifying questions in the estimate form. No technical electrical advice is given.
-- **Introductory pricing (owner-supplied):** the first 10 residential driveway customers pay $100 up to 900 sq. ft., then $0.12 per additional sq. ft.; sidewalks and walkways start at $50, patios and porches at $80, steps and entry pads are $10 per step, parking pads and aprons are quoted per site, and recurring property care is quoted per property. Estimates are free. Payment by cash, Cash App, PayPal, or Venmo.
-- **A $50 minimum applies to other eligible standalone appointments.** Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.
+- **Pricing:** see the current owner-approved pricing at the top of this document and BUSINESS_INPUTS.md. Estimates are free. Payment by cash, Cash App, PayPal, or Venmo.
+- **Surface-specific minimums apply, then the $100 appointment minimum applies once to the sum.** Oil, rust, paint, oxidation, and severe staining require inspection and may cost extra.
 - **No credentials of any kind exist.** The insurance card was removed from the concept entirely and was **not** replaced with uninsured marketing copy.
 - **No proof exists yet.** Star ratings and sample testimonials were removed from the concept.
 - **Hero imagery is used unaltered.** The owner supplied two concrete images, shown full-bleed and cropped to fit, never stretched, with nothing drawn, generated, or composited on top of them. They are concept placeholders and are **not** company work.
@@ -113,7 +119,7 @@ The concept was a single self-contained page and deliberately not a starting cod
 ## Historical: planning assumptions
 
 - The name was settled but the brand system was not: no logo, and the domain was an unconfirmed idea. *(Both have since resolved: the logo shipped, and `seliwash.com` is purchased, owner-controlled, and live.)*
-- Prices are owner-supplied introductory starting points, not quotes. Every price on the site must stay next to the $50 minimum and the factors that change it: size, buildup and staining, access, surface condition, specialty treatment, and travel. **Still in force.**
+- Prices are owner-supplied starting points, not final quotes. Use the current surface-specific minimums above, not a blanket minimum. Factors include size, buildup and staining, access, surface condition, specialty treatment, and travel.
 - The absence of credentials and proof is a fact to be respected, not a gap to be styled around. Where a competitor would put "licensed and insured," this site puts nothing. **Still in force.**
 - Booking should be described as a request unless a real-time scheduling provider and confirmation workflow are selected. **Still in force.**
 - Reviews, project photos, credentials, guarantees, and service claims must be real and approved before publication. **Still in force.**

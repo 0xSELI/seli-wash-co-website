@@ -63,7 +63,7 @@ There is **no online booking**. Every request is confirmed by hand, so the site 
 
 - Individual service categories with inclusions and exclusions.
 - Starting prices or estimate ranges where the owner can support them.
-- A visible explanation that size, buildup and staining, access, surface condition, specialty treatment, and travel may affect the final quote, always beside the $50 standalone minimum.
+- Show the current service-specific rates and the $100 appointment minimum applied once to the combined service subtotal. Porch, sidewalk, and patio each use max($50, area × $0.12); steps are $10 each. Preserve the driveway formula in BUSINESS_INPUTS.md. Size, staining, access, condition, specialty treatment, and travel may affect the final quote.
 - Residential services first, with a clear section for property managers and parking areas.
 - A quote call to action beside each major service.
 

@@ -1,5 +1,5 @@
 ---
-import { business, quoteFactorSentence } from '../data/business';
+import { business, quoteFactorSentence, standalonePricingSummary, drivewayBaseSummary, drivewayOfferSummary } from '../data/business';
 
 /**
  * Driveway pricing is owner-confirmed. It is kept in business.ts so the
@@ -10,21 +10,18 @@ import { business, quoteFactorSentence } from '../data/business';
 <div class="note">
   <p class="eyebrow">Introductory Pricing</p>
   <p class="min">
-    $100 covers up to 900 sq. ft. of residential driveway
+    {drivewayBaseSummary} of residential driveway
   </p>
   <p>
-    For driveways over 900 sq. ft., add $0.12 for every additional square foot.
-    This introductory pricing is for the first {business.pricing.drivewayIntroductory.customerLimit}{' '}
-    residential driveway customers.
+    {drivewayOfferSummary}
   </p>
   <p>
-    Heavy oil, rust, paint, or unusually severe staining may cost extra after
-    inspection. Every estimate is free; {quoteFactorSentence()} can still
+    Oil, rust, paint, oxidation, and severe staining require inspection and may cost extra.
+    Every estimate is free; {quoteFactorSentence()} can still
     affect the final quote.
   </p>
   <p>
-    A ${business.pricing.standaloneMinimum} minimum still applies to other
-    eligible standalone appointments. Outside the {business.area.city} service
+    {standalonePricingSummary} Outside the {business.area.city} service
     area, travel is ${business.area.travelChargePerMile} per additional mile.
   </p>
 </div>
@@ -42,7 +39,7 @@ import { business, quoteFactorSentence } from '../data/business';
     max-width: 80ch;
   }
   .note .eyebrow {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
   }
   .note .min {
     font-family: var(--display);

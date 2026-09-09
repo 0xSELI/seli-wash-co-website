@@ -18,6 +18,7 @@
  */
 
 import { composer, type EstimatePayload } from '../lib/estimate';
+import { calculatorServices } from '../lib/job-pricing';
 
 const MAX_PHOTOS = 5;
 const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
@@ -78,25 +79,38 @@ if (form) {
 
   function setError(name: string, message: string | null): void {
     const el = errorEl(name);
-    const input = field(name);
     if (el) {
       el.textContent = message ?? '';
       el.hidden = message === null;
     }
-    if (input) {
+    for (const input of formEl.querySelectorAll<HTMLElement>(`[name="${name}"]`)) {
       if (message) input.setAttribute('aria-invalid', 'true');
       else input.removeAttribute('aria-invalid');
       const describedBy = el?.id || `err-${name}`;
       if (el && !el.id) el.id = describedBy;
+      const descriptions = new Set((input.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean));
+      if (message && el) descriptions.add(describedBy);
+      else descriptions.delete(describedBy);
+      if (descriptions.size) input.setAttribute('aria-describedby', [...descriptions].join(' '));
+      else input.removeAttribute('aria-describedby');
     }
   }
 
   // ------------------------------------------------------- steps disclosure
 
   function syncStepsField(): void {
+    for (const container of formEl.querySelectorAll<HTMLElement>('[data-surface-field]')) {
+      const selected = checkedValues('services').includes(container.dataset.surfaceField!);
+      container.hidden = !selected;
+      const input = container.querySelector('input');
+      if (input) input.disabled = !selected;
+      if (!selected && input) setError(input.name, null);
+    }
     if (!stepsField) return;
     const stepsSelected = checkedValues('services').includes('steps-entry-pads');
     stepsField.hidden = !stepsSelected;
+    const stepsInput = stepsField.querySelector('input');
+    if (stepsInput) stepsInput.disabled = !stepsSelected;
     if (!stepsSelected) setError('stepCount', null);
   }
 
@@ -145,6 +159,7 @@ if (form) {
       remove.setAttribute('aria-label', `Remove ${file.name}`);
       remove.addEventListener('click', () => {
         acceptedFiles = acceptedFiles.filter((f) => f !== file);
+        clearPreparedMessage();
         renderFiles([]);
       });
       li.append(label, remove);
@@ -238,6 +253,11 @@ if (form) {
     if (!value('cityOrZip')) add('cityOrZip', 'Add the town or ZIP.');
 
     const chosen = checkedValues('services');
+    for (const service of calculatorServices.filter(s => s.key !== 'steps')) {
+      const name = `area-${service.key}`;
+      const input = field(name) as HTMLInputElement | null;
+      if (chosen.includes(service.slug) && (input?.validity.badInput || (value(name) && (!Number.isFinite(Number(value(name))) || Number(value(name)) < 0 || !Number.isSafeInteger(Math.round(Number(value(name)) * 1000)))))) add(name, 'Enter a valid non-negative square footage, or leave it blank.');
+    }
     if (chosen.length === 0) {
       add('services', 'Pick at least one surface.', 'services');
     }
@@ -246,7 +266,7 @@ if (form) {
       const steps = value('stepCount');
       const n = Number(steps);
       if (!steps) add('stepCount', 'How many steps? A rough count is fine.');
-      else if (!Number.isFinite(n) || n < 1) {
+      else if (!Number.isSafeInteger(n * 1000) || !Number.isInteger(n) || n < 1) {
         add('stepCount', 'Enter the number of steps as a whole number.');
       }
     }
@@ -297,7 +317,10 @@ if (form) {
 
   function anchorIdFor(name: string, anchor: string): string {
     const el = formEl.querySelector<HTMLElement>(`#${anchor}`);
-    return el ? anchor : name;
+    if (el) return anchor;
+    const input = field(name);
+    if (input && !input.id) input.id = `estimate-${name}`;
+    return input?.id ?? name;
   }
 
   function focusField(name: string): void {
@@ -318,7 +341,7 @@ if (form) {
     const honeypot = form.querySelector<HTMLInputElement>('[name="company_website"]');
     const tooFast = Date.now() - mountedAt < MIN_FILL_MS;
     if (honeypot?.value || tooFast) {
-      showResult('ready', 'Your details have been checked.', null);
+      showResult('error', 'Please review your details and try again in a moment. No message has been prepared.', null);
       return;
     }
 
@@ -340,8 +363,9 @@ if (form) {
       address: value('address'),
       cityOrZip: value('cityOrZip'),
       services: checkedValues('services'),
-      stepCount: value('stepCount'),
+      stepCount: checkedValues('services').includes('steps-entry-pads') ? value('stepCount') : '',
       approximateSize: value('approximateSize'),
+      surfaceSizes: { driveway: value('area-driveway'), porch: value('area-porch'), sidewalk: value('area-sidewalk'), patio: value('area-patio') },
       timing: value('timing'),
       notes: value('notes'),
       hasSpigot: (radioValue('hasSpigot') || 'unsure') as 'yes' | 'no' | 'unsure',
@@ -382,6 +406,11 @@ if (form) {
     smsHref: string | null,
   ): void {
     if (!result) return;
+    if (state === 'ready' && (!smsHref || !smsHref.startsWith('sms:') || !smsHref.includes('body='))) {
+      state = 'error';
+      message = 'Please try again. No valid text message has been prepared.';
+      smsHref = null;
+    }
     result.innerHTML = '';
     result.dataset.state = state;
 
@@ -404,6 +433,19 @@ if (form) {
         'Nothing reaches us until you press send in your messaging app. Add photos there if you have them.';
 
       result.append(link, note);
+      const fallback = document.createElement('details');
+      const fallbackTitle = document.createElement('summary');
+      fallbackTitle.textContent = 'No messaging app? Copy your message';
+      const copy = document.createElement('textarea');
+      copy.readOnly = true;
+      copy.rows = 8;
+      copy.setAttribute('aria-label', 'Prepared estimate message to copy');
+      copy.value = decodeURIComponent(smsHref.split('body=')[1] ?? '');
+      copy.addEventListener('focus', () => copy.select());
+      const instructions = document.createElement('p');
+      instructions.textContent = 'Select and copy these details, then send them using the email or phone contact options on this page. Nothing is sent automatically.';
+      fallback.append(fallbackTitle, instructions, copy);
+      result.append(fallback);
     }
 
     result.hidden = false;
@@ -411,6 +453,13 @@ if (form) {
   }
 
   // -------------------------------------------------------------- listeners
+
+  // Editing details invalidates the previously prepared message.
+  const clearPreparedMessage = () => {
+    if (result) { result.hidden = true; result.replaceChildren(); delete result.dataset.state; }
+  };
+  form.addEventListener('input', clearPreparedMessage);
+  form.addEventListener('change', clearPreparedMessage);
 
   form.addEventListener('change', (event) => {
     const target = event.target as HTMLElement | null;
@@ -450,6 +499,9 @@ if (form) {
   syncStepsField();
   syncAdvisory();
   renderFiles([]);
+  // Disabled in server HTML: never fall back to a native GET carrying details.
+  const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+  if (submit && result) submit.disabled = false;
 }
 
 // ------------------------------------------------------------------ utils

@@ -23,10 +23,10 @@ import { faqs } from '../data/faqs';
   <section class="band band-ink page-head">
     <div class="wrap">
       <p class="eyebrow">Contact</p>
-      <h1 class="display">Get a price.</h1>
+      <h1 class="display">Let’s talk concrete.</h1>
       <p class="lede">
-        Complete the guided request or text us directly. Either route opens a
-        conversation with a person to agree on a price and a day.
+        Text us directly, or let the form prepare your message. Nothing reaches
+        us until you press send in your messaging app.
       </p>
       <p class="actions head-actions">
         <a class="btn btn-primary" href={sms}>Text {business.phone.display}</a>
@@ -125,7 +125,7 @@ import { faqs } from '../data/faqs';
       <div class="band-head rise">
         <div>
           <p class="eyebrow">Questions</p>
-          <h2 class="display">Everything we get asked.</h2>
+          <h2 class="display">A few practical answers.</h2>
         </div>
       </div>
       <div class="rise">
@@ -171,9 +171,13 @@ import { faqs } from '../data/faqs';
 
   .card {
     background: var(--mist);
-    border-radius: var(--radius);
+    border-radius: 0;
+    border-top: 1px solid var(--hair-light);
     padding: 1.4rem;
   }
+  .details-col { background: var(--mist); border-radius: 12px; padding: .4rem 1rem; }
+  .details-col .card:first-child { border-top: 0; }
+  .lines a { overflow-wrap: anywhere; }
   .card h2 {
     font-family: var(--display);
     font-size: var(--s5);
@@ -205,7 +209,7 @@ import { faqs } from '../data/faqs';
     letter-spacing: 0.02em;
   }
   .lines a:hover {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
     text-decoration: underline;
   }
   .card-note {

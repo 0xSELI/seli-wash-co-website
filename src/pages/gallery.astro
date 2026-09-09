@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CloserCta from '../components/CloserCta.astro';
-import { business, sms } from '../data/business';
+import { business } from '../data/business';
 
 /*
  * Honest empty state. There are no completed jobs yet, so there is nothing to
@@ -22,11 +22,10 @@ import { business, sms } from '../data/business';
   <section class="band band-ink page-head">
     <div class="wrap">
       <p class="eyebrow">Project gallery</p>
-      <h1 class="display">Every job, photographed honestly.</h1>
+      <h1 class="display">The work.<br />In its own light.</h1>
       <p class="lede">
-        Project photos are published only with customer permission, and every
-        pair follows the same standard so the difference comes from the work
-        rather than from editing.
+        A place for real concrete cleaning results. Same surface, same angle,
+        and a clear account of the work.
       </p>
     </div>
   </section>
@@ -35,17 +34,13 @@ import { business, sms } from '../data/business';
     <div class="wrap">
       <div class="empty rise">
         <p class="eyebrow">First jobs</p>
-        <h2 class="display">The first completed jobs will be published here.</h2>
+        <h2 class="display">Real projects.<br />Coming when there’s work to show.</h2>
         <p>
-          {business.name} is newly open, so there are no finished projects to
-          show yet. Rather than fill this page with someone else's concrete, it
-          stays empty until there is real work to put on it — photographed to the
-          standard below and published with the customer's permission.
+          No completed-job photos are available yet. Future projects will be
+          photographed by {business.name} and shared with customer permission.
+          The homepage’s interactive concrete textures are illustrative, not our completed work.
         </p>
-        <p class="empty-cta actions">
-          <a class="btn btn-primary" href="/contact#estimate">Request an estimate</a>
-          <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
-        </p>
+        <a class="text-action" href="/#services">Explore our concrete services</a>
       </div>
     </div>
   </section>
@@ -82,10 +77,6 @@ import { business, sms } from '../data/business';
         </li>
       </ol>
 
-      <p class="actions gallery-actions rise">
-        <a class="btn btn-primary" href="/contact#estimate">Request an estimate</a>
-        <a class="btn btn-outline" href={sms}>Text {business.phone.display}</a>
-      </p>
     </div>
   </section>
 
@@ -107,7 +98,7 @@ import { business, sms } from '../data/business';
   }
   .rules {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1.25rem, 3vw, 2rem);
     list-style: none;
     counter-reset: rule;
@@ -121,7 +112,7 @@ import { business, sms } from '../data/business';
     content: counter(rule, decimal-leading-zero);
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--amber-deep);
+    color: var(--slate-dk);
     font-family: var(--display);
     font-size: var(--s5);
     font-weight: 600;
@@ -141,10 +132,12 @@ import { business, sms } from '../data/business';
     margin-top: 2rem;
   }
   .empty {
-    max-width: 62ch;
+    max-width: 70ch;
+    border-left: 3px solid var(--wet);
+    padding-left: clamp(1rem, 3vw, 2rem);
   }
   .empty .eyebrow {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
   }
   .empty h2 {
     margin-block: 0.6rem 1rem;
@@ -157,4 +150,6 @@ import { business, sms } from '../data/business';
   .empty-cta {
     margin-top: 1.75rem;
   }
+  .empty .text-action { margin-top:1.4rem; }
+  @media(max-width:560px) { .rules { grid-template-columns:1fr; } }
 </style>

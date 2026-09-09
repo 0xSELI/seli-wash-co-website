@@ -65,14 +65,14 @@ import { coreServices } from '../data/services';
 
 <style>
   .foot {
-    background: var(--ink);
+    background: var(--ink-deep);
     color: var(--slate-lt);
-    padding-block: 3rem;
+    padding-block: 3.5rem;
   }
   .foot .wrap {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: minmax(0,1.3fr) repeat(2,minmax(0,1fr)) minmax(0,1.3fr);
   }
   .foot-brand {
     display: flex;
@@ -80,8 +80,8 @@ import { coreServices } from '../data/services';
     gap: 0.6rem;
   }
   .foot-brand :global(.mark-logo) {
-    width: 96px;
-    height: 96px;
+    width: 76px;
+    height: 76px;
   }
   .foot-brand p {
     font-size: var(--s2);
@@ -117,7 +117,15 @@ import { coreServices } from '../data/services';
   .foot-legal {
     margin-top: 1.25rem;
     font-size: var(--s1);
-    color: #6f8298;
+    color: var(--slate-lt);
     max-width: 28ch;
   }
+  .foot ul a { display:flex; align-items:center; min-height:44px; overflow-wrap:anywhere; }
+  .foot .wrap>div:last-child { grid-column:1/-1; display:flex; align-items:center; gap:1rem 2rem; flex-wrap:wrap; border-top:1px solid var(--hair-dark); padding-top:1.5rem; }
+  .foot .wrap>div:last-child h2 { margin:0; }
+  .foot .wrap>div:last-child ul { flex-direction:row; gap:1.5rem; }
+  .foot-legal { margin:0 0 0 auto; max-width:none; }
+  .foot-brand :global(.brand-name) { display:none; }
+  @media(max-width:900px) { .foot .wrap { grid-template-columns:repeat(2,minmax(0,1fr)); } .foot-brand { grid-column:1/-1; display:grid; grid-template-columns:76px minmax(0,1fr); column-gap:1.2rem; } .foot-brand :global(.mark) { grid-row:span 2; } .foot-brand p { max-width:50ch; } }
+  @media(max-width:480px) { .foot .wrap>div:nth-child(4) { grid-column:1/-1; } .foot-legal { margin-left:0; } }
 </style>

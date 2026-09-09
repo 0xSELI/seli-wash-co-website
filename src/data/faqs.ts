@@ -3,16 +3,24 @@
  * no response-time promise, no credential claim, no guarantee, no booking.
  */
 
+import { standalonePricingSummary, drivewayPricingSummary } from './business';
+import { notGuaranteed } from './services';
+import { jobExamples } from '../lib/job-pricing';
+import { formatDrivewayPrice } from '../lib/driveway-pricing';
 export type Faq = { q: string; a: string };
 
 export const faqs: Faq[] = [
+  {
+    q: 'How do the surface and appointment minimums work?',
+    a: `${standalonePricingSummary} Examples: ${jobExamples.map(example => `${example.label}: ${example.calculation}, totaling ${formatDrivewayPrice(example.quote.total)}.`).join(' ')}`,
+  },
   {
     q: 'Do I need to be home?',
     a: 'No, as long as we can reach the area and you have approved the price. We will agree access with you beforehand rather than turning up and guessing.',
   },
   {
     q: 'How does introductory driveway pricing work?',
-    a: 'For the first 10 residential driveway customers, $100 covers up to 900 square feet. For larger driveways, add $0.12 for every square foot after 900. Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.',
+    a: `${drivewayPricingSummary} ${notGuaranteed}`,
   },
   {
     q: 'Do you need my water and power?',
@@ -36,7 +44,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'What changes the price?',
-    a: 'For the first 10 residential driveway customers, introductory pricing is $100 up to 900 square feet, then $0.12 for every square foot after 900. Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection. Size, access, surface condition, specialty treatment, and travel can also affect a final quote. A $50 minimum applies to other eligible standalone appointments.',
+    a: `${standalonePricingSummary} ${notGuaranteed} Size, access, surface condition, and travel can also affect the final quote.`,
   },
   {
     q: 'When can you come out?',
@@ -49,4 +57,4 @@ export const faqs: Faq[] = [
 ];
 
 /** Shorter set for the homepage preview. */
-export const faqPreview: Faq[] = faqs.slice(1, 6);
+export const faqPreview: Faq[] = [...faqs.slice(0, 1), ...faqs.slice(2, 6)];

@@ -1,9 +1,8 @@
 /**
  * The only ambient motion on the site: an 8-14px rise as sections enter.
  *
- * Elements start hidden via CSS, so if this never runs they must not stay
- * invisible. Two guards cover that: `.no-js .rise` is visible by default, and
- * anything without IntersectionObserver support is revealed immediately.
+ * Content is visible until this enhancement has successfully initialized.
+ * A failed module download must never hide pricing, navigation, or other content.
  */
 
 const prefersReducedMotion = window.matchMedia(
@@ -30,5 +29,8 @@ if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     },
     { rootMargin: '0px 0px -12% 0px' },
   );
-  items.forEach((el) => observer.observe(el));
+  items.forEach((el) => {
+    el.classList.add('reveal-pending');
+    observer.observe(el);
+  });
 }

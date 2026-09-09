@@ -28,6 +28,8 @@ export type EstimatePayload = {
   services: string[];
   stepCount: string;
   approximateSize: string;
+  /** Optional measurements by calculator key. Missing areas remain unquoted. */
+  surfaceSizes?: Partial<Record<'driveway' | 'porch' | 'sidewalk' | 'patio', string>>;
   timing: string;
   notes: string;
   /** Qualifying answers. 'unsure' is a legitimate answer and must not block. */

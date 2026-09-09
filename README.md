@@ -26,10 +26,11 @@ npm run dev
 Run the complete production check before publishing:
 
 ```powershell
+npm test
 npm run verify
 ```
 
-`verify` is `astro check && astro build`. It must report 0 errors before anything is pushed. The generated site is written to `dist/`, which is gitignored — the deployment builds its own copy.
+`test` runs the pricing and SMS regression suite without additional dependencies. `verify` is `astro check && astro build`. Both must pass before anything is pushed. The generated site is written to `dist/`, which is gitignored — the deployment builds its own copy. The current redesign is local-only pending owner review; do not push it to production without approval.
 
 Node.js `22.16.0`, pinned in `.nvmrc`.
 
@@ -92,7 +93,7 @@ Do not add reviews, credentials, completed-project photos, guarantees, or operat
 - No response-time promise has been set, so none is published.
 - No reviews, ratings, completed-project photos, job counts, or years of experience exist. Never fabricate any of them.
 - There is no online booking. Requests are confirmed by hand.
-- Square-foot coverage limits and per-square-foot overages are not confirmed and must not be published.
+- Driveway: $100 through 900 sq. ft., then $0.12 per additional sq. ft. for the first 10 residential customers; afterward $0.15 per additional sq. ft. Sidewalk, porch, and patio: max($50, area × $0.12), each. Steps: $10 each. Apply a $100 appointment minimum once after summing all services. Pool decks remain custom quoted with a $50 surface minimum. `src/lib/job-pricing.ts` is shared by the calculator and guided SMS form.
 - The concrete images are supplied placeholders and nothing may claim they are SELI Pressure Washing work.
 
 Anything genuinely undecided is typed as `null` in the data files with a TBD comment rather than filled with a plausible guess.

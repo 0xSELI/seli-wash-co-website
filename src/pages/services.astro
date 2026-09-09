@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PricingNote from '../components/PricingNote.astro';
 import DrivewayPricing from '../components/DrivewayPricing.astro';
 import CloserCta from '../components/CloserCta.astro';
-import { business, quoteFactorSentence, sms } from '../data/business';
+import { business, sms, jobMinimumSummary, drivewayBaseSummary, drivewayOfferSummary } from '../data/business';
 import {
   coreServices,
   customQuoteServices,
@@ -20,16 +19,15 @@ import {
 
 <BaseLayout
   title="Services & pricing"
-  description="Introductory residential driveway pricing: $100 up to 900 square feet, then $0.12 per additional square foot for the first 10 customers."
+  description={`Residential driveway pricing: ${drivewayBaseSummary}. ${drivewayOfferSummary}`}
 >
   <section class="band band-ink page-head">
     <div class="wrap">
       <p class="eyebrow">Services &amp; pricing</p>
-      <h1 class="display">Ordinary concrete, cleaned properly.</h1>
+      <h1 class="display">The right care.<br />For your concrete.</h1>
       <p class="lede">
-        We do concrete flatwork and nothing else. That is a deliberately short
-        list — it is the work we are set up to do well with the equipment we
-        have.
+        Driveways, paths, patios, porches and steps. Explore the services and
+        build a combined service estimate before you get in touch.
       </p>
     </div>
   </section>
@@ -37,31 +35,6 @@ import {
   <!-- How estimates work comes first, per DESIGN.md. -->
   <section class="band band-paper" id="how-estimates-work">
     <div class="wrap">
-      <div class="band-head rise">
-        <div>
-          <p class="eyebrow">How estimates work</p>
-          <h2 class="display">Starting prices, then a real number.</h2>
-        </div>
-        <p class="band-head-aside">
-          The prices below are introductory starting points for ordinary,
-          accessible jobs rather than quotes. The final figure moves with{' '}
-          {quoteFactorSentence()}.
-        </p>
-      </div>
-
-      <div class="prose rise">
-        <p>
-          Send a request or a text with the address and the surface, and we come
-          back with a price. If a photo is easy, it helps a lot. Nothing is
-          scheduled and nothing is charged until you have approved a number.
-        </p>
-        <p>
-          Every request is read and answered by hand — there is no automatic
-          booking on this site, and no slot is held until we have spoken.
-        </p>
-      </div>
-
-      <div class="rise"><PricingNote /></div>
       <DrivewayPricing />
     </div>
   </section>
@@ -97,6 +70,7 @@ import {
           ))
         }
       </div>
+      <p>{jobMinimumSummary}</p>
     </div>
   </section>
 
@@ -217,7 +191,7 @@ import {
     grid-template-columns: 1fr;
     background: var(--mist);
     padding: clamp(1.5rem, 3vw, 2.25rem) 0;
-    scroll-margin-top: 100px;
+    scroll-margin-top: var(--anchor-offset);
   }
   .list-ink .row {
     background: var(--ink);
@@ -256,7 +230,7 @@ import {
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--amber-deep);
+    color: var(--ink);
   }
   .list-ink .row-price {
     color: var(--amber);

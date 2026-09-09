@@ -2,7 +2,9 @@
 
 ## Design status
 
-This document defines the initial creative direction only. It is not approval to build. Visual concepts should be explored and reviewed before frontend implementation begins.
+The owner-requested water-and-concrete redesign is implemented locally for review, not approved for publication. Current implementation uses the approved navy/amber/ice-blue palette and logo, a split copy/interactive-texture hero (copy first on mobile), open service rows, an integrated introductory offer/calculator with prepared SMS action, restrained wave transitions, and a compact responsive menu. Supporting pages use the same type scale, gutters, controls, and contrast rules. The existing map and optional WebGL wash-front remain intact.
+
+Preserve illustrative labels and the customer-sent SMS workflow. Current pricing is defined in BUSINESS_INPUTS.md and src/data/business.ts; the calculator is introductory, not an automatic quote or booking. The earlier planning guidance below is historical wherever it conflicts with the current owner-approved direction. Do not restart concepting or publish without the owner's request.
 
 ## Desired impression
 

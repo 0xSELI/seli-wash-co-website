@@ -151,6 +151,7 @@ export function mountHeroWebGL(
   let running = false;
   let frame = 0;
   const startedAt = performance.now();
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const resize = (): void => {
     const { clientWidth: w, clientHeight: h } = canvas;
@@ -197,6 +198,7 @@ export function mountHeroWebGL(
     io?.disconnect();
     window.removeEventListener('resize', resize);
     canvas.removeEventListener('webglcontextlost', onContextLost);
+    motionPreference.removeEventListener('change', onMotionChange);
     uniforms.uClean.value?.dispose();
     uniforms.uDirty.value?.dispose();
     mesh.geometry.dispose();
@@ -209,6 +211,10 @@ export function mountHeroWebGL(
     event.preventDefault();
     dispose();
   };
+  const onMotionChange = (event: MediaQueryListEvent): void => {
+    if (event.matches) dispose();
+  };
+  motionPreference.addEventListener('change', onMotionChange);
   canvas.addEventListener('webglcontextlost', onContextLost);
 
   // Costly effects pause off screen, per the performance guardrails.

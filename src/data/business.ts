@@ -17,7 +17,7 @@
  *  4. There is no online booking. Requests are confirmed by hand.
  *  5. Residential driveway introductory pricing is confirmed: $100 covers up
  *     to 900 square feet, then $0.12 per additional square foot, for the
- *     first 10 residential driveway customers.
+ *     first 10 residential customers. After the offer the additional rate is $0.15.
  *  6. Nothing may claim the concrete images are SELI Pressure Washing work.
  *
  * Anything genuinely undecided is typed as `null` with a TBD comment rather
@@ -33,7 +33,7 @@ export const business = {
 
   /** Plain description of what the business actually does, safe for meta tags. */
   shortDescription:
-    'Concrete cleaning for driveways, sidewalks, patios, porches, and steps in Duncan, Oklahoma.',
+    'Concrete cleaning for driveways, sidewalks, porches, patios, pool decks, and steps in Duncan, Oklahoma.',
 
   phone: {
     /** Owner's personal phone. Texts allowed and preferred. */
@@ -67,13 +67,16 @@ export const business = {
   },
 
   pricing: {
-    /** Minimum on a standalone appointment. */
-    standaloneMinimum: 50,
+    standalone: { sidewalk: 50, porch: 50, patioOrPoolDeck: 50 },
+    surfacePricePerSquareFoot: { sidewalk: 0.12, porch: 0.12, patio: 0.12 },
+    jobMinimum: 100,
+    perStep: 10,
     estimatesFree: true,
     drivewayIntroductory: {
       basePrice: 100,
       includedSquareFeet: 900,
       additionalPricePerSquareFoot: 0.12,
+      standardAdditionalPricePerSquareFoot: 0.15,
       customerLimit: 10,
     },
     /**
@@ -144,6 +147,18 @@ export const business = {
 export const tel = `tel:${business.phone.e164}`;
 export const sms = `sms:${business.phone.e164}`;
 export const mailto = `mailto:${business.email}`;
+const pricing = business.pricing;
+const intro = pricing.drivewayIntroductory;
+export const drivewayBaseSummary = `$${intro.basePrice} up to ${intro.includedSquareFeet} sq. ft.`;
+export const drivewayOfferSummary = `Introductory Pricing for the first ${intro.customerLimit} residential customers. Add $${intro.additionalPricePerSquareFoot.toFixed(2)} per sq. ft. above ${intro.includedSquareFeet}; after the offer, $${intro.standardAdditionalPricePerSquareFoot.toFixed(2)} per additional sq. ft.`;
+export const drivewayPricingSummary = `For the first ${intro.customerLimit} residential customers, driveway Introductory Pricing is ${drivewayBaseSummary}, then $${intro.additionalPricePerSquareFoot.toFixed(2)} per additional sq. ft. After the offer, the same $${intro.basePrice} minimum covers ${intro.includedSquareFeet} sq. ft., then $${intro.standardAdditionalPricePerSquareFoot.toFixed(2)} per additional sq. ft.`;
+export function surfacePricingNote(surface: keyof typeof pricing.surfacePricePerSquareFoot): string {
+  const minimum = pricing.standalone[surface === 'patio' ? 'patioOrPoolDeck' : surface];
+  return `$${pricing.surfacePricePerSquareFoot[surface].toFixed(2)} per sq. ft. with a $${minimum} surface minimum. The combined appointment has a $${pricing.jobMinimum} minimum.`;
+}
+export const jobMinimumSummary = `The $${pricing.jobMinimum} appointment minimum applies once to the combined service total, not to each surface.`;
+export const measuredSurfaceSummary = `Porch, sidewalk, and patio are each $${pricing.surfacePricePerSquareFoot.porch.toFixed(2)} per sq. ft., with their own $${pricing.standalone.porch} surface minimum. Steps are $${pricing.perStep} per step.`;
+export const standalonePricingSummary = `${measuredSurfaceSummary} Pool decks are quoted separately with a $${pricing.standalone.patioOrPoolDeck} surface minimum. ${jobMinimumSummary} Specialty stain treatments and travel may cost extra after review.`;
 
 /** Reads "size, buildup and staining, access, surface condition, specialty treatment, and travel". */
 export function quoteFactorSentence(): string {

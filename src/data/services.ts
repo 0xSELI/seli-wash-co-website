@@ -6,6 +6,8 @@
  * declined — that is the honest position and it stays.
  */
 
+import { business, drivewayBaseSummary, drivewayOfferSummary, surfacePricingNote } from './business';
+const pricing = business.pricing;
 export type Service = {
   slug: string;
   name: string;
@@ -27,9 +29,8 @@ export const services: Service[] = [
     name: 'Driveways',
     blurb:
       'Concrete cleaning that lifts general soiling, weathering, and the green film that creeps in along shaded edges.',
-    price: '$100 up to 900 sq. ft.',
-    priceNote:
-      'Introductory Pricing for the first 10 residential customers. Add $0.12 per additional sq. ft.',
+    price: drivewayBaseSummary,
+    priceNote: drivewayOfferSummary,
     tier: 'core',
     detail:
       'The largest flat surface on most properties and the one that ages a house fastest. We work the full slab, including the darker bands along shaded edges where growth takes hold first. Concrete only — we do not clean pavers or brick.',
@@ -39,32 +40,52 @@ export const services: Service[] = [
     name: 'Sidewalks & walkways',
     blurb:
       'The concrete guests actually walk on. Joints, edges, and the darker band where the lawn meets the path.',
-    price: 'From $50',
+    price: `$${pricing.standalone.sidewalk} minimum per sidewalk`,
+    priceNote: surfacePricingNote('sidewalk'),
     tier: 'core',
     detail:
       'Front paths, side walks, and the run out to the street. These pick up growth along the edges where the lawn overlaps the concrete, which is usually what makes a tidy property look neglected.',
   },
   {
     slug: 'patios-porches',
-    name: 'Patios & porches',
+    name: 'Patios',
     blurb:
       'Lower pressure on standard poured and broom-finish concrete, kept clear of planting beds and furniture.',
-    price: 'From $80',
+    price: `$${pricing.standalone.patioOrPoolDeck} minimum per patio`,
+    priceNote: surfacePricingNote('patio'),
     tier: 'core',
     detail:
       'Standard poured and broom-finish concrete, cleaned at lower pressure and kept away from planting beds. We do not work on decorative, painted, coated, sealed, or stamped surfaces — those need a different approach than we currently offer.',
   },
   {
+    slug: 'porches',
+    name: 'Porches',
+    blurb: 'A fresh approach to your front door, with care around edges and planting beds.',
+    price: `$${pricing.standalone.porch} minimum per porch`,
+    priceNote: surfacePricingNote('porch'),
+    tier: 'core',
+    detail: 'Cleaning for ordinary concrete porches. Access, finish, and staining are checked before we agree on the work.',
+  },
+  {
     slug: 'steps-entry-pads',
-    name: 'Steps & entry pads',
+    name: 'Steps',
     blurb:
-      'Small areas that carry the most traffic and show it first. Added to another service on the same visit, steps are $10 each.',
-    price: '$10 per step',
+      `Small areas that carry the most traffic and show it first. Each step is $${pricing.perStep}, whether booked alone or with another surface.`,
+    price: `$${pricing.perStep} per step`,
     priceNote:
-      'Booked on their own, a flight of fewer than five steps still comes to the $50 standalone minimum.',
+      `Each step is priced individually. The combined appointment has a $${pricing.jobMinimum} minimum. Entry pads and additional surfaces are quoted separately.`,
     tier: 'core',
     detail:
-      'Steps and entry pads take the most foot traffic on a property and show wear before anything else. Cheapest to add to a driveway or walkway visit; booked alone they are still subject to the $50 standalone minimum.',
+      `Concrete steps take the most foot traffic on a property. Pricing is $${pricing.perStep} per step; tell us how many you would like cleaned.`,
+  },
+  {
+    slug: 'pool-decks',
+    name: 'Pool decks',
+    blurb: 'Cleaning for ordinary concrete around your pool, assessed before work begins.',
+    price: `$${pricing.standalone.patioOrPoolDeck} surface minimum`,
+    priceNote: `Quoted after inspection. The combined appointment has a $${pricing.jobMinimum} minimum.`,
+    tier: 'core',
+    detail: 'Ordinary concrete pool decks only. Size, access, and the surface finish are assessed before we confirm a price; decorative or coated surfaces are not offered.',
   },
   {
     slug: 'parking-pads-aprons',
@@ -103,7 +124,6 @@ export const notOffered: string[] = [
   'Sealing and joint-sand replacement',
   'Concrete restoration',
   'Pavers and brick',
-  'Pool decks',
   'Decorative, painted, coated, sealed, stamped, or otherwise fragile surfaces',
 ];
 
@@ -112,4 +132,4 @@ export const notOffered: string[] = [
  * site states the limit and stops there.
  */
 export const notGuaranteed =
-  'Heavy oil, rust, paint, gum, and unusually severe or deeply embedded staining may cost extra after inspection. No stain removal is guaranteed; we will tell you what to expect before work starts.';
+  'Oil, rust, paint, oxidation, and severe staining require inspection and may cost extra. Additional surfaces and specialty stain treatments are quoted separately. No stain removal is guaranteed; expected results are discussed before work starts.';

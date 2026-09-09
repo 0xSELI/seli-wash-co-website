@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { business, mailto, sms } from '../data/business';
+import { business, mailto, sms, standalonePricingSummary, drivewayPricingSummary } from '../data/business';
 ---
 
 <BaseLayout
@@ -22,17 +22,12 @@ import { business, mailto, sms } from '../data/business';
     <div class="wrap prose">
       <h2 class="sec-h">Estimates and prices</h2>
       <p>
-        Estimates are free. For the first {business.pricing.drivewayIntroductory.customerLimit}{' '}
-        residential driveway customers, Introductory Pricing is $100 up to
-        {business.pricing.drivewayIntroductory.includedSquareFeet} square feet,
-        then $0.12 for every additional square foot. Other listed prices are
+        Estimates are free. {drivewayPricingSummary} Other listed prices are
         starting points for ordinary, accessible work and are not final quotes.
         You receive the final quote before work begins.
       </p>
       <p>
-        Standalone appointments have a ${business.pricing.standaloneMinimum}{' '}
-        minimum. Steps are $10 each when added to another service during the
-        same visit.
+        {standalonePricingSummary}
       </p>
 
       <h2 class="sec-h">Service area and travel</h2>
@@ -75,8 +70,8 @@ import { business, mailto, sms } from '../data/business';
         Unusual surfaces are assessed before work begins.
       </p>
       <p>
-        Heavy oil, rust, paint, gum, and unusually severe or deeply embedded
-        staining may cost extra after inspection, and no stain removal is
+        Oil, rust, paint, oxidation, and severe staining require inspection
+        and may cost extra, and no stain removal is
         guaranteed. Expected results are discussed before the job starts.
       </p>
 
@@ -113,6 +108,6 @@ import { business, mailto, sms } from '../data/business';
     font-weight: 600;
   }
   .sec-h:first-of-type { margin-top: 0; }
-  .inline-link { color: var(--amber-deep); font-weight: 600; }
+  .inline-link { color: var(--slate-dk); font-weight: 600; }
   .legal-actions { margin-top: 2rem; }
 </style>

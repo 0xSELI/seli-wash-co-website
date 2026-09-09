@@ -16,7 +16,8 @@ const hero = document.querySelector<HTMLElement>('[data-hero]');
 const input = document.querySelector<HTMLInputElement>('[data-reveal-input]');
 
 if (hero && input) {
-  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const calm = motionPreference.matches;
 
   const setPos = (value: number): void => {
     hero.style.setProperty('--pos', `${value}%`);
@@ -44,6 +45,9 @@ if (hero && input) {
       sweepFrame = null;
     }
   };
+  motionPreference.addEventListener('change', event => {
+    if (event.matches) cancelSweep();
+  });
 
   /** Anything that means "a person is driving this now". */
   const onManualInput = (): void => {
@@ -61,9 +65,56 @@ if (hero && input) {
 
   // pointerdown and keydown fire BEFORE the value changes, so the sweep is
   // stopped on the very first frame of a grab rather than one input late.
-  input.addEventListener('pointerdown', onManualInput);
-  // Safari on iOS still needs touchstart for the same reason.
-  input.addEventListener('touchstart', onManualInput, { passive: true });
+  // Coordinates are measured against the comparison panel, not the page.
+  // Capture keeps a drag continuous even when the pointer leaves the panel;
+  // touch-action: pan-y still allows an intentional vertical page scroll.
+  let activePointer: number | null = null;
+  const positionFromPointer = (event: PointerEvent): void => {
+    const bounds = input.getBoundingClientRect();
+    input.value = String(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100)));
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+  input.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    onManualInput();
+    event.preventDefault();
+    input.focus({ preventScroll: true });
+    activePointer = event.pointerId;
+    input.setPointerCapture(event.pointerId);
+    positionFromPointer(event);
+  });
+  input.addEventListener('pointermove', (event) => {
+    if (activePointer === event.pointerId) positionFromPointer(event);
+  });
+  const releasePointer = (event: PointerEvent): void => {
+    if (activePointer !== event.pointerId) return;
+    activePointer = null;
+    if (input.hasPointerCapture(event.pointerId)) input.releasePointerCapture(event.pointerId);
+  };
+  input.addEventListener('pointerup', releasePointer);
+  input.addEventListener('pointercancel', releasePointer);
+  input.addEventListener('lostpointercapture', () => { activePointer = null; });
+  // Native range touch handling uses the invisible thumb's track geometry,
+  // which differs from our full-panel coordinates. Suppress that second update
+  // only for horizontal gestures; vertical gestures remain ordinary scrolling.
+  let touchOrigin: { x: number; y: number } | null = null;
+  input.addEventListener('touchstart', event => {
+    onManualInput();
+    const touch = event.touches[0];
+    if (touch) touchOrigin = { x: touch.clientX, y: touch.clientY };
+  }, { passive: true });
+  input.addEventListener('touchmove', event => {
+    const touch = event.touches[0];
+    if (!touch || !touchOrigin) return;
+    if (Math.abs(touch.clientX - touchOrigin.x) > Math.abs(touch.clientY - touchOrigin.y)) {
+      if (event.cancelable) event.preventDefault();
+      const bounds = input.getBoundingClientRect();
+      input.value = String(Math.max(0, Math.min(100, (touch.clientX - bounds.left) / bounds.width * 100)));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }, { passive: false });
+  input.addEventListener('touchend', () => { touchOrigin = null; });
+  input.addEventListener('touchcancel', () => { touchOrigin = null; });
 
   /*
     Keyboard stepping.
@@ -155,13 +206,15 @@ if (hero && input) {
     // Wait for idle so the scene never competes with first paint or with the
     // headline and estimate button becoming usable.
     onIdle(() => {
+      if (motionPreference.matches) return;
       import('./hero-webgl')
-        .then((mod) => mod.mountHeroWebGL(hero, input))
+        .then((mod) => { if (!motionPreference.matches) mod.mountHeroWebGL(hero, input); })
         .catch(() => {
           /* Layer 1 stands. Nothing to report to the user. */
         });
     });
   }
+  hero.dataset.revealReady = 'true';
 }
 
 function hasWebGL(): boolean {

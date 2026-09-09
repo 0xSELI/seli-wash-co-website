@@ -1,25 +1,26 @@
 ---
 import { business, sms } from '../data/business';
+import Waterline from './Waterline.astro';
 
 interface Props {
   heading?: string;
 }
-const { heading = 'Find out what it costs.' } = Astro.props;
+const { heading = 'Ready for a fresh start?' } = Astro.props;
 ---
 
+<div class="wave-cap"><Waterline filled /></div>
 <section class="closer">
   <div class="wrap">
     <div>
       <h2 class="display">{heading}</h2>
       <p>
-        Estimates are free and there is no obligation. Texting is the quickest
-        way to reach us. We will need an outdoor spigot and a working outdoor
-        GFCI outlet within about {business.equipment.hoseFeet} feet of the area.
+        Send your address, the surface, and a photo if you have one.
+        We’ll talk through the job and give you a free estimate.
       </p>
     </div>
     <div class="actions">
       <a class="btn btn-dark btn-lg" href="/contact#estimate">
-        Request a free estimate
+        Get a free estimate
       </a>
       <a class="btn btn-lg closer-alt" href={sms}>
         Text {business.phone.display}
@@ -30,8 +31,8 @@ const { heading = 'Find out what it costs.' } = Astro.props;
 
 <style>
   .closer {
-    background: var(--amber);
-    color: var(--amber-ink);
+    background: var(--wet);
+    color: var(--ink);
   }
   .closer .wrap {
     display: flex;
@@ -49,7 +50,7 @@ const { heading = 'Find out what it costs.' } = Astro.props;
   .closer p {
     margin-top: 0.6rem;
     max-width: 46ch;
-    color: #513a15;
+    color: var(--slate-dk);
     font-size: var(--s2);
   }
   .closer-alt {
@@ -67,4 +68,7 @@ const { heading = 'Find out what it costs.' } = Astro.props;
       align-items: flex-start;
     }
   }
+  .wave-cap { background: var(--paper); }
+  .closer .wrap { padding-top: 1.5rem; }
+  .closer-alt { color: var(--ink); border: 0; text-decoration: underline; text-underline-offset: 5px; padding-inline: .2rem; }
 </style>

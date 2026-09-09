@@ -36,7 +36,7 @@ body {
   }
   :root {
     /* The mobile header is two rows plus the logo, so anchors need more room. */
-    --anchor-offset: 152px;
+  --anchor-offset: 96px;
   }
 }
 
@@ -69,7 +69,7 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--amber);
+  outline: 3px solid var(--ink-3);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -149,8 +149,8 @@ a {
 .display {
   font-family: var(--display);
   font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.005em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -224,10 +224,12 @@ a {
   font-family: var(--display);
   font-size: var(--s3);
   font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  text-transform: none;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  min-height: 48px;
   padding: 0.85rem 1.4rem;
   border-radius: var(--radius);
   border: 2px solid transparent;
@@ -309,6 +311,41 @@ a {
   flex-wrap: wrap;
 }
 
+.head :focus-visible, .foot :focus-visible, .opening :focus-visible,
+.band-ink :focus-visible, .actionbar :focus-visible {
+  outline-color: var(--wet);
+}
+
+[aria-disabled='true'] { opacity:.6; cursor:not-allowed; }
+
+/* Shared quiet action: clear hierarchy beside the filled primary action. */
+.text-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+.text-action:hover { text-decoration-color: var(--amber); }
+.page-head { position: relative; overflow: hidden; }
+.page-head::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  right: -60px;
+  bottom: -170px;
+  width: 390px;
+  height: 250px;
+  border: 1px solid var(--wet);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px #bfe6f20a,0 0 0 40px #bfe6f20a;
+  transform: rotate(-15deg);
+}
+.page-head .wrap { position: relative; z-index: 1; }
+
 /* ============================================================
    Section heading block
    ============================================================ */
@@ -322,7 +359,7 @@ a {
   margin-bottom: clamp(2rem, 4vw, 3.25rem);
 }
 .band-head .eyebrow {
-  color: var(--amber-deep);
+  color: var(--slate-dk);
   margin-bottom: 0.6rem;
 }
 .band-ink .band-head .eyebrow {
@@ -373,11 +410,15 @@ a {
    ============================================================ */
 
 .rise {
-  opacity: 0;
-  transform: translateY(14px);
+  opacity: 1;
+  transform: none;
   transition:
     opacity var(--dur-slow) var(--ease),
     transform var(--dur-slow) var(--ease);
+}
+.rise.reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
 }
 .rise.is-in {
   opacity: 1;
@@ -400,7 +441,7 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .rise {
+  .rise, .rise.reveal-pending {
     opacity: 1;
     transform: none;
   }

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CloserCta from '../components/CloserCta.astro';
-import { business } from '../data/business';
+import { business, jobMinimumSummary, drivewayPricingSummary } from '../data/business';
 ---
 
 <BaseLayout
@@ -52,7 +52,7 @@ import { business } from '../data/business';
           <h3>Surface limits discussed first</h3>
           <p>
             Decorative or fragile finishes may be declined. Oil, rust, paint,
-            gum, and deeply embedded stains are assessed before work begins.
+            oxidation, and severe staining require inspection and may cost extra.
           </p>
         </article>
         <article>
@@ -65,11 +65,11 @@ import { business } from '../data/business';
         <article>
           <h3>Clear starting prices</h3>
           <p>
-            Introductory driveway pricing is $100 up to 900 sq. ft., then $0.12
-            per additional sq. ft. for the first 10 residential customers. You
+            {drivewayPricingSummary} You
             receive the final quote before work begins, including any travel
             charge outside Duncan.
           </p>
+          <p>{jobMinimumSummary}</p>
         </article>
         <article>
           <h3>A quieter electric setup</h3>
@@ -119,14 +119,13 @@ import { business } from '../data/business';
   }
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: clamp(1rem, 2vw, 1.5rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(2rem, 6vw, 5rem);
   }
   .cards article {
-    padding: 1.6rem;
-    border: 1px solid var(--hair-light);
-    border-radius: var(--radius);
-    background: var(--paper);
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--hair-light);
+    counter-increment: principle;
   }
   .cards h3 {
     margin-bottom: 0.55rem;
@@ -135,6 +134,9 @@ import { business } from '../data/business';
     font-size: var(--s5);
     font-weight: 600;
   }
+  .cards { counter-reset: principle; }
+  .cards article::before { content: counter(principle, decimal-leading-zero); color: var(--slate); font: 500 .85rem var(--display); display: block; margin-bottom: .8rem; }
+  @media(max-width:600px) { .cards { grid-template-columns:1fr; } }
   .cards p {
     color: var(--slate);
     font-size: var(--s2);

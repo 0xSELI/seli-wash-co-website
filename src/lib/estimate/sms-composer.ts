@@ -1,6 +1,9 @@
 import type { ComposeResult, EstimatePayload, RequestComposer } from './types';
 import { business } from '../../data/business';
 import { services } from '../../data/services';
+import { stepsPrice } from '../surface-pricing';
+import { formatDrivewayPrice } from '../driveway-pricing';
+import { calculatorServices, calculateJob, jobQuoteText, type Selection } from '../job-pricing';
 
 /**
  * Builds the estimate request as a text message for the visitor to review and
@@ -15,7 +18,12 @@ export const smsComposer: RequestComposer = {
   id: 'sms',
 
   compose(payload: EstimatePayload): ComposeResult {
-    const href = buildSmsHref(payload);
+    let href: string;
+    try {
+      href = buildSmsHref(payload);
+    } catch {
+      return { ok: false, message: 'Please check the measurements and try again. No message has been prepared.' };
+    }
 
     // sms: URLs get truncated by some platforms once they grow past a couple of
     // thousand characters, which would silently drop the end of the request.
@@ -31,7 +39,7 @@ export const smsComposer: RequestComposer = {
       ok: true,
       href,
       message:
-        'Your details are in a text message addressed to us. Open it, add any photos, and send it when you are happy with it.',
+        `Your details are in a text message addressed to us. Open it, add any photos, and send it when you are happy with it.\n\n${pricingForPayload(payload)}`,
     };
   },
 };
@@ -62,7 +70,8 @@ export function buildSmsHref(payload: EstimatePayload): string {
       payload.cityOrZip ? `, ${payload.cityOrZip}` : ''
     }`,
     `Service: ${chosen}`,
-    payload.stepCount ? `Steps: ${payload.stepCount}` : '',
+    pricingForPayload(payload),
+    payload.services.includes('steps-entry-pads') && payload.stepCount ? `Steps: ${payload.stepCount}` : '',
     payload.approximateSize ? `Size: ${payload.approximateSize}` : '',
     payload.timing && payload.timing !== 'No preference'
       ? `Timing: ${payload.timing}`
@@ -78,4 +87,25 @@ export function buildSmsHref(payload: EstimatePayload): string {
   ].filter(Boolean);
 
   return `sms:${business.phone.e164}?&body=${encodeURIComponent(lines.join('\n'))}`;
+}
+
+/** Only display a total when every selected service has a known measurement/rate. */
+export function pricingForPayload(payload: EstimatePayload): string {
+  const selected: Selection[] = [];
+  let complete = payload.services.length > 0;
+  for (const slug of payload.services) {
+    const definition = calculatorServices.find(item => item.slug === slug);
+    if (!definition) { complete = false; continue; }
+    const raw = definition.key === 'steps' ? payload.stepCount : payload.surfaceSizes?.[definition.key];
+    if (!raw?.trim() || !Number.isFinite(Number(raw)) || Number(raw) < 0 || (definition.key === 'steps' && (!Number.isInteger(Number(raw)) || Number(raw) < 1))) { complete = false; continue; }
+    selected.push({ service: definition.key, quantity: Number(raw) });
+  }
+  if (complete) {
+    return `${jobQuoteText(calculateJob(selected))}\nSubject to inspection; stains/travel may cost extra.${selected.some(s => s.service === 'driveway') ? ' Driveway intro: first 10 residential customers.' : ''}`;
+  }
+  return [
+    ...payload.services.map(slug => { const service = services.find(s => s.slug === slug); return service ? `${service.name}: ${service.price}` : ''; }),
+    ...selected.map(s => s.service === 'steps' ? `Steps estimate: ${formatDrivewayPrice(stepsPrice(s.quantity))}` : `${s.service} size: ${s.quantity} sq. ft.`),
+    `Job total to confirm: measurements or a custom quote are still needed. $${business.pricing.jobMinimum} appointment minimum applies once to the combined total.`,
+  ].filter(Boolean).join('\n');
 }

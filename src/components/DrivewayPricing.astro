@@ -1,82 +1,85 @@
 ---
-import { business } from '../data/business';
+import { business, standalonePricingSummary, measuredSurfaceSummary } from '../data/business';
+import { notGuaranteed } from '../data/services';
+import { calculatorServices, calculateJob, jobEstimateSms, jobEstimateMessage, jobExamples } from '../lib/job-pricing';
 import { drivewayIntroductoryPrice, formatDrivewayPrice } from '../lib/driveway-pricing';
-
 const intro = business.pricing.drivewayIntroductory;
-const examples = [900, 1000, 1200, 1500];
+const examples = [900,1000,1200,1500];
+const initialQuote = calculateJob([{ service: 'driveway', quantity: calculatorServices[0].initial }]);
 ---
-
-<section class="driveway-pricing rise" aria-labelledby="driveway-pricing-heading">
-  <div>
+<section class="driveway-pricing" aria-labelledby="driveway-pricing-heading">
+  <div class="offer rise">
     <p class="eyebrow">Introductory Pricing</p>
-    <h2 class="display" id="driveway-pricing-heading">Driveway pricing, clearly.</h2>
-    <p class="intro">
-      For the first {intro.customerLimit} residential driveway customers: $100
-      covers up to 900 sq. ft., then $0.12 for every additional square foot.
-    </p>
+    <h2 class="display" id="driveway-pricing-heading">A clear price.<br />Before we clean.</h2>
+    <p class="offer-price">{formatDrivewayPrice(intro.basePrice)}<span>minimum · covers up to {intro.includedSquareFeet} sq. ft.</span></p>
+    <p class="intro">Residential driveways. Add <strong>${intro.additionalPricePerSquareFoot.toFixed(2)} per additional sq. ft.</strong> above {intro.includedSquareFeet}.</p>
+    <p class="offer-limit">For the first {intro.customerLimit} residential customers.</p>
+    <p class="disclaimer">After the introductory offer, the same ${intro.basePrice} minimum covers {intro.includedSquareFeet} sq. ft., with ${intro.standardAdditionalPricePerSquareFoot.toFixed(2)} per additional sq. ft.</p>
+    <p class="disclaimer">{notGuaranteed}</p>
+    <p class="disclaimer">{standalonePricingSummary} Outside Duncan, travel is ${business.area.travelChargePerMile} per additional mile.</p>
   </div>
-
-  <div class="calculator">
-    <label for="driveway-size">Driveway size (square feet)</label>
-    <input
-      id="driveway-size"
-      data-driveway-size
-      type="number"
-      min="0"
-      step="1"
-      inputmode="numeric"
-      value="900"
-    />
-    <p class="estimate" aria-live="polite">
-      Introductory estimated price <strong data-driveway-price>{formatDrivewayPrice(drivewayIntroductoryPrice(900))}</strong>
-    </p>
-    <p class="formula">$100 + max(0, square feet − 900) × $0.12</p>
+  <div class="calculator rise">
+    <h3>Build your estimate</h3>
+    <p class="calculator-note">Select your surfaces and enter their sizes. {measuredSurfaceSummary}</p>
+    <fieldset class="surface-options"><legend>Services to include</legend>
+      {calculatorServices.map(service => <div class="surface-option">
+        <label class="surface-choice"><input data-calc-service={service.key} type="checkbox" checked={service.key === 'driveway'} disabled /><span>{service.name}</span></label>
+        <div class="size-field" data-calc-field={service.key} hidden={service.key !== 'driveway'}>
+          <input id={`${service.key}-size`} data-calc-quantity={service.key} data-driveway-size={service.key === 'driveway' ? '' : undefined} aria-label={`${service.name} ${service.unit === 'steps' ? 'count' : 'square feet'}`} type="number" min={service.key === 'steps' ? 1 : 0} step={service.key === 'steps' ? 1 : 'any'} inputmode={service.key === 'steps' ? 'numeric' : 'decimal'} value={service.initial} disabled /><span>{service.unit}</span>
+        </div>
+      </div>)}
+    </fieldset>
+    <noscript><p class="calculator-note">The interactive calculator needs JavaScript. The example below is for a 900 sq. ft. driveway. You can still text or call for an estimate.</p></noscript>
+    <div data-job-breakdown class="job-breakdown">{initialQuote.lines.map(line => <p>{line.name}: {line.quantity} {line.unit} <strong>{formatDrivewayPrice(line.price)}</strong></p>)}<p>Service subtotal <strong>{formatDrivewayPrice(initialQuote.subtotal)}</strong></p><p>Appointment minimum adjustment <strong>{formatDrivewayPrice(initialQuote.minimumAdjustment)}</strong></p></div>
+    <p class="estimate" aria-live="polite">Estimated job total <strong data-driveway-price>{formatDrivewayPrice(initialQuote.total)}</strong></p>
+    <p class="calculator-note">${business.pricing.jobMinimum} minimum service charge per appointment. Final job total is the larger of this minimum or your combined service total.</p>
+    <a class="btn btn-primary" data-driveway-request href={jobEstimateSms(initialQuote)}>Request this estimate</a>
+    <details class="examples" open><summary>Example prices &amp; formula</summary>
+      <ul aria-label="Driveway price examples">{examples.map(area => <li><span>{area === 900 ? '900 sq. ft. or less' : `${area.toLocaleString()} sq. ft.`}</span><strong>{formatDrivewayPrice(drivewayIntroductoryPrice(area))}</strong></li>)}</ul>
+      <p class="formula">${intro.basePrice} + max(0, square feet − {intro.includedSquareFeet}) × ${intro.additionalPricePerSquareFoot}</p>
+      <p class="formula">Porch, sidewalk, or patio: max(${business.pricing.standalone.porch}, square feet × ${business.pricing.surfacePricePerSquareFoot.porch.toFixed(2)}). Steps: count × ${business.pricing.perStep}. Add the services, then apply the ${business.pricing.jobMinimum} appointment minimum once.</p>
+      <ul aria-label="Combined job examples">{jobExamples.map(example => <li><span>{example.label}<br />{example.calculation}</span><strong>{formatDrivewayPrice(example.quote.total)}</strong></li>)}</ul>
+    </details>
+    <p class="calculator-note">Opens a prepared text with this size and price. Add your address and photos, then press send in your messaging app. Opening it does not submit a request. No messaging app? <a href="/contact#estimate">Use our contact options.</a></p>
+    <details class="message-copy"><summary>No messaging app? Copy this estimate</summary><textarea data-driveway-message aria-label="Prepared estimate message to copy" readonly rows="7">{jobEstimateMessage(initialQuote)}</textarea><p class="calculator-note">Select and copy the message, then email it to <a href={`mailto:${business.email}`}>{business.email}</a>. You must send it yourself.</p></details>
   </div>
-
-  <ul class="examples" aria-label="Driveway price examples">
-    {examples.map((squareFeet) => (
-      <li>
-        <span>{squareFeet === 900 ? '900 sq. ft. or less' : `${squareFeet.toLocaleString()} sq. ft.`}</span>
-        <strong>{formatDrivewayPrice(drivewayIntroductoryPrice(squareFeet))}</strong>
-      </li>
-    ))}
-  </ul>
-
-  <p class="disclaimer">
-    Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection.
-  </p>
 </section>
-
-<script>
-  import '../scripts/driveway-pricing';
-</script>
-
+<script>import '../scripts/driveway-pricing';</script>
 <style>
-  .driveway-pricing {
-    display: grid;
-    gap: 1.5rem clamp(1.25rem, 3vw, 2.5rem);
-    grid-template-columns: 1fr;
-    margin-top: clamp(2.5rem, 5vw, 4rem);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid var(--hair-light);
-    border-top: 4px solid var(--amber);
-    border-radius: var(--radius);
-    background: var(--paper);
-  }
-  @media (min-width: 800px) {
-    .driveway-pricing { grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); }
-    .examples, .disclaimer { grid-column: 1 / -1; }
-  }
-  h2 { color: var(--ink); margin: 0.45rem 0 0.75rem; font-size: var(--s6); }
-  .intro, .disclaimer { color: var(--slate-dk); max-width: 62ch; }
-  .calculator { background: var(--mist); border-radius: var(--radius-sm); padding: 1.15rem; }
-  label { display: block; color: var(--ink); font-family: var(--display); font-weight: 600; margin-bottom: 0.5rem; }
-  input { width: 100%; min-height: 48px; padding: 0.65rem 0.8rem; border: 1px solid var(--hair-light); border-radius: 0.45rem; color: var(--ink); font: inherit; }
-  .estimate { margin-top: 1rem; color: var(--slate-dk); }
-  .estimate strong { display: block; color: var(--amber-deep); font-family: var(--display); font-size: var(--s6); letter-spacing: 0.02em; }
-  .formula { margin-top: 0.45rem; color: var(--slate); font-size: var(--s1); }
-  .examples { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); border-top: 1px solid var(--hair-light); border-left: 1px solid var(--hair-light); }
-  .examples li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.85rem; border-right: 1px solid var(--hair-light); border-bottom: 1px solid var(--hair-light); color: var(--slate-dk); }
-  .examples strong { color: var(--amber-deep); font-family: var(--display); }
-  .disclaimer { font-size: var(--s2); }
+  .driveway-pricing { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.85fr); gap:clamp(2rem,7vw,6rem); align-items:start; }
+  h2 { color:var(--ink); font-size:clamp(2rem,3.8vw,3.2rem); margin-top:.65rem; }
+  .eyebrow { color:var(--slate-dk); }
+  .offer-price { font-family:var(--display); color:var(--ink); font-size:clamp(3.8rem,6vw,5.3rem); line-height:1; margin-block:1.9rem 1.2rem; font-weight:600; letter-spacing:-.04em; }
+  .offer-price span { display:block; font-family:var(--body); font-size:1rem; letter-spacing:0; line-height:1.5; font-weight:400; margin-top:.5rem; }
+  .intro { max-width:40ch; }
+  .offer-limit { display:inline-block; margin-top:1rem; padding:.35rem 0 .35rem .85rem; border-left:3px solid var(--amber); color:var(--ink); font-weight:600; }
+  .disclaimer { color:var(--slate-dk); max-width:58ch; font-size:.95rem; margin-top:1.25rem; }
+  .calculator { padding:clamp(1.3rem,3vw,2.25rem); background:var(--mist); border-radius:12px; border:1px solid var(--hair-light); }
+  h3 { color:var(--ink); font:600 1.4rem/1.25 var(--display); margin-bottom:1.4rem; }
+  label { display:block; font-weight:600; font-size:.9rem; color:var(--ink); margin-bottom:.5rem; }
+  .size-field { display:flex; border:1px solid var(--slate); border-radius:6px; overflow:hidden; background:var(--paper); }
+  input { width:100%; min-width:0; min-height:54px; border:0; padding:.65rem .85rem; font:inherit; font-size:1.2rem; color:var(--ink); background:var(--paper); }
+  .size-field:focus-within { outline:3px solid var(--ink-3); outline-offset:3px; }
+  input:focus-visible { outline:0; }
+  .size-field span { padding:.8rem; white-space:nowrap; border-left:1px solid var(--hair-light); font-size:.9rem; }
+  .estimate { margin-block:1.35rem 1rem; font-size:.85rem; }
+  .estimate strong { display:block; font:600 3.5rem/1.2 var(--display); color:var(--ink); overflow-wrap:anywhere; }
+  .calculator .btn { width:100%; }
+  .surface-options { margin-top:1.2rem; border:0; padding:0; min-width:0; }
+  .surface-options legend { font-weight:600; color:var(--ink); margin-bottom:.4rem; }
+  .surface-option { border-bottom:1px solid var(--hair-light); padding:.2rem 0 .5rem; }
+  .surface-choice { display:flex; align-items:center; gap:.75rem; min-height:44px; margin:0; cursor:pointer; }
+  .surface-choice input { width:20px; height:20px; min-height:20px; accent-color:var(--ink); }
+  .surface-choice input:focus-visible { outline:3px solid var(--ink-3); outline-offset:4px; }
+  .size-field[hidden] { display:none; }
+  .job-breakdown { margin-top:1rem; font-size:.9rem; }
+  .job-breakdown :global(p) { display:flex; gap:.8rem; justify-content:space-between; padding-block:.3rem; }
+  .job-breakdown :global(span), .job-breakdown :global(strong) { min-width:0; overflow-wrap:anywhere; }
+  .message-copy textarea { width:100%; max-width:100%; padding:.75rem; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper); border:1px solid var(--slate); border-radius:6px; }
+  .examples { margin-top:1.4rem; border-top:1px solid var(--hair-light); }
+  summary { cursor:pointer; min-height:48px; padding-block:.8rem; color:var(--ink); font-size:.85rem; font-weight:600; }
+  ul { list-style:none; }
+  li { display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0; border-bottom:1px solid var(--hair-light); font-size:.875rem; }
+  .formula,.calculator-note { font-size:.9rem; color:var(--slate-dk); margin-top:1rem; }
+  @media(max-width:700px) { .driveway-pricing { grid-template-columns:1fr; gap:1.6rem; } .offer-price { margin-block:1.4rem 1rem; } }
 </style>

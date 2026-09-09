@@ -44,17 +44,17 @@ Quote requests are **manually confirmed**. Nothing on the site implies instant b
 
 ## 4. Services and scope
 
-**Core launch services:** driveways; sidewalks and walkways; patios and porches; steps and entry pads.
+**Core services:** ordinary concrete driveways; sidewalks and walkways; porches; patios and pool decks; steps. Entry pads and additional surfaces are quoted separately.
 **Custom-quote services:** parking pads and aprons; recurring property care.
 
-**Not advertised, not offered at launch:** roof washing, house or siding soft washing, gutters, fences, decks, sealing, joint-sand replacement, restoration, pavers, brick, pool decks, and any decorative, painted, coated, sealed, stamped, or fragile surface.
+**Not offered:** roof washing, house or siding soft washing, gutters, fences, decks, sealing, joint-sand replacement, restoration, pavers, brick, and any decorative, painted, coated, sealed, stamped, or fragile surface.
 
 | Question | Answer |
 | --- | --- |
 | 18. Pavers and brick | **Not offered.** |
-| 19. Pool decks | **Not offered.** |
+| 19. Pool decks | Ordinary concrete only; **$50 surface minimum**, custom quoted; the $100 appointment minimum applies once to the combined job. |
 | 20. Add-on services | **Not offered at launch.** |
-| 21. Heavy oil / rust / paint / unusually severe staining | May cost extra after inspection; stain removal is not guaranteed. Specialty treatment policy **TBD**. |
+| 21. Oil / rust / paint / oxidation / severe staining | Require inspection and may cost extra. Additional surfaces and specialty stain treatments are quoted separately. Stain removal is not guaranteed. |
 | 22. Chemicals | **TBD.** No plant-safe, pet-safe, eco-friendly, or chemical-free claim may appear. |
 
 Unusual surfaces are evaluated first and may be declined.
@@ -64,15 +64,18 @@ Unusual surfaces are evaluated first and may be declined.
 | Service | Price |
 | --- | --- |
 | Residential driveways — Introductory Pricing (first 10 customers) | **$100** up to 900 sq. ft.; then **$0.12** per additional sq. ft. |
-| Sidewalks & walkways | From **$50** |
-| Patios & porches | From **$80** |
-| Steps & entry pads | **$10 per step**, subject to the $50 standalone minimum |
+| Driveways after the introductory offer | **$100** up to 900 sq. ft.; then **$0.15** per additional sq. ft. |
+| Sidewalks & walkways | **max($50, squareFeet × $0.12)** per sidewalk |
+| Porches | **max($50, squareFeet × $0.12)** per porch |
+| Patios | **max($50, squareFeet × $0.12)** per patio |
+| Pool decks | Quoted separately; **$50 surface minimum** (square-foot rate not confirmed) |
+| Steps | **$10 per step** |
 | Parking pads & aprons | Quoted per site |
 | Recurring property care | Quoted per property |
 
-- **$50 minimum** on standalone appointments.
+- Sidewalk, porch, and patio each have their own $50 surface minimum and a confirmed $0.12/sq. ft. rate. Sum all service prices, then apply the **$100 appointment minimum once**: final job total = max($100, sum of service prices). A $50 porch + $50 sidewalk is $100, not $200. A $50 porch alone is a $100 appointment. Display line amounts rounded to cents and sum those amounts; inspection, specialty stains, and travel may change the final quote.
 - Residential driveway Introductory Pricing applies to the **first 10 residential customers**: **$100 + max(0, squareFeet - 900) × $0.12**. Example prices: 900 sq. ft. or less $100; 1,000 sq. ft. $112; 1,200 sq. ft. $136; 1,500 sq. ft. $172.
-- Heavy oil, rust, paint, or unusually severe staining may cost extra after inspection. Starting prices otherwise apply to **ordinary, accessible jobs**; access, surface condition, specialty treatment, and travel can change a final quote.
+- Oil, rust, paint, oxidation, and severe staining require inspection and may cost extra. Additional surfaces and specialty stain treatments are quoted separately. Starting prices apply to **ordinary, accessible jobs**; access, surface condition, specialty treatment, and travel can change a final quote.
 - Estimates are **free**.
 - **Payments accepted:** cash, Cash App, PayPal, Venmo.
 - **TBD:** payment timing, deposits, discounts, late fees.

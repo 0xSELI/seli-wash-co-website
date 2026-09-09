@@ -17,6 +17,7 @@ const Tag = plain ? 'span' : 'a';
     height="68"
     decoding="async"
   />
+  <span class="brand-name" aria-hidden="true">SELI<span>Pressure Washing</span></span>
 </Tag>
 
 <style>
@@ -25,7 +26,10 @@ const Tag = plain ? 'span' : 'a';
     align-items: center;
     color: var(--paper);
     text-decoration: none;
+    gap: .65rem;
   }
+  .brand-name { font-family: var(--display); font-size: 1.35rem; font-weight: 650; letter-spacing: .05em; line-height: 1.2; }
+  .brand-name span { display: block; font-size: .68rem; color: var(--wet); letter-spacing: .06em; }
   .mark-logo {
     width: 68px;
     height: 68px;
@@ -38,4 +42,5 @@ const Tag = plain ? 'span' : 'a';
       height: 52px;
     }
   }
+  @media (max-width: 360px) { .brand-name { display: none; } }
 </style>

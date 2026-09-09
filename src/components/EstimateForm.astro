@@ -1,6 +1,7 @@
 ---
-import { business, sms, mailto } from '../data/business';
+import { business, sms, mailto, standalonePricingSummary, drivewayBaseSummary, drivewayPricingSummary } from '../data/business';
 import { services } from '../data/services';
+import { calculatorServices } from '../lib/job-pricing';
 // The workflow is a text-message handoff by design; see src/lib/estimate/README.md.
 
 /**
@@ -47,7 +48,8 @@ const timings = [
   <p class="how-it-works" role="note">
     <strong>How it works:</strong> we check that the important details are
     included, then open your messaging app with the request written out. You
-    review it, attach any photos, and send it when you are ready.
+    review it, attach any photos, and send it when you are ready. Opening the
+    message does not submit your request — you must press send in your messaging app.
   </p>
 
   <!-- Error summary. Focus lands here on a failed submit so keyboard and
@@ -65,6 +67,7 @@ const timings = [
     <ul data-error-list></ul>
   </div>
 
+  <noscript><p class="how-it-works">The message composer needs JavaScript. Instead, <a href={sms}>text {business.phone.display}</a> or <a href={mailto}>email {business.email}</a> with your address and the surfaces you want cleaned. Nothing has been sent by this page.</p></noscript>
   <form class="form" data-estimate-form novalidate>
     <div class="aux-field" aria-hidden="true">
       <label for="company-website">Company website</label>
@@ -177,6 +180,14 @@ const timings = [
         }
       </div>
       <p class="err" data-err-for="services" hidden></p>
+      <p class="hint hint-standalone">{standalonePricingSummary}</p>
+
+      {calculatorServices.filter(service => service.key !== 'steps').map(service => <div class="field field-conditional" data-surface-field={service.slug}>
+        <label for={`area-${service.key}`}>{service.name} square feet <span class="optional">optional</span></label>
+        <input id={`area-${service.key}`} name={`area-${service.key}`} type="number" min="0" step="any" inputmode="decimal" aria-describedby={`area-${service.key}-hint`} />
+        <p class="hint" id={`area-${service.key}-hint`}>Enter the area for this surface to include its calculated price. Leave blank if you need help measuring.</p>
+        <p class="err" data-err-for={`area-${service.key}`} hidden></p>
+      </div>)}
 
       <div class="field field-conditional" data-steps-field>
         <label for="stepCount">How many steps?</label>
@@ -185,20 +196,18 @@ const timings = [
           name="stepCount"
           type="number"
           min="1"
-          max="200"
+          step="1"
           inputmode="numeric"
           aria-describedby="steps-hint"
         />
         <p class="hint" id="steps-hint">
-          Steps are $10 each when added to another service on the same visit.
-          On their own, fewer than five steps still comes to the $
-          {business.pricing.standaloneMinimum} standalone minimum.
+          Steps are ${business.pricing.perStep} per step. Tell us the number of individual steps.
         </p>
         <p class="err" data-err-for="stepCount" hidden></p>
       </div>
 
       <div class="field">
-        <label for="approximateSize">Rough size, if you know it</label>
+        <label for="approximateSize">Other size or measurement details</label>
         <input
           id="approximateSize"
           name="approximateSize"
@@ -206,8 +215,8 @@ const timings = [
           aria-describedby="size-hint"
         />
         <p class="hint" id="size-hint">
-          For a driveway, square feet helps most: Introductory Pricing is $100
-          up to 900 sq. ft., then $0.12 per additional sq. ft. A guess is fine;
+          For a driveway, square feet helps most: Introductory Pricing is {drivewayBaseSummary},
+          then ${business.pricing.drivewayIntroductory.additionalPricePerSquareFoot.toFixed(2)} per additional sq. ft. A guess is fine;
           we confirm on site.
         </p>
       </div>
@@ -344,7 +353,7 @@ const timings = [
     </div>
 
     <div class="submit-row">
-      <button class="btn btn-primary btn-lg" type="submit" data-submit>
+      <button class="btn btn-primary btn-lg" type="submit" data-submit disabled>
         Prepare text request
       </button>
       <a class="btn btn-outline btn-lg" href={sms}>Start a blank text</a>
@@ -356,10 +365,8 @@ const timings = [
   </form>
 
   <p class="disclaim form-foot">
-    Driveway Introductory Pricing is $100 up to 900 sq. ft., then $0.12 per
-    additional sq. ft. for the first 10 residential customers. Heavy oil, rust,
-    paint, or unusually severe staining may cost extra after inspection. There
-    is a ${business.pricing.standaloneMinimum} minimum on other eligible standalone appointments.
+    {drivewayPricingSummary} Oil, rust, paint, oxidation, and severe staining
+    require inspection and may cost extra. {standalonePricingSummary}{' '}
     Email <a class="inline-link" href={mailto}>{business.email}</a> if you would
     rather write.
   </p>
@@ -370,6 +377,10 @@ const timings = [
 </script>
 
 <style>
+  :global(.no-js) .form { display:none; }
+  .result :global(p) { white-space:pre-line; }
+  .result :global(summary) { cursor:pointer; min-height:48px; padding-block:.8rem; font-weight:600; }
+  .result :global(textarea) { width:100%; max-width:100%; padding:.75rem; border:1px solid var(--slate); border-radius:6px; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper); }
   .estimate {
     scroll-margin-top: 120px;
   }
@@ -380,7 +391,7 @@ const timings = [
     margin-bottom: 2rem;
   }
   .estimate-head .eyebrow {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
   }
   .estimate-head h2 {
     font-size: clamp(1.9rem, 3.6vw, var(--s7));
@@ -390,7 +401,7 @@ const timings = [
     color: var(--slate);
   }
   .inline-link {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
     font-weight: 600;
   }
 
@@ -497,7 +508,7 @@ const timings = [
     margin-left: 0.4rem;
   }
   .req {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
   }
   .opt {
     color: var(--slate);
@@ -572,7 +583,7 @@ const timings = [
     height: 1.15rem;
     margin: 0.15rem 0 0;
     flex: none;
-    accent-color: var(--amber-deep);
+    accent-color: var(--slate-dk);
   }
   .choice span em {
     font-style: normal;
@@ -693,7 +704,7 @@ const timings = [
     border-left: 4px solid var(--bad);
     color: #6d1d17;
   }
-  .result strong {
+  .result :global(strong) {
     font-family: var(--display);
     font-size: var(--s5);
     letter-spacing: 0.01em;

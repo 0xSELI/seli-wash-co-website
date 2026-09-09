@@ -1,0 +1,17 @@
+---
+interface Props { filled?: boolean; }
+const { filled = false } = Astro.props;
+---
+<svg class:list={['waterline', { filled }]} viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+  <path class="wash" d="M0 72C190 0 300 106 520 68S830 95 1070 48 1310 35 1440 64V100H0Z" />
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M0 61C200 0 320 98 520 59S840 92 1070 37 1320 30 1440 52" />
+    <path d="M0 79C210 23 310 107 550 77S845 109 1110 60 1320 50 1440 74" />
+    <circle cx="1260" cy="18" r="12" /><circle cx="1304" cy="29" r="6" /><circle cx="1330" cy="13" r="4" />
+  </g>
+</svg>
+<style>
+  .waterline { width: 100%; height: clamp(40px,6vw,85px); color: var(--wet); pointer-events: none; }
+  .wash { fill: none; }
+  .filled .wash { fill: var(--wet); }
+</style>

@@ -1,5 +1,6 @@
 ---
 import type { Service } from '../data/services';
+import { jobMinimumSummary } from '../data/business';
 
 interface Props {
   items: Service[];
@@ -42,8 +43,10 @@ const href = (slug: string): string =>
     ))
   }
 </div>
+<p class="minimum-note">{jobMinimumSummary}</p>
 
 <style>
+  .minimum-note { margin-top:1rem; font-size:.95rem; color:var(--slate-dk); }
   .grid {
     display: grid;
     gap: 1px;
@@ -113,7 +116,7 @@ const href = (slug: string): string =>
     color: var(--ink);
   }
   .card .price b {
-    color: var(--amber-deep);
+    color: var(--slate-dk);
     font-weight: 600;
   }
   .card .price-note {
